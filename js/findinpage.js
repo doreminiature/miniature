@@ -27,32 +27,36 @@ findinpage.previous = findinpage.container.querySelector('.findinpage-previous-m
 findinpage.next = findinpage.container.querySelector('.findinpage-next-match')
 findinpage.counter = findinpage.container.querySelector('#findinpage-count')
 findinpage.endButton = findinpage.container.querySelector('#findinpage-end')
+try{
+    findinpage.endButton.addEventListener('click', function () {
+        findinpage.end()
+    })
 
-findinpage.endButton.addEventListener('click', function () {
-  findinpage.end()
-})
+    findinpage.input.addEventListener('keyup', function (e) {
+        if (this.value) {
+            getWebview(tabs.getSelected()).findInPage(this.value)
+        }
+    })
 
-findinpage.input.addEventListener('keyup', function (e) {
-  if (this.value) {
-    getWebview(tabs.getSelected()).findInPage(this.value)
-  }
-})
+    findinpage.previous.addEventListener('click', function (e) {
+        getWebview(tabs.getSelected()).findInPage(findinpage.input.value, {
+            forward: false,
+            findNext: true
+        })
+        findinpage.input.focus()
+    })
 
-findinpage.previous.addEventListener('click', function (e) {
-  getWebview(tabs.getSelected()).findInPage(findinpage.input.value, {
-    forward: false,
-    findNext: true
-  })
-  findinpage.input.focus()
-})
+    findinpage.next.addEventListener('click', function (e) {
+        getWebview(tabs.getSelected()).findInPage(findinpage.input.value, {
+            forward: true,
+            findNext: true
+        })
+        findinpage.input.focus()
+    })
+} catch ( e ) {}
 
-findinpage.next.addEventListener('click', function (e) {
-  getWebview(tabs.getSelected()).findInPage(findinpage.input.value, {
-    forward: true,
-    findNext: true
-  })
-  findinpage.input.focus()
-})
+
+
 
 bindWebviewEvent('found-in-page', function (e) {
   if (e.result.matches !== undefined) {

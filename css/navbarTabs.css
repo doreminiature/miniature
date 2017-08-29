@@ -1,3 +1,6 @@
+.navbar{
+	display: none;
+}
 .page-tabs {
 	display: flex;
 	height: 35px;

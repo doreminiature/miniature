@@ -114,19 +114,21 @@ F = {
       }
       if( !isIbDB ){
         request.get(faviconUrl, function (error, response, body) {
-          if (response.statusCode == 200) {
-            data = 'data:' + response.headers['content-type'] + ';base64,' + new Buffer(body).toString('base64')
 
-            if( data.length > 1000 )
-              F._pushFaviconToArr( data, urlHost )
-            else
-              F._pushFaviconToArr( F.___NO_FAVICON_ICON(), urlHost )
+              if (!error && response.statusCode == 200) {
+                  data = 'data:' + response.headers['content-type'] + ';base64,' + new Buffer(body).toString('base64')
 
-          } else {
-            say.d( 'F.ADD() error: !error && response.statusCode == 200' )
+                  if( data.length > 1000 )
+                      F._pushFaviconToArr( data, urlHost )
+                  else
+                      F._pushFaviconToArr( F.___NO_FAVICON_ICON(), urlHost )
 
-          }
-          eventEmitter.emit( 'updateFavicon' )
+              } else {
+                  say.d( 'F.ADD() error: !error && response.statusCode == 200' )
+
+              }
+              eventEmitter.emit( 'updateFavicon' )
+
         })
       } else {
         say.d( 'F.ADD() error: !isIbDB' )

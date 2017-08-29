@@ -38,7 +38,7 @@ var tabPrototype = {
     eventEmitter.emit('updatePage')
 
     if (!this.get(id)) {
-      throw new ReferenceError('Attempted to update a tab that does not exist.')
+      // throw new ReferenceError('Attempted to update a tab that does not exist.')
     }
     var index = -1
     for (var i = 0; i < this.length; i++) {

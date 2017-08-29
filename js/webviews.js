@@ -64,14 +64,13 @@ function onPageLoad (e) {
 bindWebviewIPC('pageData', function (webview, tabId, arguments) {
   var tab = tabs.get(tabId),
       data = arguments[0]
-
-  var isInternalPage = tab.url.indexOf(__dirname) !== -1 && tab.url.indexOf(readerView.readerURL) === -1
-
-  // don't save to history if in private mode, or the page is a browser page
-  if (tab.private === false && !isInternalPage) {
-    bookmarks.updateHistory(tabId, data.extractedText, data.metadata)
-  }
-
+  try {
+      var isInternalPage = tab.url.indexOf(__dirname) !== -1 && tab.url.indexOf(readerView.readerURL) === -1
+      // don't save to history if in private mode, or the page is a browser page
+      if (tab.private === false && !isInternalPage) {
+          bookmarks.updateHistory(tabId, data.extractedText, data.metadata)
+      }
+  } catch ( e ) {  }
 })
 
 // set the permissionRequestHandler for non-private tabs

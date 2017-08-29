@@ -1,18 +1,20 @@
 #searchbar {
 	z-index: 99;
 	position: fixed;
-	top: 2.25em;
-	left: 0;
-	width: 100%;
+	top: 5em;
+	left: 5%;
+	width: 90%;
 	background: #fff;
 	color: #000;
-	padding-left: 75px;
-	padding-right: 82px;
+
+
+	box-shadow: 0px 1px 5px 0px rgba(39,170,225,0.25);
 	/* align with window controls */
 	-webkit-user-select: none;
-	max-height: calc(100% - 125px);
+	max-height: calc(100% - 75px);
 	overflow-y: auto;
 	will-change: display;
+
 }
 
 /* the navbar gets moved over in fullscreen, but the searchbar still needs to be aligned with it */
@@ -22,9 +24,10 @@ body.notMac #searchbar {
 	padding-left: 0;
 }
 .searchbar-item {
-	width: 100%;
+	/*width: 100%;*/
 	display: block;
-	padding: 0.55em 0.55em 0.55em 9px;
+	line-height: 1.7;
+	padding: 0 0 0 10px;
 	cursor: pointer;
 	transition: 0.2s transform, 0.2s opacity;
 }
@@ -38,7 +41,7 @@ body.notMac #searchbar {
 }
 .searchbar-item:focus,
 .searchbar-item.fakefocus {
-	background-color: rgba(0, 0, 0, 0.08);
+	background-color: aliceblue;
 	outline: none;
 }
 .dark-theme .theme-background-color .searchbar-item:hover {
@@ -50,8 +53,11 @@ body.notMac #searchbar {
 }
 .searchbar-item .title {
 	display: inline-block;
+	font-family: 'PT Sans';
+	font-size: 13px;
+
 	vertical-align: middle;
-	max-width: 45%;
+	max-width: 95%;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -105,6 +111,9 @@ body.notMac #searchbar {
 .dark-theme #searchbar .image.color-circle {
 	border-color: rgba(255, 255, 255, 0.2);
 }
+
+
+
 .searchbar-item .secondary-text .md-info {
 	float: left;
 	opacity: 0.8;
@@ -117,13 +126,12 @@ body.notMac #searchbar {
 	padding-right: 0.5em;
 }
 .searchbar-item .secondary-text .md-info + .md-info:before {
-	content: "-";
-	padding: 0 0.3em;
+	content: " - ";
 }
 .searchbar-item .secondary-text {
-	display: inline-block;
+	display: none;
 	opacity: 0.66;
-	font-size: 0.95em;
+	/*font-size: 0.95em;*/
 	overflow: hidden;
 	vertical-align: middle;
 	padding-left: 1.5em;
@@ -137,7 +145,7 @@ body.notMac #searchbar {
 
 @media all and (max-width: 650px) {
 	.searchbar-item .title {
-		max-width: calc(100% - 50px);
+		/*max-width: calc(100% - 50px);*/
 	}
 	.searchbar-item .secondary-text {
 		display: block;
@@ -175,6 +183,9 @@ body.notMac #searchbar {
 .searchbar-item:focus .description-block {
 	max-height: 6.6em;
 }
+body.is-edit-mode webview {
+	opacity: 0.5;
+}
 
 /* tag searches */
 
@@ -187,7 +198,7 @@ body.notMac #searchbar {
 	padding-right: 1em;
 }
 .searchbar-item.tag .title {
-	max-width: 100%;
+	/*max-width: 100%;*/
 }
 .searchbar-item.tag:focus {
 	background: rgba(0, 0, 0, 0.08);

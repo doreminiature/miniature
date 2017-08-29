@@ -1,69 +1,292 @@
-#navbar {
-	/* make room for the window controls */
-	padding-left: 75px;
+.page-tabs {
 	display: flex;
-	height: 2.3333em;
-	align-items: center;
-	transition: 0.2s background-color;
-	max-width: 100vw;
+	height: 35px;
+	/*position: absolute;*/
+	/*top: 31px;*/
+	width: 100%;
 	-webkit-user-select: none;
+	-webkit-backface-visibility:hidden;
+	background-color: #F0F7FF;
+	z-index: 1000;
+	box-shadow: 0px 1px 5px -4px rgba(0,0,0,1);
+	/*-webkit-app-region: drag;*/
+}
+
+.tab-controls {
+	width: 200px;
+
+}
+#add-tab-button{
+	height: 100%;
 	position: relative;
-	outline: none;
-	-webkit-app-region: drag;
-	z-index: 2;
+	padding: 2px 10px 0 10px;
+}
+
+#add-tab-button svg {
+
+}
+
+#add-tab-button svg use {
+	fill: rgba(0, 20, 4, 0.13);
 }
 
 /* there are no window controls in fullscreen, so we don't need any padding */
 
-body.fullscreen #navbar,
-body.notMac #navbar {
+body.fullscreen {
+	border: 1px solid #000;
+}
+
+body.fullscreen .page-tabs,
+body.notMac .page-tabs {
 	padding-left: 0;
 }
 
-/* when the tab-group is white, we need a line to separate it from the webviews */
+/* when the page-tabs is white, we need a line to separate it from the webviews */
 
-#navbar:before {
+.page-tabs:before {
 	content: "";
-	width: 100vw;
+	width: 100%;
 	height: 1px;
 	position: absolute;
 	bottom: 0;
 	left: 0;
-	background: rgba(0, 0, 0, 0.075);
-	transition: 0.2s;
+	background: rgba(0, 0, 0, 0.05);
 }
 
 /* dark colors don't need to be darkened as much for contrast */
 
-.dark-theme #navbar:before {
-	background: rgba(0, 0, 0, 0.04);
+.dark-theme .page-tabs:before {
+	/*background: rgba(0, 0, 0, 0.04);*/
 }
-.dark-theme.is-edit-mode #navbar:before {
-	background: none;
+.dark-theme.is-edit-mode .page-tabs:before {
+	/*background: none;*/
 }
 
-/* tab layout */
-
-#navbar #tabs {
+.tabs {
 	display: flex;
-	flex: 1;
-	/* https://github.com/w3c/csswg-drafts/issues/92 - don't make the scrollbar height affect the layout */
-	overflow: overlay;
+	width: calc(100% - 200px);
+
 }
+.tabs .tab-item {
+	cursor: pointer;
+	transition: all .3s ease;
+}
+
+.tabs6 {}
+.tabs6 .tab-item:nth-child(n + 5) {
+	flex: 0 0 10%;
+}
+.tabs6 .tab-item.active:nth-child(n + 5) {
+	flex: 0 0 20%;
+}
+
+.tabs7 .tab-item:nth-child(n + 4) {
+	flex: 0 0 10%;
+}
+.tabs7 .tab-item.active:nth-child(n + 4) {
+	flex: 0 0 20%;
+}
+
+.tabs8 .tab-item:nth-child(n + 3) {
+	flex: 0 0 10%;
+}
+.tabs8 .tab-item.active {
+	flex: 0 0 20%;
+}
+
+.tabs9 .tab-item:nth-child(n + 1) {
+	flex: 0 0 10%;
+}
+.tabs9 .tab-item.active:nth-child(n + 1) {
+	flex: 0 0 20%;
+}
+
+.tabs10 .tab-item {
+	flex: 0 0 10%;
+}
+.tabs10 .tab-item.active {
+	flex: 0 0 20%;
+}
+
+.tabs10 .tab-item:nth-child(n + 9) {
+	flex: 0 0 5%;
+}
+.tabs10 .tab-item.active:nth-child(n + 9) {
+	flex: 0 0 20%;
+}
+
+.tabs11 .tab-item {
+	flex: 0 0 10%;
+}
+.tabs11 .tab-item.active {
+	flex: 0 0 20%;
+}
+
+.tabs11 .tab-item:nth-child(n + 8) {
+	flex: 0 0 5%;
+}
+.tabs11 .tab-item.active:nth-child(n + 8) {
+	flex: 0 0 20%;
+}
+
+.tabs12 .tab-item {
+	flex: 0 0 10%;
+}
+.tabs12 .tab-item.active {
+	flex: 0 0 20%;
+}
+
+.tabs12 .tab-item:nth-child(n + 7) {
+	flex: 0 0 5%;
+}
+.tabs12 .tab-item.active:nth-child(n + 7) {
+	flex: 0 0 20%;
+}
+
+.tabs13 .tab-item {
+	flex: 0 0 10%;
+}
+.tabs13 .tab-item.active {
+	flex: 0 0 20%;
+}
+
+.tabs13 .tab-item:nth-child(n + 6) {
+	flex: 0 0 5%;
+}
+.tabs13 .tab-item.active:nth-child(n + 6) {
+	flex: 0 0 20%;
+}
+
+.tabs14 .tab-item {
+	flex: 0 0 10%;
+}
+.tabs14 .tab-item.active {
+	flex: 0 0 20%;
+}
+
+.tabs14 .tab-item:nth-child(n + 5) {
+	flex: 0 0 5%;
+}
+.tabs14 .tab-item.active:nth-child(n + 5) {
+	flex: 0 0 20%;
+}
+
+.tabs15 .tab-item {
+	flex: 0 0 10%;
+}
+.tabs15 .tab-item.active {
+	flex: 0 0 20%;
+}
+
+.tabs15 .tab-item:nth-child(n + 4) {
+	flex: 0 0 5%;
+}
+.tabs15 .tab-item.active:nth-child(n + 4) {
+	flex: 0 0 20%;
+}
+
+.tabs16 .tab-item {
+	flex: 0 0 10%;
+}
+.tabs16 .tab-item.active {
+	flex: 0 0 20%;
+}
+
+.tabs16 .tab-item:nth-child(n + 3) {
+	flex: 0 0 5%;
+}
+.tabs16 .tab-item.active:nth-child(n + 3) {
+	flex: 0 0 20%;
+}
+
+.tabs17 .tab-item {
+	flex: 0 0 5%;
+}
+.tabs17 .tab-item.active {
+	flex: 0 0 20%;
+}
+
+.tabs17 .tab-item:nth-child(n + 2) {
+	flex: 0 0 5%;
+}
+.tabs17 .tab-item.active:nth-child(n + 2) {
+	flex: 0 0 20%;
+}
+
+.tabs18 .tab-item {
+	flex: 0 0 5%;
+}
+.tabs18 .tab-item:nth-child(n + 17) .title {
+	display: none;
+}
+
+.tabs18 .tab-item.active {
+	flex: 0 0 20%;
+}
+
+.tabs18 .tab-item:nth-child(n + 17) {
+	flex: 0 0 2.5%;
+}
+.tabs18 .tab-item.active:nth-child(n + 17) {
+	flex: 0 0 20%;
+}
+
+.tabs19 .tab-item {
+	flex: 0 0 5%;
+}
+.tabs19 .tab-item.active {
+	flex: 0 0 20%;
+}
+
+.tabs19 .tab-item:nth-child(n + 1) {
+	flex: 0 0 5%;
+}
+.tabs19 .tab-item.active:nth-child(n + 1) {
+	flex: 0 0 20%;
+}
+
 .tab-item {
-	flex: 1;
-	min-width: 125px;
-	transition: .15s min-width, 0.2s transform;
-	padding: 0 1em;
-	font-size: 0.8em;
-	line-height: 36px;
-	height: 36px;
-	overflow: hidden;
+	flex: 0 0 20%;
+	max-width: 20%;
+	transition: all 1.3s ease;
 	word-break: break-all;
+	outline: 1px dotted transparent;
+	padding: 0;
+	line-height: 33px;
+	height: 34px;
+	overflow: hidden;
+	position: relative;
+	border-radius: 2px;
+	-webkit-app-region: no-drag;
+	z-index: 1000;
+	/*box-shadow: 0px 0px 0 0 rgba(39,170,225,0);*/
 }
-.tab-item:not(.active):hover {
-	background-color: rgba(255, 255, 255, 0.1);
+
+.tab-item.active {
+	flex: 0 0 20%;
+	max-width: 20%;
+	background: #fff;
+	/*outline: 1px solid rgba(39,170,225,0.25);*/
+	/*box-shadow: 0px 2px 4px -1px rgba(39,170,225,0.3);*/
+	/*box-shadow: 0px 3px 32px -9px rgba(39,170,225,.4);*/
 }
+/*.tab-item.active:hover {*/
+/*!*cursor: text;*!*/
+/*}*/
+/*.tab-item.active::after {*/
+/*content: '';*/
+/*height:2px;*/
+/*background-color: darkcyan;*/
+/*position: absolute;*/
+/*bottom: 0px;*/
+/*left: 0;*/
+/*right: 0;*/
+/*}*/
+
+
+/*.tab-item:not(.active):hover {*/
+/*background-color: rgba(255, 255, 255, 0.1);*/
+/*}*/
 
 /* icons */
 
@@ -71,55 +294,37 @@ body.notMac #navbar {
 	float: right;
 }
 .tab-item i {
-	font-size: 0.8em;
-	padding: 0 0.66em;
+	font-size: 0.7em;
+	padding: 11px 0.66em;
 	vertical-align: middle;
-	width: 1em;
 	box-sizing: content-box;
+	color: hsla(214,31%,87%,1);
 }
 .tab-item.active:not(:only-child) {
-	background: rgba(0, 0, 0, 0.05);
+	/*background: rgba(0, 0, 0, 0.05);*/
 }
 .dark-theme .tab-item.active:not(:only-child) {
-	background: rgba(255, 255, 255, 0.2);
+	/*background: rgba(255, 255, 255, 0.2);*/
 }
 .tab-item.selected {
-	min-width: 100%;
+	/*min-width: 100%;*/
 	/* remove the white transparent-ness */
-	background: none;
-	padding-left: 9px;
+	/*background: none;*/
+	/*padding-left: 9px;*/
 }
 .tab-item.fade {
 	opacity: 0.5;
 }
 
-/* style tab scrollbar */
-
-#navbar #tabs::-webkit-scrollbar {
-	height: 0.2em;
-}
-#navbar #tabs::-webkit-scrollbar-track {
-	background-color: rgba(0, 0, 0, 0.1);
-}
-#navbar #tabs::-webkit-scrollbar-thumb {
-	background-color: rgba(0, 0, 0, 0.3);
-}
-.dark-theme #navbar #tabs::-webkit-scrollbar-track {
-	background-color: rgba(255, 255, 255, 0.3);
-}
-.dark-theme #navbar #tabs::-webkit-scrollbar-thumb {
-	background-color: rgba(255, 255, 255, 0.8);
-}
-
 /* when an input is selected, hide other tabs */
 
 .is-edit-mode .tab-item:not(.selected) {
-	min-width: 0;
-	max-width: 0;
-	width: 0;
-	height: 0;
-	padding: 0;
-	overflow: hidden;
+	/*min-width: 0;*/
+	/*max-width: 0;*/
+	/*width: 0;*/
+	/*height: 0;*/
+	/*padding: 0;*/
+	/*overflow: hidden;*/
 }
 
 /* the background isn't necessary when there is only one tab */
@@ -147,13 +352,13 @@ body.notMac #navbar {
 .tab-item .tab-input {
 	line-height: 1.15em;
 	font-size: 1.15em;
-	-webkit-appearance: none;
 	background: none;
 	border: none;
 	color: inherit;
 	flex: 1;
 	height: 1.5em;
 	outline: none;
+	-webkit-appearance: none;
 	-webkit-user-select: auto;
 	-webkit-app-region: no-drag;
 }
@@ -163,33 +368,28 @@ body.notMac #navbar {
 	line-height: 1.25em;
 }
 
-/* show the overlay in edit mode */
-
-#overlay {
-	display: none;
-}
-
-body.is-edit-mode #overlay {
-	display: block;
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100vw;
-	height: 100vh;
-	background: rgba(255, 255, 255, 0.5);
-	z-index: 1;
-	pointer-events: none;
-}
-body.dark-mode #overlay {
-	background: rgba(0, 0, 0, 0.4);
-}
 /* hide the lock icon unless its the current tab */
 
 .tab-item:not(.active) .icon-tab-not-secure {
 	display: none;
 }
+
+.tab-item:not(.active):hover {
+	background-color: rgba(255,255,255,.4);
+}
+
 .tab-item .tab-view-contents .title {
-	font-size: 15px;
+	font-family: "PT Sans", sans-serif;
+	font-size: 12px;
+	letter-spacing: 0.5px;
+	text-transform: capitalize;
+	word-break: break-all;
+}
+
+.tab-item.active .tab-view-contents .title {
+	font-weight: bold;
+	font-family: "PT Sans", sans-serif;
+	font-size: 12px;
 }
 
 /* buttons */
@@ -220,10 +420,16 @@ body.dark-mode #overlay {
 	display: none;
 }
 .tab-item .tab-close-button {
-	display: none;
+	opacity: 0;
+	transition: all .2s;
 }
-.tab-item.jshover .tab-close-button {
-	display: inline-block;
+.tab-item:hover .tab-close-button {
+	opacity: .1;
+	color: #000;
+}
+
+.tab-item .tab-close-button:hover {
+	opacity: .5;
 }
 
 /* hide other tabs in focus mode */
@@ -239,4 +445,17 @@ body.is-focus-mode .navbar-action-button {
 
 body.is-focus-mode .tab-item {
 	background: none !important;
+}
+
+
+/* favicon */
+.favicon {
+	width: 16px;
+	height: 16px;
+	display: block;
+	/*background: #fff;*/
+	margin: 9px 6px 0 7px;
+	float: left;
+	/*border: 1px solid #ddd;*/
+	border-radius: 2px;
 }

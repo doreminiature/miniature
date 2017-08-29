@@ -9,90 +9,45 @@
 	border-bottom: 1px rgba(0, 0, 0, 0.1) solid;
 }
 #switch-task-button {
-	position: absolute;
-	top: -0.375em;
-	right: 0;
-	z-index: 9;
+	height: 100%;
+	padding: 0 78px 0 9px;
+	font-family: "PT Sans", sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	letter-spacing: .03em;
+}
+#switch-task-button span {
+	position: relative;
+	top: -2px;
 }
 #switch-task-button.active {
 	color: royalblue !important;
 }
 #task-overlay {
-	position: fixed;
-	top: 0;
+	position: absolute;
+	width: calc(20% + 159px);
+	top: 66px;
+	box-sizing: border-box;
 	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: #fff;
-	padding: 10%;
+	height: calc(100% - 66px);
+	border-right: 1px solid #c2ccd1;
+	background-color: rgba(255,255,255, .9);
 	white-space: nowrap;
+	transition: all .3s ease;
 	overflow: auto;
 	opacity: 1;
-	transform: none;
-	transition: 0.15s all;
-	z-index: 3;
+	z-index: 100;
 }
+
 #task-overlay[hidden] {
-	display: block !important;
-	visibility: hidden;
-	transform: scale(1.1);
-	opacity: 0;
+	left: calc(-20% - 159px);
+	width: calc(20% + 159px);
 }
 #task-overlay:not(.notMac):not(.fullscreen) {
-	padding-top: 40px;
+	/*padding-top: 40px;*/
 }
 .task-container + .task-container {
 	padding-top: 0.75em;
-}
-.task-tab-item {
-    position: relative;
-}
-
-/* close tab button */
-
-.task-tab-item button.closeTab {
-    position: absolute;
-    width: 2em;
-    height: 2em;
-    left: -2.1em;
-    top: calc(0.16em + 1px); /* searchbar styles padding-top */
-    bottom :0;
-    border: none;
-    border-radius: 50%;
-    outline: none;
-    cursor: pointer;
-    opacity: 0;
-    background: transparent;
-	transition: 0.05s;
-	color: currentColor;
-}
-.task-tab-item:hover button.closeTab {
-    opacity: 0.5;
-}
-.dark-mode .task-tab-item:hover button.closeTab {
-	opacity: 0.7;
-}
-.task-tab-item button.closeTab:hover {
-    opacity: 1;
-    background: rgba(0, 0, 0, 0.05);
-}
-.dark-mode .task-tab-item button.closeTab:hover {
-    opacity: 1;
-    background: rgba(0, 0, 0, 0.15);
-}
-.task-tab-item button.closeTab:active {
-    background: rgba(0, 0, 0, 0.175);
-}
-.dark-mode .task-tab-item button.closeTab:active {
-    background: rgba(0, 0, 0, 0.35);
-}
-.task-tab-item button.closeTab > i {
-    margin-left: -1px;
-    margin-right: 0;
-    padding: 0;
-    opacity: 1;
-    vertical-align: baseline;
-    font-size: 1em;
 }
 
 /* inputs */
@@ -100,6 +55,8 @@
 .task-name {
 	-webkit-appearance: none;
 	appearance: none;
+	font-family: 'PT Sans';
+	font-weight: bold;
 	flex: 1;
 	font-size: 1.2em;
 	color: inherit;
@@ -112,16 +69,20 @@
 	color: inherit;
 	opacity: 0.8;
 }
+input.task-name:focus::placeholder {
+	color: transparent;
+}
+
 #add-task {
-	position: fixed;
-	bottom: 0;
-	left: 10%;
-	width: 80%;
+	/*position: fixed;*/
+	/*top: 0;*/
+	/*left: 10%;*/
 	padding: 1.25em;
 	text-align: center;
 	color: inherit;
 	background-color: rgb(245, 245, 245);
 	cursor: pointer;
+	z-index:1000;
 }
 #add-task:hover {
 	background-color: rgb(235, 235, 235);
@@ -134,6 +95,9 @@
 	display: flex;
 	align-items: center;
 	padding-right: 1em;
+}
+.task-action-container i {
+	cursor: pointer;
 }
 @media all and (max-width: 600px) {
 	#task-overlay {
@@ -151,10 +115,22 @@ body.dark-mode #task-overlay{
 }
 
 .dark-mode #switch-task-button {
-  color: dodgerblue;
+	color: #000;
+	letter-spacing: 0.02em;
+	font-family: "PT Sans",sans-serif;
+	font-size: 13px;
+	font-weight: bold;
+	padding: 0 38px 0 12px;
 }
 
 body.dark-mode #task-overlay #add-task {
 	background-color: rgb(33, 37, 43) !important;
 	color: lightgrey;
 }
+
+
+#taskSwitcherButton{
+
+}
+
+#task-overlay-navbar {display: none;}

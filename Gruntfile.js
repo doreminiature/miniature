@@ -89,7 +89,7 @@ module.exports = function (grunt) {
 		},
 		watch: {
 			scripts: {
-				files: ['js/**/*.js', 'main/*.js'],
+                files: ['js/**/*.js', 'main/*', 'css/**/*.css', 'index.html'],
 				tasks: ['default'],
 				options: {
 					spawn: false
@@ -99,7 +99,7 @@ module.exports = function (grunt) {
 		electron: {
 			osxBuild: {
 				options: {
-					name: 'Min',
+					name: 'Miniature',
 					dir: __dirname,
 					out: 'dist/app',
 					version: electronVersion,
@@ -121,7 +121,7 @@ module.exports = function (grunt) {
 			},
 			windowsBuild: {
 				options: {
-					name: 'Min',
+					name: 'Miniature',
 					dir: __dirname,
 					out: 'dist/app',
 					version: electronVersion,
@@ -135,7 +135,7 @@ module.exports = function (grunt) {
 			},
 			linuxBuild: {
 				options: {
-					name: 'min',
+					name: 'Miniature',
 					dir: __dirname,
 					out: 'dist/app',
 					version: electronVersion,
@@ -150,16 +150,16 @@ module.exports = function (grunt) {
 		},
 		'electron-installer-debian': {
 			options: {
-				productName: "Min",
+				productName: 'Miniature',
 				genericName: "Web Browser",
 				version: version,
 				section: "web",
-				homepage: "https://palmeral.github.io/min/",
+				homepage: "https://github.com/doreminiature/miniature",
 				icon: "icons/icon256.png",
 				categories: ["Network", "WebBrowser"],
 				mimeType: ["x-scheme-handler/http", "x-scheme-handler/https", "text/html"],
-				maintainer: "Min Developers <280953907a@zoho.com>",
-				description: "Min is a faster, smarter web browser.",
+				maintainer: "Miniature Developers <doreminiature@gmail.com>",
+				description: "Miniature — web browser to solve information overload dilemma ",
 				depends: [
 				'gconf2',
 				'gconf-service',
@@ -180,14 +180,14 @@ module.exports = function (grunt) {
 				options: {
 					arch: 'i386'
 				},
-				src: 'dist/app/min-linux-ia32',
+				src: 'dist/app/miniature-linux-ia32',
 				dest: 'dist/app/linux'
 			},
 			linux64: {
 				options: {
 					arch: 'amd64'
 				},
-				src: 'dist/app/min-linux-x64',
+				src: 'dist/app/miniature-linux-x64',
 				dest: 'dist/app/linux'
 			}
 		}
@@ -205,5 +205,5 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('macBuild', ['concat:browser', 'uglify:browser', 'concat:webview', 'uglify:webview', 'concat:main', 'electron:osxBuild'])
 	grunt.registerTask('linuxBuild', ['concat:browser', 'uglify:browser', 'concat:webview', 'uglify:webview', 'concat:main', 'electron:linuxBuild', 'electron-installer-debian:linux32', 'electron-installer-debian:linux64'])
-	grunt.registerTask('windowsBuild', ['concat:browser', 'uglify:browser', 'concat:webview', 'uglify:webview', 'concat:main',  'electron:windowsBuild'])
+	grunt.registerTask('windowsBuild', ['concat:browser', /*'uglify:browser', 'concat:webview',*/ 'uglify:webview', 'concat:main',  'electron:windowsBuild'])
 };

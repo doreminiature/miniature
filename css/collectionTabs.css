@@ -1,0 +1,120 @@
+
+.browser-controls {
+    width: 200px;
+    display: flex;
+    flex: 0 0 200px;
+    /*-webkit-app-region: auto;*/
+}
+
+.browser-controls div {
+    flex: 1 0 0;
+    position: relative;
+    cursor: pointer;
+}
+
+#refresh svg {
+    margin-top: -1px;
+}
+
+.browser-controls div:hover svg use {
+    /*fill: ;*/
+}
+
+.browser-controls svg {
+    position: absolute;
+    left:9px;
+    top:7px;
+}
+
+.browser-controls svg use {
+    fill: rgba(0, 20, 4, 0.13);
+}
+
+.collection-tabs {
+    display: flex;
+    height: 31px;
+    z-index: 10;
+    width: 100%;
+    background-color: #dee7f7;
+    /*-webkit-appearance: none;*/
+    /*-webkit-app-region: drag;*/
+}
+
+#collection-tabs {
+    display: flex;
+    width: 100%;
+    height: 100%;
+
+}
+
+#collection-tabs > div  {
+
+    flex: 0 0 20%;
+    /*flex: 0 0 18.57%;*/
+    /*-webkit-app-region: drag;*/
+    box-sizing: border-box;
+    /*padding: 11px 0 9px 29px;*/
+    padding: 0;
+    font-family: "PT Sans", sans-serif;
+    font-size: 12px;
+    letter-spacing: .5px;
+    max-width: 20%;
+    cursor: pointer;
+    transition: all ease .3s ;
+    color: #6b6b6b;
+    /*background: #f7f9fc;*/
+}
+
+#collection-tabs > div svg {
+    width: 100%;
+    fill: #eeeff8;
+}
+
+#collection-tabs > div input{
+    background: transparent;
+    font-family: "PT Sans Caption", sans-serif;
+    font-size: 11.4px;
+    border: 0;
+    cursor: pointer;
+    width: calc(100% - 29px);
+    padding: 9px 0 7px 29px;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+#collection-tabs input::placeholder {
+    position: relative;
+    left: -15px;
+}
+
+#collection-tabs input:focus::placeholder {
+    color: transparent;
+}
+
+#collection-tabs > div.active-tab.editing {
+    /*background-color: hsla(219, 61%, 90%, 1);*/
+    /*box-shadow: inset 0px 1px 12px -3px rgb(146, 147, 150);*/
+    background-color: #E7F1FE;
+    box-shadow: inset 0px 1px 11px -3px rgb(146, 147, 150);
+}
+
+#collection-tabs > div input::placeholder { /* Firefox 18- */
+    color: #c1ccd8;
+    text-align: center;
+    letter-spacing: 2px;
+    position: relative;
+    /*left: -14px;*/
+}
+#collection-tabs > div:nth-child(n + 6) {
+    display: none;
+}
+
+#collection-tabs > div.active-tab {
+    background: #E7F1FE;
+    color: #000;
+    font-family: "PT Sans", sans-serif;
+    font-size: 12px;
+    max-width: 20%;
+    font-weight: bold;
+
+}

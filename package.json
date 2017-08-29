@@ -1,8 +1,8 @@
 {
-  "name": "min",
-  "productName": "Min",
+  "name": "miniature",
+  "productName": "Miniature",
   "version": "1.6.0",
-  "electronVersion": "1.7.4",
+  "electronVersion": "1.7.5",
   "main": "main.build.js",
   "dependencies": {
     "dexie": "^1.2.0",
@@ -29,6 +29,6 @@
   },
   "repository": {
       "type": "git",
-      "url": "https://github.com/minbrowser/min.git"
+      "url": "https://github.com/doreminiature/miniature"
   }
 }

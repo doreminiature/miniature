@@ -3,3 +3,8 @@
 dist
 main.build.js
 .DS_Store
+main.build.js
+.idea
+.idea/miniature.iml
+.idea/modules.xml
+.idea/workspace.xml

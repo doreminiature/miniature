@@ -175,8 +175,21 @@ var webviewMenu = {
         click: function () {
           getWebview(tabs.getSelected()).inspectElement(data.x, data.y)
         }
+      }),
+      new MenuItem({
+          label: 'Inspect Browser',
+          click: function (item, focusedWindow) {
+              if (focusedWindow) focusedWindow.toggleDevTools()
+          }
       })
     ])
+
+      menu.append(new MenuItem({
+          label: 'Inspect Browser',
+          click: function (item, focusedWindow) {
+              if (focusedWindow) focusedWindow.toggleDevTools()
+          }
+      }))
 
     menuSections.forEach(function (section) {
       section.forEach(function (item) {

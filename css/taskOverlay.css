@@ -115,7 +115,7 @@ body.dark-mode #task-overlay{
 }
 
 .dark-mode #switch-task-button {
-	color: #000;
+  	color: #000;
 	letter-spacing: 0.02em;
 	font-family: "PT Sans",sans-serif;
 	font-size: 13px;
@@ -132,5 +132,3 @@ body.dark-mode #task-overlay #add-task {
 #taskSwitcherButton{
 
 }
-
-#task-overlay-navbar {display: none;}

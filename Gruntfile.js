@@ -9,17 +9,22 @@ module.exports = function (grunt) {
 		pkg: grunt.file.readJSON('package.json'),
 		concat: {
 			options: {
-				separator: '\n;'
+				separator: ';'
 			},
 			browser: {
 				src: [
 						"js/default.js",
+						"js/events.js",
+          				"js/util/favicon.js",
 						"js/util/database.js",
 						"js/util/defaultKeyMap.js",
 						"js/util/settings.js",
 						"js/util/searchEngine.js",
+						"js/util/screenshots.js",
+						"js/window-controls.js",
+						"js/browserControls.js",
 						"js/menuBarVisibility.js",
-						 "js/tabState.js",
+						"js/tabState.js",
 						"js/util/urlParser.js",
 						"js/filteringRenderer.js",
 						"js/webviews.js",
@@ -41,16 +46,19 @@ module.exports = function (grunt) {
 						 "js/navbar/tabActivity.js",
 							"js/navbar/tabColor.js",
 						 "js/navbar/navbarTabs.js",
-							"js/taskOverlay/taskOverlay.js",
-							"js/taskOverlay/taskOverlayBuilder.js",
+							"js/taskOverlay.js",
 							"js/navbar/addTabButton.js",
 						 "js/keybindings.js",
 						 "js/fileDownloadManager.js",
 						 "js/findinpage.js",
 							"js/sessionRestore.js",
-							"js/tabRestore.js",
 							"js/focusMode.js",
 							"js/util/theme.js",
+						"js/collectionTabs.js",
+						"js/favicon.js",
+						"js/collection.js"
+
+
 						 ],
 				dest: 'dist/build.js'
 			},
@@ -58,6 +66,7 @@ module.exports = function (grunt) {
 				src: [
 						"js/webview/default.js",
 						"js/webview/textExtractor.js",
+						"js/webview/contextMenu.js",
 						"js/webview/phishDetector.js",
 						"js/webview/readerDetector.js",
 						"js/webview/swipeEvents.js",
@@ -69,7 +78,7 @@ module.exports = function (grunt) {
 			main: {
 				src: [
 						"main/main.js",
-					"main/filtering.js",
+						"main/filtering.js"
 						 ],
 				dest: 'main.build.js'
 			}
@@ -85,21 +94,12 @@ module.exports = function (grunt) {
 			webview: {
 				src: 'dist/webview.js',
 				dest: 'dist/webview.min.js'
-			},
-		},
-		watch: {
-			scripts: {
-                files: ['js/**/*.js', 'main/*', 'css/**/*.css', 'index.html'],
-				tasks: ['default'],
-				options: {
-					spawn: false
-				}
-			},
+			}
 		},
 		electron: {
 			osxBuild: {
 				options: {
-					name: 'Miniature',
+					name: 'Miniatiure',
 					dir: __dirname,
 					out: 'dist/app',
 					version: electronVersion,
@@ -116,7 +116,7 @@ module.exports = function (grunt) {
 					}, {
 						name: "File",
 						schemes: ["file"]
-					}],
+					}]
 				}
 			},
 			windowsBuild: {
@@ -128,9 +128,9 @@ module.exports = function (grunt) {
 					'app-version': version,
 					platform: 'win32',
 					arch: 'all',
-					ignore: 'dist/app',
-					prune: true,
-					overwrite: true,
+					ignore: 'dist/app; node_modules/.bin',
+					// prune: true,
+					overwrite: true
 				}
 			},
 			linuxBuild: {
@@ -150,7 +150,7 @@ module.exports = function (grunt) {
 		},
 		'electron-installer-debian': {
 			options: {
-				productName: 'Miniature',
+				productName: "Miniature",
 				genericName: "Web Browser",
 				version: version,
 				section: "web",
@@ -158,8 +158,8 @@ module.exports = function (grunt) {
 				icon: "icons/icon256.png",
 				categories: ["Network", "WebBrowser"],
 				mimeType: ["x-scheme-handler/http", "x-scheme-handler/https", "text/html"],
-				maintainer: "Miniature Developers <doreminiature@gmail.com>",
-				description: "Miniature — web browser to solve information overload dilemma ",
+				maintainer: "doreminiature@gmail.com",
+				description: "Miniature — web browsing reinvented.",
 				depends: [
 				'gconf2',
 				'gconf-service',
@@ -180,30 +180,42 @@ module.exports = function (grunt) {
 				options: {
 					arch: 'i386'
 				},
-				src: 'dist/app/miniature-linux-ia32',
+				src: 'dist/app/Miniature-linux-ia32',
 				dest: 'dist/app/linux'
 			},
 			linux64: {
 				options: {
 					arch: 'amd64'
 				},
-				src: 'dist/app/miniature-linux-x64',
+				src: 'dist/app/Miniature-linux-x64',
 				dest: 'dist/app/linux'
 			}
-		}
+		},
+        watch: {
+            scripts: {
+                files: ['js/**/*.js', 'main/*', 'css/**/*.css', 'index.html'],
+                tasks: ['concat:browser', 'concat:webview', 'concat:main'],
+                options: {
+                    spawn: false,
+                },
+            },
+        }
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-electron');
 	grunt.loadNpmTasks('grunt-electron-installer-debian');
-	grunt.loadNpmTasks('grunt-contrib-watch')
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    // grunt.loadNpmTasks('electron-reload');
 
 	grunt.registerTask('default', ['concat:browser', 'uglify:browser', 'concat:webview', 'uglify:webview', 'concat:main']);
+	grunt.registerTask('dev', ['concat:browser', 'concat:webview', 'concat:main', 'watch' , ]);
 	grunt.registerTask('browser', ['concat:browser', 'uglify:browser']);
 	grunt.registerTask('webview', ['concat:webview', 'uglify:webview']);
 
-	grunt.registerTask('macBuild', ['concat:browser', 'uglify:browser', 'concat:webview', 'uglify:webview', 'concat:main', 'electron:osxBuild'])
-	grunt.registerTask('linuxBuild', ['concat:browser', 'uglify:browser', 'concat:webview', 'uglify:webview', 'concat:main', 'electron:linuxBuild', 'electron-installer-debian:linux32', 'electron-installer-debian:linux64'])
-	grunt.registerTask('windowsBuild', ['concat:browser', /*'uglify:browser', 'concat:webview',*/ 'uglify:webview', 'concat:main',  'electron:windowsBuild'])
+	grunt.registerTask('macBuild', ['concat:browser', /*'uglify:browser'*/, 'concat:webview', /*'uglify:webview'*/, 'concat:main', 'electron:osxBuild'])
+	grunt.registerTask('macBuildDev', ['concat:browser', 'concat:webview', 'concat:main', 'electron:osxBuild'])
+	grunt.registerTask('linuxBuild', ['concat:browser', /*'uglify:browser'*/, 'concat:webview', /*'uglify:webview',*/ 'concat:main', 'electron:linuxBuild', 'electron-installer-debian:linux32', 'electron-installer-debian:linux64'])
+	grunt.registerTask('windowsBuild', ['concat:browser', /* 'uglify:browser', 'uglify:webview', */ 'concat:webview', 'concat:main', 'electron:windowsBuild'])
 };

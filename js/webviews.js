@@ -8,13 +8,14 @@ var webviewBase = document.getElementById('webviews')
 var webviewEvents = []
 var webviewIPC = []
 
+
+
 // this only affects newly created webviews, so all bindings should be done on startup
 
-function bindWebviewEvent (event, fn, useWebContents) {
+function bindWebviewEvent (event, fn) {
   webviewEvents.push({
     event: event,
-    fn: fn,
-    useWebContents: useWebContents
+    fn: fn
   })
 }
 
@@ -39,6 +40,8 @@ function pagePermissionRequestHandler (webContents, permission, callback) {
 // called whenever the page url changes
 
 function onPageLoad (e) {
+
+
   var tab = this.getAttribute('data-tab')
   var url = this.getAttribute('src') // src attribute changes whenever a page is loaded
 
@@ -58,9 +61,9 @@ function onPageLoad (e) {
 }
 
 // called when js/webview/textExtractor.js returns the page's text content
-bindWebviewIPC('pageData', function (webview, tabId, args) {
+bindWebviewIPC('pageData', function (webview, tabId, arguments) {
   var tab = tabs.get(tabId),
-    data = args[0]
+      data = arguments[0]
 
   var isInternalPage = tab.url.indexOf(__dirname) !== -1 && tab.url.indexOf(readerView.readerURL) === -1
 
@@ -68,40 +71,43 @@ bindWebviewIPC('pageData', function (webview, tabId, args) {
   if (tab.private === false && !isInternalPage) {
     bookmarks.updateHistory(tabId, data.extractedText, data.metadata)
   }
-})
 
-// called when a swipe event is triggered in js/webview/swipeEvents.js
-
-bindWebviewIPC('goBack', function () {
-  settings.get('swipeNavigationEnabled', function (value) {
-    if (value === true || value === undefined) {
-      getWebview(tabs.getSelected()).goBack()
-    }
-  })
-})
-
-bindWebviewIPC('goForward', function () {
-  settings.get('swipeNavigationEnabled', function (value) {
-    if (value === true || value === undefined) {
-      getWebview(tabs.getSelected()).goForward()
-    }
-  })
 })
 
 // set the permissionRequestHandler for non-private tabs
 
 remote.session.defaultSession.setPermissionRequestHandler(pagePermissionRequestHandler)
 
+
 function getWebviewDom (options) {
+
   var w = document.createElement('webview')
+
   w.setAttribute('preload', 'dist/webview.min.js')
-  w.setAttribute('blinkfeatures', 'OverlayScrollbars')
+
+  w.addEventListener('did-start-loading', ( e )=>{
+    F.webviewIsLoading = true
+    eventEmitter.emit( 'startLoadingPage' )
+  })
+
+  w.addEventListener('did-stop-loading', ( e )=>{
+    F.webviewIsLoading = false
+    eventEmitter.emit( 'stopLoadingPage' )
+
+  })
+
+  w.addEventListener('page-favicon-updated', function(e) {
+    say.m('getWebviewDom page-favicon-updated')
+    F.ADD( e.path[ 0 ].attributes.src.nodeValue, e.favicons[0] )
+    eventEmitter.emit( 'updateFavicon' )
+  })
 
   if (options.url) {
     w.setAttribute('src', urlParser.parse(options.url))
   }
-
+  w.setAttribute('blinkfeatures', 'OverlayScrollbars')
   w.setAttribute('data-tab', options.tabId)
+
 
   // if the tab is private, we want to partition it. See http://electron.atom.io/docs/v0.34.0/api/web-view-tag/#partition
   // since tab IDs are unique, we can use them as partition names
@@ -122,20 +128,11 @@ function getWebviewDom (options) {
 
   // webview events
 
-  webviewEvents.forEach(function (ev) {
-    if (ev.useWebContents) { // some events (such as context-menu) are only available on the webContents rather than the webview element
-      w.addEventListener('did-attach', function () {
-        this.getWebContents().on(ev.event, ev.fn)
-      })
-    } else {
-      w.addEventListener(ev.event, ev.fn)
-    }
+  webviewEvents.forEach(function (i) {
+    w.addEventListener(i.event, i.fn)
   })
 
-  w.addEventListener('page-favicon-updated', function (e) {
-    var id = this.getAttribute('data-tab')
-    updateTabColor(e.favicons, id)
-  })
+  
 
   w.addEventListener('page-title-set', function (e) {
     var tab = this.getAttribute('data-tab')
@@ -147,17 +144,6 @@ function getWebviewDom (options) {
 
   w.addEventListener('did-finish-load', onPageLoad)
   w.addEventListener('did-navigate-in-page', onPageLoad)
-
-  /* workaround for https://github.com/electron/electron/issues/8505 and similar issues */
-  w.addEventListener('did-start-loading', function () {
-    this.classList.add('loading')
-  })
-
-  w.addEventListener('did-stop-loading', function () {
-    setTimeout(function () {
-      w.classList.remove('loading')
-    }, 100)
-  })
 
   // open links in new tabs
 
@@ -179,6 +165,7 @@ function getWebviewDom (options) {
     closeTab(this.getAttribute('data-tab'))
   })
 
+  // In embedder page. Send the text content to bookmarks when recieved.
   w.addEventListener('ipc-message', function (e) {
     var w = this
     var tab = this.getAttribute('data-tab')
@@ -196,22 +183,22 @@ function getWebviewDom (options) {
 
       try {
         var hostname = new URL(url).hostname
-        var redirectURL = phishingWarningPage + '?url=' + encodeURIComponent(url) + '&info=' + encodeURIComponent(e.args[0].join('\n'))
       } catch (e) {
         var hostname = ''
-        var redirectURL = phishingWarningPage
       }
 
       settings.get('phishingWhitelist', function (value) {
         if (!value || !hostname || value.indexOf(hostname) === -1) {
           // show the warning page
-          navigate(tab, redirectURL)
+          navigate(tab, phishingWarningPage + '?url=' + encodeURIComponent(url))
         }
       }, {
         fromCache: false
       })
     }
   })
+
+  w.addEventListener('contextmenu', webviewMenu.show)
 
   w.addEventListener('crashed', function (e) {
     var tabId = this.getAttribute('data-tab')
@@ -227,7 +214,7 @@ function getWebviewDom (options) {
 
   w.addEventListener('did-fail-load', function (e) {
     if (e.errorCode !== -3 && e.validatedURL === e.target.getURL()) {
-      navigate(this.getAttribute('data-tab'), errorPage + '?ec=' + encodeURIComponent(e.errorCode) + '&url=' + encodeURIComponent(e.target.getURL()))
+      navigate(this.getAttribute('data-tab'), errorPage + '?ec=' + encodeURIComponent(e.errorCode) + '&url=' + e.target.getURL())
     }
   })
 
@@ -256,9 +243,11 @@ function addWebview (tabId) {
   // webviews are hidden when added - call switchToWebview to show it
   webview.classList.add('hidden')
 
-  webview.classList.add('loading')
+
 
   webviewBase.appendChild(webview)
+
+
 
   return webview
 }
@@ -266,9 +255,9 @@ function addWebview (tabId) {
 function switchToWebview (id) {
   var webviews = document.getElementsByTagName('webview')
   for (var i = 0; i < webviews.length; i++) {
-    webviews[i].classList.add('hidden')
-  }
+    webviews[i].hidden = true
 
+  }
   var wv = getWebview(id)
 
   if (!wv) {
@@ -276,10 +265,12 @@ function switchToWebview (id) {
   }
 
   wv.classList.remove('hidden')
+  wv.hidden = false
 }
 
 function updateWebview (id, url) {
   getWebview(id).setAttribute('src', urlParser.parse(url))
+
 }
 
 function destroyWebview (id) {
@@ -290,5 +281,15 @@ function destroyWebview (id) {
 }
 
 function getWebview (id) {
-  return document.querySelector('webview[data-tab="{id}"]'.replace('{id}', id))
+  say.m('getWebview(id):' + id)
+
+  let el = document.querySelector('webview[data-tab="{id}"]'.replace('{id}', id))
+
+  if( el != null){
+    el.addEventListener('focus', function (e) {
+      CT.remoteClassEditing()
+    })
+  }
+
+  return el
 }

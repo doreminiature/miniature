@@ -1,6 +1,4 @@
-/* global importScripts db performance searchPlaces postMessage fullTextPlacesSearch */
-
-console.log('worker started ', performance.now())
+// console.log('worker started ', performance.now())
 
 importScripts('../../node_modules/dexie/dist/dexie.min.js')
 importScripts('../../node_modules/string_score/string_score.min.js')
@@ -8,11 +6,11 @@ importScripts('../util/database.js')
 importScripts('fullTextSearch.js')
 importScripts('placesSearch.js')
 
-const spacesRegex = /[\+\s._/-]/g // things that could be considered spaces
-const wordRegex = /^[a-z\s]+$/g
+var spacesRegex = /[\+\s._/-]/g // things that could be considered spaces
+var wordRegex = /^[a-z\s]+$/g
 
 function calculateHistoryScore (item, boost) { // boost - how much the score should be multiplied by. Example - 0.05
-  let fs = item.lastVisit * (1 + 0.036 * Math.sqrt(item.visitCount))
+  var fs = item.lastVisit * (1 + 0.036 * Math.sqrt(item.visitCount))
 
   // bonus for short url's
   if (item.url.length < 20) {
@@ -26,12 +24,12 @@ function calculateHistoryScore (item, boost) { // boost - how much the score sho
   return fs
 }
 
-let oneDayInMS = 24 * 60 * 60 * 1000 // one day in milliseconds
+var oneDayInMS = 24 * 60 * 60 * 1000 // one day in milliseconds
 
-let oneWeekAgo = Date.now() - (oneDayInMS * 7)
+var oneWeekAgo = Date.now() - (oneDayInMS * 7)
 
 // the oldest an item can be to remain in the database
-let minItemAge = Date.now() - (oneDayInMS * 42)
+var minItemAge = Date.now() - (oneDayInMS * 42)
 
 function cleanupHistoryDatabase () { // removes old history entries
   db.places.where('lastVisit').below(minItemAge).and(function (item) {
@@ -44,8 +42,8 @@ setInterval(cleanupHistoryDatabase, 60 * 60 * 1000)
 
 // cache history in memory for faster searching. This actually takes up very little space, so we can cache everything.
 
-let historyInMemoryCache = []
-let doneLoadingHistoryCache = false
+var historyInMemoryCache = []
+var doneLoadingHistoryCache = false
 
 function addToHistoryCache (item) {
   delete item.pageHTML
@@ -77,16 +75,16 @@ setInterval(loadHistoryInMemory, 30 * 60 * 1000)
 // calculates how similar two history items are
 
 function calculateHistorySimilarity (a, b) {
-  let score = 0
+  var score = 0
 
   if (a.url.split('/')[2] === b.url.split('/')[2]) {
     score += 0.1
   }
 
-  const aWords = a.title.toLowerCase().split(spacesRegex)
-  const bText = b.title.toLowerCase()
-  let wm = 0
-  for (let i = 0; i < aWords.length; i++) {
+  var aWords = a.title.toLowerCase().split(spacesRegex)
+  var bText = b.title.toLowerCase()
+  var wm = 0
+  for (var i = 0; i < aWords.length; i++) {
     if (aWords[i].length > 2 && aWords[i] !== 'http' && aWords[i] !== 'https' && bText.indexOf(aWords[i]) !== -1) {
       score += 0.0025 * aWords[i].length
       wm++
@@ -97,12 +95,12 @@ function calculateHistorySimilarity (a, b) {
     score += (0.05 * Math.pow(1.5, wm))
   }
 
-  const vDiff = Math.abs(a.lastVisit - b.lastVisit)
+  var vDiff = Math.abs(a.lastVisit - b.lastVisit)
   if (vDiff < 600000 && b.visitCount > 10) {
     score += 0.1 + (0.02 * Math.sqrt(a.visitCount)) + ((600000 - vDiff) * 0.0000025)
   }
 
-  const diffPct = vDiff / a.visitCount
+  var diffPct = vDiff / a.visitCount
 
   if (diffPct > 0.9 && diffPct < 1.1) {
     score += 0.15
@@ -112,14 +110,13 @@ function calculateHistorySimilarity (a, b) {
 }
 
 onmessage = function (e) {
-  const action = e.data.action
-  const pageData = e.data.pageData
-  const searchText = e.data.text && e.data.text.toLowerCase()
-  const callbackId = e.data.callbackId
-  const options = e.data.options
+  var action = e.data.action
+  var pageData = e.data.pageData
+  var searchText = e.data.text && e.data.text.toLowerCase()
+  var callbackId = e.data.callbackId
 
   if (action === 'updateHistory') {
-    const item = {
+    var item = {
       url: pageData.url,
       title: pageData.title || pageData.url,
       color: pageData.color,
@@ -148,9 +145,9 @@ onmessage = function (e) {
           addToHistoryCache(item)
         }
       }).catch(function (err) {
-        console.warn('failed to update history.')
-        console.warn('page url was: ' + pageData.url)
-        console.error(err)
+        //console.warn('failed to update history.')
+        //console.warn('page url was: ' + pageData.url)
+        //console.error(err)
       })
     })
   }
@@ -161,7 +158,7 @@ onmessage = function (e) {
     }).delete()
 
     // delete from the in-memory cache
-    for (let i = 0; i < historyInMemoryCache.length; i++) {
+    for (var i = 0; i < historyInMemoryCache.length; i++) {
       if (historyInMemoryCache[i].url === pageData.url) {
         historyInMemoryCache.splice(i, 1)
       }
@@ -174,7 +171,7 @@ onmessage = function (e) {
         result: matches,
         callbackId: callbackId
       })
-    }, options)
+    })
   }
 
   if (action === 'searchPlacesFullText') {
@@ -193,9 +190,9 @@ onmessage = function (e) {
   if (action === 'getPlaceSuggestions') {
     // get the history item for the provided url
 
-    let baseItem = null
+    var baseItem = null
 
-    for (let i = 0; i < historyInMemoryCache.length; i++) {
+    for (var i = 0; i < historyInMemoryCache.length; i++) {
       if (historyInMemoryCache[i].url === searchText) {
         baseItem = historyInMemoryCache[i]
         break
@@ -212,11 +209,11 @@ onmessage = function (e) {
       }
     }
 
-    let results = historyInMemoryCache.slice()
+    var results = historyInMemoryCache.slice()
 
-    const cTime = Date.now()
+    var cTime = Date.now()
 
-    for (let i = 0; i < results.length; i++) {
+    for (var i = 0; i < results.length; i++) {
       if (cTime - results[i].lastVisit > 604800000) {
         results[i].boost = 0
       } else {
@@ -230,7 +227,7 @@ onmessage = function (e) {
       results[i].hScore = calculateHistoryScore(results[i])
     }
 
-    results = results.sort(function (a, b) {
+    var results = results.sort(function (a, b) {
       return b.hScore - a.hScore
     })
 

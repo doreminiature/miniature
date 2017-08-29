@@ -1,6 +1,9 @@
 /* common to webview, tabrenderer, etc */
 
 function navigate (tabId, newURL) {
+
+
+
   newURL = urlParser.parse(newURL)
 
   tabs.update(tabId, {
@@ -27,13 +30,9 @@ function destroyTask (id) {
 // destroys the webview and tab element for a tab
 function destroyTab (id) {
   var tabEl = getTabElement(id)
-  if (tabEl) {
-    // The tab does not have a coresponding .tab-item element.
-    // This happens when destroying tabs from other task where this .tab-item is not present
-    tabEl.parentNode.removeChild(tabEl)
-  }
+  tabEl.parentNode.removeChild(tabEl)
 
-  tabs.destroy(id) // remove from state - returns the index of the destroyed tab
+  var t = tabs.destroy(id) // remove from state - returns the index of the destroyed tab
   destroyWebview(id) // remove the webview
 }
 
@@ -83,6 +82,16 @@ function switchToTask (id) {
   } else {
     addTab()
   }
+
+  // setTimeout(function () {
+  //   try {
+  //     // CT.render()
+  //     // if(document.querySelector('#task-overlay').getAttribute('hidden') == null)
+  //     //   taskOverlay.show()
+  //   } catch (e) {}
+  // }, 100)
+  //
+
 }
 
 /* switches to a tab - update the webview, state, tabstrip, etc. */
@@ -98,14 +107,6 @@ function switchToTab (id, options) {
 
   leaveTabEditMode()
 
-  // set the tab's lastActivity to the current time
-
-  if (tabs.getSelected()) {
-    tabs.update(tabs.getSelected(), {
-      lastActivity: Date.now()
-    })
-  }
-
   tabs.setSelected(id)
   setActiveTabElement(id)
   switchToWebview(id)
@@ -114,9 +115,19 @@ function switchToTab (id, options) {
     getWebview(id).focus()
   }
 
-  updateColorPalette()
+  var tabData = tabs.get(id)
+  setColor(tabData.backgroundColor, tabData.foregroundColor)
+
+  // we only want to mark the tab as active if someone actually interacts with it. If it is clicked on and then quickly clicked away from, it should still be marked as inactive
+
+  setTimeout(function () {
+    if (tabs.get(id) && tabs.getSelected() === id) {
+      tabs.update(id, {
+        lastActivity: Date.now()
+      })
+      // if(tabActivity) tabActivity.refresh()
+    }
+  }, 2500)
 
   sessionRestore.save()
-
-  tabActivity.refresh()
 }

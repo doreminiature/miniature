@@ -1,6 +1,51 @@
 // common regex's
 
 var trailingSlashRegex = /\/$/g
+var plusRegex = /\+/g
+
+// https://remysharp.com/2010/07/21/throttling-function-calls#
+
+function throttle (fn, threshhold, scope) {
+  threshhold || (threshhold = 250)
+  var last,
+    deferTimer
+  return function () {
+    var context = scope || this
+
+    var now = new Date()
+    var args = arguments
+    if (last && now < last + threshhold) {
+      // hold on to it
+      clearTimeout(deferTimer)
+      deferTimer = setTimeout(function () {
+        last = now
+        fn.apply(context, args)
+      }, threshhold)
+    } else {
+      last = now
+      fn.apply(context, args)
+    }
+  }
+}
+
+function debounce (fn, delay) {
+  var timer = null
+  return function () {
+    var context = this
+    var args = arguments
+    clearTimeout(timer)
+    timer = setTimeout(function () {
+      fn.apply(context, args)
+    }, delay)
+  }
+}
+
+function empty (node) {
+  var n
+  while (n = node.firstElementChild) {
+    node.removeChild(n)
+  }
+}
 
 function removeTags (text) {
   return text.replace(/<.*?>/g, '')
@@ -24,28 +69,58 @@ function openURLInBackground (url) { // used to open a url in the background, wi
 }
 // when clicking on a result item, this function should be called to open the URL
 
-function openURLFromSearchbar (url, event) {
+function openURLFromsearchbar (event, url) {
 
   // TODO decide if this should go somewhere else
 
   // if the url is a !bang search
   if (url.indexOf('!') === 0) {
-    // get the matching custom !bang
-    var bang = getCustomBang(url)
+    var selectedBang = url.split(' ')[0]
 
-    if (bang) {
-      leaveTabEditMode()
-      bang.fn(url.replace(bang.phrase, '').trimLeft())
-      // don't open the URL
-      return
+    // get all of the !bangs that could match
+    var bangs = searchCustomBangs(selectedBang)
+
+    // if there are !bangs that possibly match
+    if (bangs.length !== 0) {
+
+      // find the ones that are an exact match, and run them
+      for (var i = 0; i < bangs.length; i++) {
+        if (bangs[i].phrase === selectedBang) {
+          leaveTabEditMode()
+          if (url.indexOf(selectedBang + ' ') === -1) {
+            var text = url.replace(selectedBang, '')
+          } else {
+            var text = url.replace(selectedBang + ' ', '')
+          }
+          bangs[i].fn(text)
+          // don't open the URL
+          return
+        }
+      }
     }
   }
 
-  if (event && event.metaKey) {
+  if (event.metaKey) {
     openURLInBackground(url)
     return true
   } else {
     navigate(tabs.getSelected(), url)
+
+    if (!tabs.get(tabs.getSelected()).private) {
+      /*
+      //show the color and title of the new page immediately, to make the page load time seem faster
+      currentHistoryResults.forEach(function (res) {
+      	if (res.url == url) {
+      		setColor(res.color, getTextColor(getRGBObject(res.color)))
+      		tabs.update(tabs.getSelected(), {
+      			title: res.title,
+      		})
+      		rerenderTabElement(tabs.getSelected())
+      	}
+      })
+      */
+    }
+
     return false
   }
 }
@@ -90,7 +165,6 @@ var lastItemDeletion = Date.now()
 data:
 
 title: string - the title of the item
-metadata: array - a list of strings to include (separated by hyphens) in front of the secondary text
 secondaryText: string - the item's secondary text
 url: string - the item's url (if there is one).
 icon: string - the name of a font awesome icon.
@@ -134,7 +208,7 @@ function createSearchbarItem (data) {
     item.setAttribute('data-url', data.url)
 
     item.addEventListener('click', function (e) {
-      openURLFromSearchbar(data.url, e)
+      openURLFromsearchbar(e, data.url)
     })
   }
 
@@ -145,17 +219,6 @@ function createSearchbarItem (data) {
     secondaryText.textContent = data.secondaryText
 
     item.appendChild(secondaryText)
-
-    if (data.metadata) {
-      data.metadata.forEach(function (str) {
-        var metadataElement = document.createElement('span')
-        metadataElement.className = 'md-info'
-
-        metadataElement.textContent = str
-
-        secondaryText.insertBefore(metadataElement, secondaryText.firstChild)
-      })
-    }
   }
 
   if (data.image) {
@@ -208,10 +271,6 @@ function createSearchbarItem (data) {
     })
   }
 
-  if (data.click) {
-    item.addEventListener('click', data.click)
-  }
-
   return item
 }
 
@@ -246,10 +305,12 @@ var showSearchbarResults = function (text, input, event) {
     var realText = text
   }
 
+  console.log('searchbar: ', realText)
+
   runPlugins(realText, input, event)
 }
 
-function focusSearchbarItem (options) {
+function focussearchbarItem (options) {
   options = options || {} // fallback if options is null
   var previous = options.focusPrevious
 
@@ -296,10 +357,10 @@ searchbar.addEventListener('keydown', function (e) {
     e.target.click()
   } else if (e.keyCode === 9 || e.keyCode === 40) { // tab or arrowdown key
     e.preventDefault()
-    focusSearchbarItem()
+    focussearchbarItem()
   } else if (e.keyCode === 38) {
     e.preventDefault()
-    focusSearchbarItem({
+    focussearchbarItem({
       focusPrevious: true
     })
   }

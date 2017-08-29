@@ -74,8 +74,7 @@ var colorExtractorImage = document.createElement('img')
 
 const defaultColors = {
   private: ['rgb(58, 44, 99)', 'white'],
-  lightMode: ['rgb(255, 255, 255)', 'black'],
-  darkMode: ['rgb(40, 44, 52)', 'white']
+  regular: ['rgb(255, 255, 255)', 'black']
 }
 
 var hours = new Date().getHours() + (new Date().getMinutes() / 60)
@@ -88,8 +87,17 @@ setInterval(function () {
 }, 4 * 60 * 1000)
 
 function updateTabColor (favicons, tabId) {
-  // private tabs always use a special color, we don't need to get the icon
+
+  // special color scheme for private tabs
   if (tabs.get(tabId).private === true) {
+    tabs.update(tabId, {
+      backgroundColor: '#3a2c63',
+      foregroundColor: 'white'
+    })
+
+    if (tabId === tabs.getSelected()) {
+      setColor('#3a2c63', 'white')
+    }
     return
   }
   requestIdleCallback(function () {
@@ -126,7 +134,7 @@ function updateTabColor (favicons, tabId) {
       })
 
       if (tabId === tabs.getSelected()) {
-        updateColorPalette()
+        setColor(cr, textclr)
       }
       return
     })
@@ -207,23 +215,6 @@ var runNetwork = function anonymous (input) {
   return output
 }
 
-function updateColorPalette () {
-  var tab = tabs.get(tabs.getSelected())
-
-  if (tab.private) {
-    // private tabs have their own color scheme
-    return setColor(defaultColors.private[0], defaultColors.private[1])
-    // use the colors extracted from the page icon
-  } else if (tab.backgroundColor || tab.foregroundColor) {
-    return setColor(tab.backgroundColor, tab.foregroundColor)
-    // otherwise use the default colors
-  } else if (window.isDarkMode) {
-    return setColor(defaultColors.darkMode[0], defaultColors.darkMode[1])
-  } else {
-    return setColor(defaultColors.lightMode[0], defaultColors.lightMode[1])
-  }
-}
-
 function setColor (bg, fg) {
   var background = document.getElementsByClassName('theme-background-color')
   var textcolor = document.getElementsByClassName('theme-text-color')
@@ -243,7 +234,17 @@ function setColor (bg, fg) {
   }
 }
 
-// theme changes can affect the tab colors
-window.addEventListener('themechange', function (e) {
-  updateColorPalette()
-})
+/* converts a color string into an object that can be used with getTextColor */
+
+function getRGBObject (cssColor) {
+  var c = cssColor.split('(')[1].split(')')[0]
+  var c2 = c.split(',')
+
+  var obj = {
+    r: parseInt(c2[0]) / 255,
+    g: parseInt(c2[1]) / 255,
+    b: parseInt(c2[2]) / 255
+  }
+
+  return obj
+}

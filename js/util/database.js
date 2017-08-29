@@ -78,6 +78,8 @@ db.version(4).stores({
   // t.history.toCollection().delete()
   })
 
+// db.version(6).stores({ favicon: "++id,url,base64" })
+
 // TODO set the value of the bookmarks and history tables to null in a future version to delete them - see https://github.com/dfahlander/Dexie.js/issues/276
 
 /* current settings:
@@ -86,9 +88,20 @@ key - filtering
 value - {trackers: boolean, contentTypes: array} */
 
 db.open().then(function () {
-  console.log('database opened ', performance.now())
+  // console.log('database opened ', performance.now())
 })
 
 Dexie.Promise.on('error', function (error) {
-  console.warn('database error occured', error)
+  // console.warn('database error occured', error)
 })
+
+
+var fDB = new Dexie("FaviconsDatabase");
+fDB.version(1).stores({ favicons: "++id,url,base64" });
+
+fDB.open()
+
+
+var dbF = new Dexie("FriendDatabase");
+dbF.version(1).stores({ friends: "++id,name,age" });
+dbF.open()

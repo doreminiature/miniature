@@ -23,15 +23,13 @@ var sessionRestore = {
       tasks.setSelected(tasks.add()) // create a new task
 
       var newTab = currentTask.tabs.add({
-        url: 'https://palmeral.github.io/min/tour'
+        url: 'https://github.com/doreminiature/miniature'
       })
       addTab(newTab, {
-        enterEditMode: false
+        enterEditMode: true
       })
       return
     }
-
-    console.log(data)
 
     data = JSON.parse(data)
 
@@ -51,14 +49,18 @@ var sessionRestore = {
 
     data.state.tasks.forEach(function (task) {
       // restore the task item
+      // console.log( '########################################################' )
+      // console.log( task )
+      // console.log( '########################################################' )
       tasks.add(task)
+      // tasks.addInStart(task)
     })
 
     // switch to the previously selected tasks
 
     switchToTask(data.state.selectedTask)
 
-    if (currentTask.tabs.isEmpty()) {
+    if (isEmpty(currentTask.tabs)) {
       enterEditMode(currentTask.tabs.getSelected())
     }
   }

@@ -1,14 +1,11 @@
-var phishingDebugMessages = []
-
 function debugPhishing (msg) {
-  phishingDebugMessages.push(msg)
-// uncomment for debug mode
-// console.log(msg)
+  // uncomment for debug mode
+  console.log(msg)
 }
 
 /* phishing detector. Implements methods from http://www.ml.cmu.edu/research/dap-papers/dap-guang-xiang.pdf and others, as well as some custom methods */
 
-var doubleDomainRegex = /.+(com|net|org|edu|gov|mil|uk|ca|jp|fr|au|us|ru|ch|it|nl|de|es)(([^a-zA-Z\/][^\/\n]*)\.(com|net|org|edu|gov|mil|uk|ca|jp|fr|au|us|ru|ch|it|nl|de|es))\//g
+var doubleDomainRegex = /\.(com|net|org|edu|gov|mil|uk|ca|jp|fr|au|us|ru|ch|it|nl|de|es)((\..*(com|net|org|edu|gov|mil))|(\..+(uk|ca|jp|fr|au|us|ru|ch|it|nl|de|es)))/g
 
 function checkPhishingStatus () {
   // if there isn't a password input or ßform, skip the phishing analysis, since this probably isn't a phish
@@ -60,14 +57,18 @@ function checkPhishingStatus () {
   var tldRegex = /\.(com|net|org|edu|gov|mil)$/g
 
   function getRootDomain (hostname) {
+    var newData = hostname
     tldRegex.lastIndex = 0
     var chunks = hostname.split('.')
 
     if (tldRegex.test(hostname)) {
-      return chunks.slice(-2).join('.')
-    } else {
-      return chunks.slice(-3).join('.')
+      newData = chunks[chunks.length - 2] + '.' + chunks[chunks.length - 1]
     }
+
+    if (newData.indexOf('www.') === 0) {
+      newData = newData.replace('www.', '')
+    }
+    return newData
   }
 
   function isThirdParty (base, test) {
@@ -88,7 +89,7 @@ function checkPhishingStatus () {
 
   for (var i = 0; i < whitelistedDomains.length; i++) {
     if (whitelistedDomains[i] === window.location.hostname) {
-      debugPhishing('domain is whitelisted, not checking')
+      console.log('domain is whitelisted, not checking')
       return
     }
   }
@@ -136,8 +137,8 @@ function checkPhishingStatus () {
     phishingScore += Math.min(window.location.toString().length * 0.0001, 0.2)
   }
 
-  if (loc.split('#')[0].split('/').length > 6) {
-    debugPhishing('long path found: ' + loc)
+  if (loc.split('#')[0].split('/').length > 5) {
+    debugPhishing('long path found')
     phishingScore += Math.max(Math.min(loc.split('/').length * 0.05, 0.75), 0.25)
   }
 
@@ -406,17 +407,17 @@ function checkPhishingStatus () {
 
   // finally, if the phishing score is above a threshold, alert the parent process so we can redirect to a warning page
 
-  debugPhishing('min ' + minPhishingScore)
+  console.log('min ' + minPhishingScore)
 
-  debugPhishing('status ' + phishingScore)
+  console.log('status', phishingScore)
 
   if (phishingScore > minPhishingScore) {
-    ipc.sendToHost('phishingDetected', phishingDebugMessages)
+    ipc.sendToHost('phishingDetected')
   }
 
   var scanEnd = performance.now()
 
-  debugPhishing('phishing scan took ' + (scanEnd - scanStart) + ' milliseconds')
+  console.log('phishing scan took ' + (scanEnd - scanStart) + ' milliseconds')
 
   return true
 }

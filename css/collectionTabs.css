@@ -31,6 +31,8 @@
 }
 
 .collection-tabs {
+    position: absolute;
+    top:0;
     display: flex;
     height: 31px;
     z-index: 10;
@@ -60,7 +62,7 @@
     letter-spacing: .5px;
     max-width: 20%;
     cursor: pointer;
-    transition: all ease .3s ;
+    transition: none;
     color: #6b6b6b;
     /*background: #f7f9fc;*/
 }
@@ -92,10 +94,8 @@
 }
 
 #collection-tabs > div.active-tab.editing {
-    /*background-color: hsla(219, 61%, 90%, 1);*/
-    /*box-shadow: inset 0px 1px 12px -3px rgb(146, 147, 150);*/
-    background-color: #E7F1FE;
-    box-shadow: inset 0px 1px 11px -3px rgb(146, 147, 150);
+    background-color: hsla(219, 61%, 90%, 1);
+    box-shadow: inset 0px 1px 12px -3px rgb(146, 147, 150);
 }
 
 #collection-tabs > div input::placeholder { /* Firefox 18- */

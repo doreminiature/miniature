@@ -1,12 +1,10 @@
-/* global db Worker tabs */
-
-const bookmarks = {
+var bookmarks = {
   updateHistory: function (tabId, extractedText, metadata) {
     /* this prevents pages that are immediately left from being saved to history, and also gives the page-favicon-updated event time to fire (so the colors saved to history are correct). */
     setTimeout(function () {
-      const tab = tabs.get(tabId)
+      var tab = tabs.get(tabId)
       if (tab) {
-        const data = {
+        var data = {
           url: tab.url,
           title: tab.title,
           color: tab.backgroundColor,
@@ -23,13 +21,13 @@ const bookmarks = {
   },
   callbacks: [],
   addWorkerCallback: function (callback) {
-    const callbackId = Date.now()
+    var callbackId = Date.now()
     bookmarks.callbacks.push({id: callbackId, fn: callback})
     return callbackId
   },
   runWorkerCallback: function (id, data) {
     for (var i = 0; i < bookmarks.callbacks.length; i++) {
-      if (bookmarks.callbacks[i].id === id) {
+      if (bookmarks.callbacks[i].id == id) {
         bookmarks.callbacks[i].fn(data)
         bookmarks.callbacks.splice(i, 1)
       }
@@ -43,17 +41,16 @@ const bookmarks = {
       }
     })
   },
-  searchPlaces: function (text, callback, options) {
-    const callbackId = bookmarks.addWorkerCallback(callback)
+  searchPlaces: function (text, callback) {
+    var callbackId = bookmarks.addWorkerCallback(callback)
     bookmarks.worker.postMessage({
       action: 'searchPlaces',
       text: text,
-      callbackId: callbackId,
-      options: options
+      callbackId: callbackId
     })
   },
   searchPlacesFullText: function (text, callback) {
-    const callbackId = bookmarks.addWorkerCallback(callback)
+    var callbackId = bookmarks.addWorkerCallback(callback)
     bookmarks.worker.postMessage({
       action: 'searchPlacesFullText',
       text: text,
@@ -61,7 +58,7 @@ const bookmarks = {
     })
   },
   getPlaceSuggestions: function (url, callback) {
-    const callbackId = bookmarks.addWorkerCallback(callback)
+    var callbackId = bookmarks.addWorkerCallback(callback)
     bookmarks.worker.postMessage({
       action: 'getPlaceSuggestions',
       text: url,
@@ -72,7 +69,7 @@ const bookmarks = {
     bookmarks.runWorkerCallback(e.data.callbackId, e.data.result)
   },
   updateBookmarkState: function (tabId, shouldBeBookmarked) {
-    const url = tabs.get(tabId).url
+    var url = tabs.get(tabId).url
     db.places.where('url').equals(url).first(function (item) {
       // a history item already exists, update it
       if (item) {
@@ -102,7 +99,7 @@ const bookmarks = {
     bookmarks.updateBookmarkState(tabId, false)
   },
   toggleBookmarked: function (tabId) { // toggles a bookmark. If it is bookmarked, delete the bookmark. Otherwise, add it.
-    const url = tabs.get(tabId).url
+    var url = tabs.get(tabId).url
 
     db.places.where('url').equals(url).first(function (item) {
       if (item && item.isBookmarked) {
@@ -119,7 +116,7 @@ const bookmarks = {
     bookmarks.toggleBookmarked(star.getAttribute('data-tab'))
   },
   getStar: function (tabId) {
-    const star = document.createElement('i')
+    var star = document.createElement('i')
     star.setAttribute('data-tab', tabId)
     star.className = 'fa fa-star-o bookmarks-button' // alternative icon is fa-bookmark
 
@@ -132,7 +129,7 @@ const bookmarks = {
   renderStar: function (tabId, star) { // star is optional
     star = star || document.querySelector('.bookmarks-button[data-tab="{id}"]'.replace('{id}', tabId))
 
-    const currentURL = tabs.get(tabId).url
+    var currentURL = tabs.get(tabId).url
 
     if (!currentURL || currentURL === 'about:blank') { // no url, can't be bookmarked
       star.hidden = true

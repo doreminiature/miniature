@@ -1,31 +1,57 @@
+#webpreview {
+}
 #webviews {
 	height: calc(100vh - 66px);
-	position: relative;
+	/*width: 100%;*/
+	left: 0;
+	right: 0;
+	position: absolute;
+	top: 66px;
+	/*transition: all .3s ease;*/
+}
+#webviews.active{
+	/*width: calc(100%);*/
+	left: calc(20% + 159px);
+	right: 0;
+}
+#webpreview {
+	opacity: 0;
+	height: calc(100vh - 69px);
+	left: 0;
+	position: absolute;
+	top: 69px;
+	/*background-position: 50% 0;*/
+	/*background-size: 100% auto;*/
+	/*transition: 0.3s opacity 0.25s ease-in-out;*/
 }
 #webviews webview {
 	height: 100%;
-	width: 100%;
+	left:0;
+	right: 0;
 	outline: none;
 	position: absolute;
-	background: #fff;
+	display: flex;
+	/*transition: all .3s ease;*/
 }
-/* new tabs should show as black when dark mode is enabled */
-
-.dark-mode #webviews webview:not([src]) {
-	background: rgb(30, 33, 39);
+#webviews.active webview {
+	/*right: 0;*/
+	/*left: calc(20% + 158px);*/
 }
-#webviews webview.hidden:not(.loading) {
-	display: flex !important;
-	visibility: hidden;
-}
-#webviews webview.loading.hidden {
-	z-index: -1;
+#webviews webview[hidden] {
+	/*display: flex !important;*/
+	/*visibility: hidden;*/
+	display: none;
 }
 #webviews webview.fullscreen {
 	position: fixed;
 	top: 0;
 	left: 0;
-	width: 100vw;
-	height: 100vh;
-	z-index: 99;
+	height: 100%;
+	z-index: 2299;
+}
+
+/* hack to work around display: none issues with webviews */
+
+#webviews.hidden {
+	visibility: hidden;
 }

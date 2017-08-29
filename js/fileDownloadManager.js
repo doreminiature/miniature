@@ -2,15 +2,28 @@
 
 var PDFViewerURL = 'file://' + __dirname + '/pdfjs/web/viewer.html?url='
 
-ipc.on('openPDF', function (event, data) {
-  var PDFurl = PDFViewerURL + data.url
+ipc.on('openPDF', function (event, filedata) {
+  var PDFurl = PDFViewerURL + filedata.url
+  var hasOpenedPDF = false
 
   // we don't know which tab the event came from, so we loop through each tab to find out.
 
   tabs.get().forEach(function (tab) {
-    var webview = getWebview(tab.id)
-    if (webview && webview.getWebContents().getId() === data.webContentsId) {
+    if (tab.url === filedata.url) {
       navigate(tab.id, PDFurl)
+      hasOpenedPDF = true
     }
   })
+
+  if (!hasOpenedPDF) {
+    var newTab = tabs.add({
+      url: PDFurl
+    }, tabs.getIndex(tabs.getSelected()) + 1)
+
+    addTab(newTab, {
+      enterEditMode: false
+    })
+
+    getWebview(newTab).focus()
+  }
 })

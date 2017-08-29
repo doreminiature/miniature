@@ -29,3 +29,40 @@ menu.addEventListener('click', function () {
     console.log('image', image)
   })*/
 })
+
+
+
+BC = {
+
+  START(){
+    BC.EVENTS()
+  }, EVENTS(){
+    eventEmitter.on( 'startLoadingPage', () => { BC.SET_ICONS() })
+    eventEmitter.on( 'stopLoadingPage', () => { BC.SET_ICONS() })
+    eventEmitter.on( 'goToCollection', () => { BC.SET_ICONS() })
+    eventEmitter.on( 'updatePage', () => { BC.SET_ICONS() })
+    eventEmitter.on( 'updateFavicon', () => { BC.SET_ICONS() })
+    eventEmitter.on( 'renderOverlay', () => { BC.SET_ICONS() })
+    eventEmitter.on( 'addTab', () => { BC.SET_ICONS() })
+    eventEmitter.on( 'windowClose', () => { BC.SET_ICONS() })
+  },
+
+  SET_ICONS(){
+
+    try {
+      if( getWebview(tabs.getSelected()).canGoBack() == false){
+        document.getElementById("back").style.opacity = "0.2"
+      } else {
+        document.getElementById("back").style.opacity = "1"
+      }
+      if( getWebview(tabs.getSelected()).canGoForward() == false){
+        document.getElementById("forward").style.opacity = "0.2"
+      } else {
+        document.getElementById("forward").style.opacity = "1"
+      }
+    } catch ( e ){}
+
+  }
+
+}
+BC.START()

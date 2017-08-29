@@ -1,5 +1,5 @@
 var tabState = {
-  tasks: [], // each task is {id, name, tabs: [], tabHistory: TabStack}
+  tasks: [], // each task is {id, name, tabs: [], selectedTab}
   selectedTask: null
 }
 
@@ -13,15 +13,15 @@ var tabPrototype = {
     var tabId = String(tab.id || Math.round(Math.random() * 100000000000000000)) // you can pass an id that will be used, or a random one will be generated.
 
     var newTab = {
-      url: tab.url || '',
+      url: tab.url || 'duckduckgo.com',
       title: tab.title || '',
       id: tabId,
       lastActivity: tab.lastActivity || Date.now(),
-      secure: tab.secure,
+      // secure: tab.secure,
       private: tab.private || false,
-      readerable: tab.readerable || false,
-      backgroundColor: tab.backgroundColor,
-      foregroundColor: tab.foregroundColor,
+      // readerable: tab.readerable || false,
+      // backgroundColor: tab.backgroundColor,
+      // foregroundColor: tab.foregroundColor,
       selected: tab.selected || false
     }
 
@@ -34,6 +34,9 @@ var tabPrototype = {
     return tabId
   },
   update: function (id, data) {
+
+    eventEmitter.emit('updatePage')
+
     if (!this.get(id)) {
       throw new ReferenceError('Attempted to update a tab that does not exist.')
     }
@@ -49,11 +52,18 @@ var tabPrototype = {
       }
       this[index][key] = data[key]
     }
+
+    setTimeout(function () {
+      try {
+        CT.renderOverlay()
+      } catch (e){}
+    }, 100)
+
+
   },
   destroy: function (id) {
     for (var i = 0; i < this.length; i++) {
       if (this[i].id === id) {
-        tasks.getTaskContainingTab(id).tabHistory.push(this[i])
         this.splice(i, 1)
         return i
       }
@@ -79,14 +89,6 @@ var tabPrototype = {
       }
     }
     return undefined
-  },
-  has: function (id) {
-    for (var i = 0; i < this.length; i++) {
-      if (this[i].id === id) {
-        return true
-      }
-    }
-    return false
   },
   getIndex: function (id) {
     for (var i = 0; i < this.length; i++) {
@@ -126,17 +128,6 @@ var tabPrototype = {
     this.sort(function (a, b) {
       return newOrder.indexOf(a.id) - newOrder.indexOf(b.id)
     })
-  },
-  isEmpty: function () {
-    if (!this || this.length === 0) {
-      return true
-    }
-
-    if (this.length === 1 && (!this[0].url || this[0].url === 'about:blank')) {
-      return true
-    }
-
-    return false
   }
 }
 
@@ -145,7 +136,9 @@ function getRandomId () {
 }
 
 var tasks = {
+
   add: function (task, index) {
+    // alert(0)
     if (!task) {
       task = {}
     }
@@ -153,7 +146,7 @@ var tasks = {
     var newTask = {
       name: task.name || null,
       tabs: task.tabs || [],
-      tabHistory: new TabStack(task.tabHistory),
+      selectedTab: task.selectedTab || null,
       id: task.id || String(getRandomId())
     }
 
@@ -167,6 +160,34 @@ var tasks = {
       tabState.tasks.splice(index, 0, newTask)
     } else {
       tabState.tasks.push(newTask)
+      // tabState.tasks.unshift(newTask)
+    }
+
+    return newTask.id
+  },
+  addInStart: function (task, index) {
+    if (!task) {
+      task = {}
+    }
+
+    var newTask = {
+      name: task.name || null,
+      tabs: task.tabs || [],
+      selectedTab: task.selectedTab || null,
+      id: task.id || String(getRandomId())
+    }
+
+    // task.currentTask.tabs.__proto__ = tabPrototype
+
+    for (var key in tabPrototype) {
+      newTask.tabs.__proto__[key] = tabPrototype[key]
+    }
+
+    if (index) {
+      tabState.tasks.splice(index, 0, newTask)
+    } else {
+      // tabState.tasks.push(newTask)
+      tabState.tasks.unshift(newTask)
     }
 
     return newTask.id
@@ -183,26 +204,12 @@ var tasks = {
     }
     return null
   },
-  getTaskContainingTab: function (tabId) {
-    for (var i = 0; i < tabState.tasks.length; i++) {
-      if (tabState.tasks[i].tabs.has(tabId)) {
-        return tabState.tasks[i]
-      }
-    }
-    return null
-  },
-  getIndex: function (id) {
-    for (var i = 0; i < tabState.tasks.length; i++) {
-      if (tabState.tasks[i].id === id) {
-        return i
-      }
-    }
-    return -1
-  },
   setSelected: function (id) {
-    tabState.selectedTask = id
-    window.currentTask = tasks.get(id)
-    window.tabs = currentTask.tabs
+    try {
+      tabState.selectedTask = id
+      window.currentTask = tasks.get(id)
+      window.tabs = currentTask.tabs
+    } catch (e) {}
   },
   destroy: function (id) {
     for (var i = 0; i < tabState.tasks.length; i++) {
@@ -242,5 +249,28 @@ var tasks = {
     }
 
     return lastActivity
+  },
+  getTabsFromIdCollection( id ){
+    for ( let i = 0; i < tabState.tasks.length; i++ ){
+      if( id == tabState.tasks[ i ].id ){
+        return tabState.tasks[ i ].tabs
+      }
+    }
   }
+}
+
+function getSelectedTask () {
+  return getTask(tabState.selectedTask)
+}
+
+function isEmpty (tabList) {
+  if (!tabList || tabList.length === 0) {
+    return true
+  }
+
+  if (tabList.length === 1 && (!tabList[0].url || tabList[0].url === 'about:blank')) {
+    return true
+  }
+
+  return false
 }

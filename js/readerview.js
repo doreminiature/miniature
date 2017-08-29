@@ -8,6 +8,8 @@ var readerView = {
     var item = document.createElement('i')
     item.className = 'fa fa-align-left reader-button'
 
+
+
     item.setAttribute('data-tab', tabId)
     item.setAttribute('title', 'Enter reader view')
 
@@ -27,16 +29,21 @@ var readerView = {
     return item
   },
   updateButton: function (tabId) {
+    // eventEmitter
+    eventEmitter.emit('openPage')
+    //console.warn("eventEmitter", "openPage")
+    // eventEmitter //
+
     var button = document.querySelector('.reader-button[data-tab="{id}"]'.replace('{id}', tabId))
     var tab = tabs.get(tabId)
-
+    if (!button) return;
     if (tab.isReaderView) {
-      button.classList.add('is-reader')
-      button.setAttribute('title', 'Exit reader view')
-      return
+        button.classList.add('is-reader')
+        button.setAttribute('title', 'Exit reader view')
+        return
     } else {
-      button.classList.remove('is-reader')
-      button.setAttribute('title', 'Enter reader view')
+        button.classList.remove('is-reader')
+        button.setAttribute('title', 'Enter reader view')
     }
 
     if (tab.readerable) {
@@ -46,6 +53,7 @@ var readerView = {
     }
   },
   enter: function (tabId) {
+
     navigate(tabId, readerView.readerURL + '?url=' + tabs.get(tabId).url)
     tabs.update(tabId, {
       isReaderView: true
@@ -88,7 +96,7 @@ var readerView = {
       })
 
       item.addEventListener('click', function (e) {
-        openURLFromSearchbar(readerView.getReaderURL(article.url), e)
+        openURLFromsearchbar(e, readerView.getReaderURL(article.url))
       })
 
       if (article.visitCount > 5 || (article.extraData.scrollPosition > 0 && article.extraData.articleScrollLength - article.extraData.scrollPosition < 1000)) { // the article has been visited frequently, or the scroll position is at the bottom
@@ -143,6 +151,10 @@ registerSearchbarPlugin('readingList', {
 // update the reader button on page load
 
 bindWebviewEvent('did-finish-load', function (e) {
+  // eventEmitter
+  eventEmitter.emit('loadFinish')
+  //console.warn("eventEmitter", "loadFinish")
+  // eventEmitter //
   var tab = this.getAttribute('data-tab')
   var url = this.getAttribute('src')
 

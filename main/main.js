@@ -72,14 +72,23 @@ function createWindow (cb) {
 
 function createWindowWithBounds (bounds, shouldMaximize) {
   mainWindow = new BrowserWindow({
-    width: bounds.width,
-    height: bounds.height,
-    x: bounds.x,
-    y: bounds.y,
-    minWidth: 320,
-    minHeight: 500,
-    titleBarStyle: 'hidden-inset',
-    icon: __dirname + '/icons/icon256.png'
+      width: bounds.width,
+      height: bounds.height,
+      x: bounds.x,
+      y: bounds.y,
+      minWidth: 620,
+      minHeight: 500,
+      titleBarStyle: 'hidden-inset',
+      frame: false,
+      hasShadow: false,
+      thickFrame: true,
+      icon: __dirname + '/icons/icon256.png',
+      plugins: true,
+      experimentalFeatures: true,
+      experimentalCanvasFeatures: true,
+      webPreferences: {
+          blinkFeatures: 'overlayScrollbars'
+      }
   })
 
   // and load the index.html of the app.

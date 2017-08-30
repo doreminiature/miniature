@@ -55,8 +55,7 @@ module.exports = function (grunt) {
 							"js/focusMode.js",
 							"js/util/theme.js",
 						"js/collectionTabs.js",
-						"js/favicon.js",
-						"js/collection.js"
+						"js/favicon.js"
 
 
 						 ],

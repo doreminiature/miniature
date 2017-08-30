@@ -9,7 +9,6 @@ var readerView = {
     item.className = 'fa fa-align-left reader-button'
 
 
-
     item.setAttribute('data-tab', tabId)
     item.setAttribute('title', 'Enter reader view')
 

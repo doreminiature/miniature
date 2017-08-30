@@ -268,9 +268,10 @@ CT = {
 
     eventEmitter.emit('renderOverlay')
 
-    if(document.querySelector('#task-overlay').getAttribute('hidden') == null)
-      taskOverlay.show()
-
+    if( taskOverlay.inputFocus ){
+        if(document.querySelector('#task-overlay').getAttribute('hidden') == null)
+            taskOverlay.show()
+    }
 
     eventEmitter.emit('render')
 

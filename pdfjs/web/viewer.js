@@ -72,6 +72,7 @@ var pdfjsWebLibs;
      return node[matchesSelector]('a[href], a[href] *, input, textarea, button, button *, select, option');
     },
     _onmousedown: function GrabToPan__onmousedown(event) {
+
      if (event.button !== 0 || this.ignoreTarget(event.target)) {
       return;
      }

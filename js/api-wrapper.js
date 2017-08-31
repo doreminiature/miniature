@@ -88,6 +88,14 @@ function switchToTask(id) {
 
         switchToTab(selectedTab)
     } else {
+        for (let i = 0; i < tabState.tasks.length; i++) {
+            for (let j = 0; j < tabState.tasks[i].tabs.length; j++) {
+                if (tabState.tasks[i].tabs[j].id == selectedTab && tabState.tasks[i].tabs[j].title == 'DuckDuckGo') {
+                    tabState.tasks[i].tabs[j].title = 'Collection'
+                    tabState.tasks[i].tabs[j].url = 'file:///' + __dirname + '/pages/collection/index.html'
+                }
+            }
+        }
         addTab()
 
     }

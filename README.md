@@ -1,5 +1,6 @@
 ![Miniature Mockup](https://i.imgur.com/9Rshss4.png)
 
+
 About:
 ------
 
@@ -25,6 +26,6 @@ Developers:
 * `npm i`.
 * Run: `/Path/To/Electron /Path/To/Miniature`.
 * Develop: `grunt dev`. Browser chrome will auto update on source file saves.
-* Build distributive: `grunt windowsBuild`, `grunt macBuild`, `grunt linuxBuild`. Builds to '/Path/To/Miniature/dist'
+* Build distributive: `grunt windowsBuild`, `grunt macBuild`, `grunt linuxBuild`. Builds to `/Path/To/Miniature/dist`
 
 If you are using OS X, install [Homebrew](http://brew.sh), then run `brew install fakeroot dpkg`.

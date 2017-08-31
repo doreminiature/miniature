@@ -83,12 +83,12 @@ F = {
         }
 
         // clear
-        let el = document.querySelectorAll('.tab-item img')
-        for (let i = 0; i < el.length; i++) {
+        // let el = document.querySelectorAll('.tab-item img')
+        // for (let i = 0; i < el.length; i++) {
             // document.querySelectorAll('.tab-item img')[ i ].src = ''
-            document.querySelectorAll('.tab-item img')[i].src = F.___LOADING_ICON()
+            // document.querySelectorAll('.tab-item img')[i].src = F.___LOADING_ICON()
             // document.querySelectorAll('.tab-item img')[ i ].src = ''
-        }
+        // }
 
         // set
         for (let s = 0; s < collectionNowTabs.length; s++) {
@@ -107,12 +107,14 @@ F = {
 
             let collectionUrl = ('file:///' + path.join(__dirname) + '/pages/collection/index.html').replace(/\\/g, "/")
             if (collectionNowTabs[s].url == collectionUrl) {
-
-                for (let j = 0; j < F.DB.length; j++) {
-                    if (F.DB[j].url == 'collection') {
-                        document.querySelectorAll('.tab-item img')[s].src = F.DB[j].base64
+                try{
+                    for (let j = 0; j < F.DB.length; j++) {
+                        if (F.DB[j].url == 'collection') {
+                            document.querySelectorAll('.tab-item img')[s].src = F.DB[j].base64
+                        }
                     }
-                }
+                } catch ( e ) {}
+
             }
         }
 

@@ -115,7 +115,8 @@ CT = {
                         if (tabState.tasks[i].id == tabState.selectedTask) {
                             if (tabState.tasks[i].name == null) {
                                 document.querySelector('.active-tab input').disabled = false
-                                document.querySelector('.active-tab input').focus()
+                                // document.querySelector('.active-tab input').focus()
+                                document.querySelector('.active-tab input').select()
                                 document.querySelector('.active-tab').className += ' editing'
                                 // CT.inputFocus = true
                                 document.querySelector('.active-tab').addEventListener('blur', function () {
@@ -126,7 +127,8 @@ CT = {
                     }
                 } else {
                     document.querySelector('.active-tab input').disabled = false
-                    document.querySelector('.active-tab input').focus()
+                    // document.querySelector('.active-tab input').focus()
+                    document.querySelector('.active-tab input').select()
                     document.querySelector('.active-tab').className += ' editing'
                     // CT.inputFocus = true
                     document.querySelector('.active-tab').addEventListener('blur', function () {

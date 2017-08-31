@@ -31,7 +31,11 @@ var webviewMenu = {
                 linkActions.push(new MenuItem({
                     label: 'Open in New Tab',
                     click: function () {
-                        addTab(tabs.add({ url: link }, tabs.getIndex(tabs.getSelected()) + 1), { enterEditMode: false })
+
+                        // alert()
+                        addTab( tabs.add({ url: link }, tabs[0]), { enterEditMode: false } )
+
+                        // addTab(tabs.add({ url: link }, tabs.getIndex(tabs.getSelected()) + 1), { enterEditMode: false })
                     }
                 }))
             }

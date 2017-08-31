@@ -2,9 +2,9 @@ window.electron = require('electron')
 window.ipc = electron.ipcRenderer
 window.remote = electron.remote
 window.Dexie = require('dexie')
-var $ = require("jquery")
 var fs = require("fs")
 var request = require('request').defaults({ encoding: null })
+var path = require("path")
 
 var events = require('events')
 var eventEmitter = new events.EventEmitter() // addTab, openPage, loadFinish, back,  forward, updatePage, goToCollection, renderOverlay, windowClose

@@ -138,6 +138,9 @@ function getRandomId () {
 var tasks = {
 
   add: function (task, index) {
+    console.log( ' ------------------- ' )
+    console.log( task, index )
+      console.log( ' ------------------- ' )
     // alert(0)
     if (!task) {
       task = {}

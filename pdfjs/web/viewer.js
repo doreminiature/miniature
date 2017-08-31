@@ -32,7 +32,7 @@ var pdfjsWebLibs;
     this.activate = this.activate.bind(this);
     this.deactivate = this.deactivate.bind(this);
     this.toggle = this.toggle.bind(this);
-    this._onmousedown = this._onmousedown.bind(this);
+    this._onmousedown = this._onmousedown.bind(this); //
     this._onmousemove = this._onmousemove.bind(this);
     this._endPan = this._endPan.bind(this);
     var overlay = this.overlay = document.createElement('div');

@@ -118,6 +118,9 @@ CT = {
                                 document.querySelector('.active-tab input').focus()
                                 document.querySelector('.active-tab').className += ' editing'
                                 // CT.inputFocus = true
+                                document.querySelector('.active-tab').addEventListener('blur', function () {
+                                    CT.remoteClassEditing()
+                                }, true);
                             }
                         }
                     }
@@ -126,12 +129,14 @@ CT = {
                     document.querySelector('.active-tab input').focus()
                     document.querySelector('.active-tab').className += ' editing'
                     // CT.inputFocus = true
+                    document.querySelector('.active-tab').addEventListener('blur', function () {
+                        CT.remoteClassEditing()
+                    }, true);
                 }
-
             }
+
         } catch (e) {
         }
-
 
 
         // edit name collection tabs
@@ -150,7 +155,6 @@ CT = {
         })
 
         eventEmitter.emit('goToCollection')
-
 
 
     },

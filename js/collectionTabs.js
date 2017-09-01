@@ -48,7 +48,7 @@ CT = {
 
     goToCollection(e) {
         say.m('CT.goToCollection(e):')
-
+        CT.addCollectionTab()
         // click on collection tabs
         try {
             if (e.target.parentNode.parentNode.id == 'collection-tabs') {
@@ -60,11 +60,8 @@ CT = {
                     for (let i = 0; i < tabState.tasks.length; i++) {
                         if (tabState.tasks[i].id == tabState.selectedTask) {
                             if (tabState.tasks[i].name == null) {
-                                document.querySelector('.active-tab input').disabled = false
-                                // document.querySelector('.active-tab input').focus()
-                                document.querySelector('.active-tab input').select()
-                                document.querySelector('.active-tab').className += ' editing'
-                                // CT.inputFocus = true
+                                CT.addClassEditing()
+                                CT.addCollectionTab()
                                 document.querySelector('.active-tab').addEventListener('blur', function () {
                                     CT.remoteClassEditing()
                                 }, true);
@@ -72,11 +69,8 @@ CT = {
                         }
                     }
                 } else {
-                    document.querySelector('.active-tab input').disabled = false
-                    // document.querySelector('.active-tab input').focus()
-                    document.querySelector('.active-tab input').select()
-                    document.querySelector('.active-tab').className += ' editing'
-                    // CT.inputFocus = true
+                    CT.addClassEditing()
+                    CT.addCollectionTab()
                     document.querySelector('.active-tab').addEventListener('blur', function () {
                         CT.remoteClassEditing()
                     }, true);
@@ -127,6 +121,11 @@ CT = {
 
         console.log('id: ' + id, 'index: ' + index)
         return index
+    },
+    addClassEditing() {
+        document.querySelector('.active-tab input').disabled = false
+        document.querySelector('.active-tab input').select()
+        document.querySelector('.active-tab').className += ' editing'
     },
     remoteClassEditing() {
         say.m('CT.remoteClassEditing()')
@@ -229,6 +228,38 @@ CT = {
     },
     collectionLeftFocusOnCollectionTabInput(id) {
         document.querySelector(`[data-task="${id}"] input`).focus()
+    },
+    addCollectionTab() {
+        say.m('CT.addCollectionTab()')
+
+        let thereIsCollection = false
+        for (let i = 0; i < tabState.tasks.length; i++) {
+            if (tabState.tasks[i].id == tabState.selectedTask) {
+                for (let j = 0; j < tabState.tasks[i].tabs.length; j++) {
+                    if (tabState.tasks[i].tabs[j].title == 'Collection') {
+                        thereIsCollection = true
+                    }
+
+                }
+                if (tabState.tasks[i].tabs.length == 2) {
+                    for (let j = 0; j < tabState.tasks[i].tabs.length; j++) {
+                        if (tabState.tasks[i].tabs[j].title == 'DuckDuckGo') {
+                            destroyTab(tabState.tasks[i].tabs[j].id)
+                        }
+
+                    }
+                }
+            }
+
+        }
+        if (thereIsCollection == false && document.querySelector('.active-tab ').className.indexOf("editing") != -1) {
+            addTab(tabs.add({
+                url: 'file:///' + __dirname + '/pages/collection/index.html',
+                title: 'Collection'
+            }, tabs[0]), {enterEditMode: false})
+            CT.addClassEditing()
+        }
+
     },
 
     render() {

@@ -1313,6 +1313,7 @@ var pdfjsWebLibs;
     return suggestedFilename || 'document.pdf';
    }
    function normalizeWheelEventDelta(evt) {
+
     var delta = Math.sqrt(evt.deltaX * evt.deltaX + evt.deltaY * evt.deltaY);
     var angle = Math.atan2(evt.deltaY, evt.deltaX);
     if (-0.25 * Math.PI < angle && angle < 0.75 * Math.PI) {

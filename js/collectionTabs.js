@@ -48,60 +48,10 @@ CT = {
 
     goToCollection(e) {
         say.m('CT.goToCollection(e):')
-        say.o(e)
 
-        // for (let i = 0; i < tabState.tasks.length; i++) {
-        //     if (e.target.dataset.id == tabState.tasks[i].id) {
-        //         if (tabState.tasks[i].tabs.length == 1 && tabState.tasks[i].tabs[0].url == 'https://duckduckgo.com/') {
-        //
-        //             console.log('!!!!!!!!!!!!!!!!!!!!! === ', tabState.tasks[i].tabs[0].url)
-        //             alert()
-        //             tabState.tasks[i].tabs[0].url = 'https://nodejs.org'
-        //             //
-        //             // let t = {
-        //             //     backgroundColor: "rgb(220,75,40)",
-        //             //     foregroundColor: "white",
-        //             //     id: String(getRandomId()),
-        //             //     isReaderView: false,
-        //             //     private:  false,
-        //             //     readerable: false,
-        //             //     secure: true,
-        //             //     selected: true,
-        //             //     title:  'Collection',
-        //             //     // url:  path.join(  'file:///',__dirname, 'pages', 'collection', 'index.html')
-        //             //     url: 'http://google.com'
-        //             //     // url: 'file:\\' + path.join( __dirname, '/pages/collection/index.html' )
-        //             // }
-        //             // for (var key in tabPrototype) {
-        //             //     t.__proto__[key] = tabPrototype[key]
-        //             // }
-        //             // tabState.tasks[i].tabs.push(t)
-        //             //
-        //             // let t = {
-        //             //     backgroundColor: "rgb(220,75,40)",
-        //             //     foregroundColor: "white",
-        //             //     id: String(getRandomId()),
-        //             //     isReaderView: false,
-        //             //     private:  false,
-        //             //     readerable: false,
-        //             //     secure: true,
-        //             //     selected: true,
-        //             //     title:  'Collection',
-        //             //     // url:  path.join(  'file:///',__dirname, 'pages', 'collection', 'index.html')
-        //             //     url: 'http://google.com'
-        //             //     // url: 'file:\\' + path.join( __dirname, '/pages/collection/index.html' )
-        //             // }
-        //             // for (var key in tabPrototype) {
-        //             //     t.__proto__[key] = tabPrototype[key]
-        //             // }
-        //             // tabState.tasks[i].tabs.push(t)
-        //
-        //
-        //             // file:///C:/Users/steko/Desktop/DEV/miniature/pages/error/index.html?ec=-105&url=http%3A%2F%2Fhttpasdas%2F%2Fduckduckgo.com%2F%3Fq%3Dsadxczxcad%26t%3Dmin%26ia%3Dweb
-        //             // file:\C:\Users\steko\Desktop\DEV\miniature\pages\collection\index.html
-        //         }
-        //     }
-        // }
+        CT.addCollectionTab()
+
+        taskOverlay.inputFocus = true
 
         // click on collection tabs
         try {
@@ -114,11 +64,8 @@ CT = {
                     for (let i = 0; i < tabState.tasks.length; i++) {
                         if (tabState.tasks[i].id == tabState.selectedTask) {
                             if (tabState.tasks[i].name == null) {
-                                document.querySelector('.active-tab input').disabled = false
-                                // document.querySelector('.active-tab input').focus()
-                                document.querySelector('.active-tab input').select()
-                                document.querySelector('.active-tab').className += ' editing'
-                                // CT.inputFocus = true
+                                CT.addClassEditing()
+                                CT.addCollectionTab()
                                 document.querySelector('.active-tab').addEventListener('blur', function () {
                                     CT.remoteClassEditing()
                                 }, true);
@@ -126,11 +73,8 @@ CT = {
                         }
                     }
                 } else {
-                    document.querySelector('.active-tab input').disabled = false
-                    // document.querySelector('.active-tab input').focus()
-                    document.querySelector('.active-tab input').select()
-                    document.querySelector('.active-tab').className += ' editing'
-                    // CT.inputFocus = true
+                    CT.addClassEditing()
+                    CT.addCollectionTab()
                     document.querySelector('.active-tab').addEventListener('blur', function () {
                         CT.remoteClassEditing()
                     }, true);
@@ -140,15 +84,12 @@ CT = {
         } catch (e) {
         }
 
-
         // edit name collection tabs
         document.querySelector('.active-tab input').addEventListener('keydown', function (e) {
             if (e.which == 13) {
-                if (e.target.value != '') {
-                    for (let i = 0; i < tabState.tasks.length; i++) {
-                        if (tabState.tasks[i].id == e.target.getAttribute('data-id')) {
-                            tabState.tasks[i].name = e.target.value
-                        }
+                for (let i = 0; i < tabState.tasks.length; i++) {
+                    if (tabState.tasks[i].id == e.target.getAttribute('data-id')) {
+                        tabState.tasks[i].name = e.target.value
                     }
                 }
                 sessionRestore.save()
@@ -157,19 +98,14 @@ CT = {
         })
 
         eventEmitter.emit('goToCollection')
-
-
     },
     goToCollectionID(id) {
         say.m('CT.goToCollectionID(id): ' + id)
 
         let index = CT.getIndexFromIdTaskId(id)
-        console.log('index------------', index)
         if (index == 0) {
-            console.log('------------')
             switchToTask(tabState.tasks[index].id)
         } else {
-            console.log('------------')
             switchToTask(tabState.tasks[index - 1].id)
         }
 
@@ -189,6 +125,11 @@ CT = {
 
         console.log('id: ' + id, 'index: ' + index)
         return index
+    },
+    addClassEditing() {
+        document.querySelector('.active-tab input').disabled = false
+        document.querySelector('.active-tab input').select()
+        document.querySelector('.active-tab').className += ' editing'
     },
     remoteClassEditing() {
         say.m('CT.remoteClassEditing()')
@@ -217,14 +158,6 @@ CT = {
         CT.prevTabIndex.push(CT.taskIndex) // history tabs
 
         tabState.selectedTask = tabState.tasks[CT.prevTabIndex[CT.prevTabIndex.length - 1]].id
-
-        say.dd('taskId', CT.taskId)
-        say.dd('taskIndex', CT.taskIndex)
-        say.dd('tabId', CT.tabId)
-        say.d('tab:')
-        say.o(CT.tab)
-        say.d('tabActive:')
-        say.o(CT.tabActive)
 
     },
     selectFirstTabOnStart() {
@@ -300,6 +233,38 @@ CT = {
     collectionLeftFocusOnCollectionTabInput(id) {
         document.querySelector(`[data-task="${id}"] input`).focus()
     },
+    addCollectionTab() {
+        say.m('CT.addCollectionTab()')
+
+        let thereIsCollection = false
+        for (let i = 0; i < tabState.tasks.length; i++) {
+            if (tabState.tasks[i].id == tabState.selectedTask) {
+                for (let j = 0; j < tabState.tasks[i].tabs.length; j++) {
+                    if (tabState.tasks[i].tabs[j].title == 'Collection') {
+                        thereIsCollection = true
+                    }
+
+                }
+                if (tabState.tasks[i].tabs.length == 2) {
+                    for (let j = 0; j < tabState.tasks[i].tabs.length; j++) {
+                        if (tabState.tasks[i].tabs[j].title == 'DuckDuckGo') {
+                            destroyTab(tabState.tasks[i].tabs[j].id)
+                        }
+
+                    }
+                }
+            }
+
+        }
+        if (thereIsCollection == false && document.querySelector('.active-tab ').className.indexOf("editing") != -1) {
+            addTab(tabs.add({
+                url: 'file:///' + __dirname + '/pages/collection/index.html',
+                title: 'Collection'
+            }, tabs[0]), {enterEditMode: false})
+            CT.addClassEditing()
+        }
+
+    },
 
     render() {
         say.m('CT.render()')
@@ -324,7 +289,7 @@ CT = {
         }
     },
     renderOverlay() {
-        say.m('CT.renderOverlay()')
+        say.m('CT.renderOverlay() ' + taskOverlay.inputFocus)
 
         eventEmitter.emit('renderOverlay')
 

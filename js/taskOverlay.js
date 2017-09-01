@@ -166,6 +166,7 @@ function getTaskElement(task, taskIndex) {
                 }
             }
             tabContainer.appendChild(img)
+            // add favicon //
 
             var el = getTaskOverlayTabElement(task.tabs[i], task)
 
@@ -177,6 +178,17 @@ function getTaskElement(task, taskIndex) {
             })
             // tabContainer.appendChild('<img class="favicon">')
             tabContainer.appendChild(el)
+
+            // add X
+            let span = document.createElement('span')
+            span.innerHTML = 'X'
+            span.dataset.id = task.tabs[i].id
+            span.onclick = function(){
+                destroyTab(this.getAttribute('data-id'))
+            }
+            el.appendChild(span)
+            // add X //
+
         }
     }
 

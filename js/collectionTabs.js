@@ -48,7 +48,11 @@ CT = {
 
     goToCollection(e) {
         say.m('CT.goToCollection(e):')
+
         CT.addCollectionTab()
+
+        taskOverlay.inputFocus = true
+
         // click on collection tabs
         try {
             if (e.target.parentNode.parentNode.id == 'collection-tabs') {
@@ -285,7 +289,7 @@ CT = {
         }
     },
     renderOverlay() {
-        say.m('CT.renderOverlay()')
+        say.m('CT.renderOverlay() ' + taskOverlay.inputFocus)
 
         eventEmitter.emit('renderOverlay')
 

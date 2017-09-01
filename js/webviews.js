@@ -275,6 +275,7 @@ function addWebview(tabId) {
         webview.classList.add('hidden')
 
         webview.classList.add('loading')
+        webview.setAttribute("autosize", "on")
 
         webviewBase.appendChild(webview)
 

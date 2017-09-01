@@ -53,6 +53,7 @@ CT = {
 
         taskOverlay.inputFocus = true
 
+
         // click on collection tabs
         try {
             if (e.target.parentNode.parentNode.id == 'collection-tabs') {

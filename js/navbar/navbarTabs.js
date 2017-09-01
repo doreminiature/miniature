@@ -34,6 +34,20 @@ function setActiveTabElement(tabId) {
     }, {
         timeout: 1500
     })
+
+    // change size WW
+    try {
+        let allWW = document.querySelectorAll('#webviews webview')
+        for (let i = 0; i < allWW.length; i++) {
+            allWW[i].style.height = '99%'
+        }
+        setTimeout(function () {
+            for (let i = 0; i < allWW.length; i++) {
+                allWW[i].style.height = '100%'
+            }
+        }, 0)
+    } catch (e) {
+    }
 }
 
 function leaveTabEditMode(options) {

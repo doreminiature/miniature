@@ -136,6 +136,37 @@ function getTaskElement(task, taskIndex) {
 
     if (task.tabs) {
         for (var i = 0; i < task.tabs.length; i++) {
+
+            // add favicon
+            var img = document.createElement('img')
+            img.classList.add('favicon')
+            if (task.tabs[i].url == ('file:///' + path.join(__dirname) + '/pages/collection/index.html').replace(/\\/g, "/")) {
+                try {
+                    for (let j = 0; j < F.DB.length; j++) {
+                        if (F.DB[j].url == 'collection') {
+                            img.src = F.DB[j].base64
+                        }
+                    }
+                } catch (e) {
+                }
+            } else {
+                try {
+                    let hostTab = F._urlToHost(task.tabs[i].url)
+                    if (hostTab != '') {
+                        try {
+                            for (let j = 0; j <= F.DB.length; j++) {
+                                if (F.DB[j].url == hostTab) {
+                                    img.src = F.DB[j].base64
+                                }
+                            }
+                        } catch (e) {
+                        }
+                    }
+                } catch (e) {
+                }
+            }
+            tabContainer.appendChild(img)
+
             var el = getTaskOverlayTabElement(task.tabs[i], task)
 
             el.addEventListener('click', function (e) {
@@ -144,7 +175,7 @@ function getTaskElement(task, taskIndex) {
 
                 // taskOverlay.hide()
             })
-
+            // tabContainer.appendChild('<img class="favicon">')
             tabContainer.appendChild(el)
         }
     }
@@ -205,6 +236,7 @@ var taskOverlay = {
         let titles = document.querySelectorAll('.searchbar-item.task-tab-item')
         for (let i = 0; i < titles.length; i++) {
             titles[i].addEventListener('click', function (event) {
+                taskOverlay.inputFocus = true
                 sessionRestore.save()
                 CT.render()
             })
@@ -328,4 +360,8 @@ function syncStateAndOverlay() {
 
 taskOverlay.dragula.on('drop', function () {
     syncStateAndOverlay()
+})
+
+eventEmitter.on('updateFavicon', () => {
+    taskOverlay.show()
 })

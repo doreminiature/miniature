@@ -10,7 +10,7 @@ var webviewIPC = []
 
 // this only affects newly created webviews, so all bindings should be done on startup
 
-function bindWebviewEvent (event, fn, useWebContents) {
+function bindWebviewEvent(event, fn, useWebContents) {
     webviewEvents.push({
         event: event,
         fn: fn,
@@ -20,7 +20,7 @@ function bindWebviewEvent (event, fn, useWebContents) {
 
 // function is called with (webview, tabId, IPCArguements)
 
-function bindWebviewIPC (name, fn) {
+function bindWebviewIPC(name, fn) {
     webviewIPC.push({
         name: name,
         fn: fn
@@ -28,7 +28,7 @@ function bindWebviewIPC (name, fn) {
 }
 
 // the permissionRequestHandler used for webviews
-function pagePermissionRequestHandler (webContents, permission, callback) {
+function pagePermissionRequestHandler(webContents, permission, callback) {
     if (permission === 'notifications' || permission === 'fullscreen') {
         callback(true)
     } else {
@@ -38,7 +38,7 @@ function pagePermissionRequestHandler (webContents, permission, callback) {
 
 // called whenever the page url changes
 
-function onPageLoad (e) {
+function onPageLoad(e) {
     var tab = this.getAttribute('data-tab')
     var url = this.getAttribute('src') // src attribute changes whenever a page is loaded
 
@@ -72,6 +72,7 @@ bindWebviewIPC('pageData', function (webview, tabId, args) {
 
 // called when a swipe event is triggered in js/webview/swipeEvents.js
 
+
 bindWebviewIPC('goBack', function () {
     settings.get('swipeNavigationEnabled', function (value) {
         if (value === true || value === undefined) {
@@ -92,7 +93,7 @@ bindWebviewIPC('goForward', function () {
 
 remote.session.defaultSession.setPermissionRequestHandler(pagePermissionRequestHandler)
 
-function getWebviewDom (options) {
+function getWebviewDom(options) {
     var w = document.createElement('webview')
     w.setAttribute('preload', 'dist/webview.min.js')
     w.setAttribute('blinkfeatures', 'OverlayScrollbars')
@@ -131,21 +132,21 @@ function getWebviewDom (options) {
             w.addEventListener(ev.event, ev.fn)
         }
     })
-    w.addEventListener('did-start-loading', ( e )=>{
+    w.addEventListener('did-start-loading', (e) => {
         F.webviewIsLoading = true
-        eventEmitter.emit( 'startLoadingPage' )
+        eventEmitter.emit('startLoadingPage')
     })
 
-    w.addEventListener('did-stop-loading', ( e )=>{
+    w.addEventListener('did-stop-loading', (e) => {
         F.webviewIsLoading = false
-        eventEmitter.emit( 'stopLoadingPage' )
+        eventEmitter.emit('stopLoadingPage')
 
     })
 
-    w.addEventListener('page-favicon-updated', function(e) {
+    w.addEventListener('page-favicon-updated', function (e) {
         say.m('getWebviewDom page-favicon-updated')
-        F.ADD( e.path[ 0 ].attributes.src.nodeValue, e.favicons[0] )
-        eventEmitter.emit( 'updateFavicon' )
+        F.ADD(e.path[0].attributes.src.nodeValue, e.favicons[0])
+        eventEmitter.emit('updateFavicon')
     })
     w.addEventListener('page-favicon-updated', function (e) {
         var id = this.getAttribute('data-tab')
@@ -259,26 +260,30 @@ function getWebviewDom (options) {
 
 /* options: openInBackground: should the webview be opened without switching to it? default is false. */
 
-function addWebview (tabId) {
-    var tabData = tabs.get(tabId)
+function addWebview(tabId) {
 
-    var webview = getWebviewDom({
-        tabId: tabId,
-        url: tabData.url
-    })
+    try {
+        var tabData = tabs.get(tabId)
 
-    // this is used to hide the webview while still letting it load in the background
-    // webviews are hidden when added - call switchToWebview to show it
-    webview.classList.add('hidden')
+        var webview = getWebviewDom({
+            tabId: tabId,
+            url: tabData.url
+        })
 
-    webview.classList.add('loading')
+        // this is used to hide the webview while still letting it load in the background
+        // webviews are hidden when added - call switchToWebview to show it
+        webview.classList.add('hidden')
 
-    webviewBase.appendChild(webview)
+        webview.classList.add('loading')
 
-    return webview
+        webviewBase.appendChild(webview)
+
+        return webview
+    } catch (e) {
+    }
 }
 
-function switchToWebview (id) {
+function switchToWebview(id) {
     var webviews = document.getElementsByTagName('webview')
     for (var i = 0; i < webviews.length; i++) {
         webviews[i].hidden = true
@@ -295,17 +300,17 @@ function switchToWebview (id) {
 }
 
 
-function updateWebview (id, url) {
+function updateWebview(id, url) {
     getWebview(id).setAttribute('src', urlParser.parse(url))
 }
 
-function destroyWebview (id) {
+function destroyWebview(id) {
     var w = document.querySelector('webview[data-tab="{id}"]'.replace('{id}', id))
     if (w) {
         w.parentNode.removeChild(w)
     }
 }
 
-function getWebview (id) {
+function getWebview(id) {
     return document.querySelector('webview[data-tab="{id}"]'.replace('{id}', id))
 }

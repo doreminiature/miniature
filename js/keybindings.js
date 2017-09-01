@@ -31,7 +31,7 @@ ipc.on('showReadingList', function () {
 
 ipc.on('addTab', function (e, data) {
   /* new tabs can't be created in focus mode */
-
+  //
   if (isFocusMode) {
     showFocusModeError()
     return

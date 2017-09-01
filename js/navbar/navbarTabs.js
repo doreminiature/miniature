@@ -326,12 +326,6 @@ function addTab(tabId, options) {
 
     var tab = tabs.get(tabId)
 
-
-    console.log('++++++++++++++++++++++++++++++++++++++++++++')
-    console.log(tabId)
-    console.log(tab)
-    console.log('++++++++++++++++++++++++++++++++++++++++++++')
-
     // use the correct new tab colors
 
     if (tab.private && !tab.backgroundColor) {
@@ -352,12 +346,18 @@ function addTab(tabId, options) {
 
     var tabEl = createTabElement(tab)
 
-    // tabGroup.insertBefore(tabEl, tabGroup.childNodes[0])
-    tabGroup.insertBefore(tabEl, tabGroup.firstChild)
-    console.log('-----------------------------------------------------')
-    console.log(tabGroup)
-    console.log(tabGroup.childNodes[0])
-    console.log('-----------------------------------------------------')
+    let tempEl = ''
+    for (let i = 0; i < tabState.tasks.length; i++) {
+        for (let j = 0; j < tabState.tasks[i].tabs.length; j++) {
+            if (tabState.tasks[i].tabs[j].id == tabId) {
+                tempEl = tabState.tasks[i].tabs[j]
+                tabs.destroy(tabId)
+                tabState.tasks[i].tabs.unshift(tempEl)
+                tabGroup.insertBefore(tabEl, tabGroup.firstChild)
+                switchToTab(tabId)
+            }
+        }
+    }
 
     addWebview(tabId)
 

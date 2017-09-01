@@ -16,7 +16,8 @@ taskSwitcherButton.addEventListener('click', function () {
 })
 
 addTaskButton.addEventListener('click', function (e) {
-    switchToTask(tasks.add())
+    switchToTask(tasks.addInStart())
+    // tabs.add({}, tabs[0])
     // switchToTask(tasks.addInStart())
     CT.render()
 })

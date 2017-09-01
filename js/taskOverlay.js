@@ -375,5 +375,8 @@ taskOverlay.dragula.on('drop', function () {
 })
 
 eventEmitter.on('updateFavicon', () => {
-    taskOverlay.show()
+    if(document.querySelector('#switch-task-button').classList.contains('active')){
+        taskOverlay.show()
+    }
 })
+

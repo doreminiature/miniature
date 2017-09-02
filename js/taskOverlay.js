@@ -22,7 +22,7 @@ addTaskButton.addEventListener('click', function (e) {
     // CT.addCollectionTab()
     // tabs.add({}, tabs[0])
     // switchToTask(tasks.addInStart())
-    navigate(tabState.tasks[0].tabs[0].id, 'file:///' + __dirname + '/pages/collection/index.html')
+    // navigate(tabState.tasks[0].tabs[0].id, 'file:///' + __dirname + '/pages/collection/index.html')
     taskOverlay.show()
     CT.render()
     F._setCollectionFaviconOnId(tabState.tasks[0].tabs[0].id)
@@ -151,16 +151,16 @@ function getTaskElement(task, taskIndex) {
             // add favicon
             var img = document.createElement('img')
             img.classList.add('favicon')
-            if (task.tabs[i].url == ('file:///' + path.join(__dirname) + '/pages/collection/index.html').replace(/\\/g, "/")) {
-                try {
-                    for (let j = 0; j < F.DB.length; j++) {
-                        if (F.DB[j].url == 'collection') {
-                            img.src = F.DB[j].base64
-                        }
-                    }
-                } catch (e) {
-                }
-            } else {
+            // if (task.tabs[i].url == ('file:///' + path.join(__dirname) + '/pages/collection/index.html').replace(/\\/g, "/")) {
+            //     try {
+            //         for (let j = 0; j < F.DB.length; j++) {
+            //             if (F.DB[j].url == 'collection') {
+            //                 img.src = F.DB[j].base64
+            //             }
+            //         }
+            //     } catch (e) {
+            //     }
+            // } else {
                 try {
                     let hostTab = F._urlToHost(task.tabs[i].url)
                     if (hostTab != '') {
@@ -175,7 +175,7 @@ function getTaskElement(task, taskIndex) {
                     }
                 } catch (e) {
                 }
-            }
+            // }
             tabContainer.appendChild(img)
             // add favicon //
 

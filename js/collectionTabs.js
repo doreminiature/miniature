@@ -49,7 +49,7 @@ CT = {
     goToCollection(e) {
         say.m('CT.goToCollection(e):')
 
-        CT.addCollectionTab()
+        //CT.addCollectionTab()
 
         taskOverlay.inputFocus = true
 
@@ -67,7 +67,7 @@ CT = {
                             if (tabState.tasks[i].name == null) {
                                 CT.addClassEditing()
 
-                                CT.addCollectionTab()
+                                //CT.addCollectionTab()
                                 document.querySelector('.active-tab').addEventListener('blur', function () {
                                     CT.remoteClassEditing()
                                     modals.hide()
@@ -79,7 +79,7 @@ CT = {
                 } else {
                     CT.addClassEditing()
 
-                    CT.addCollectionTab()
+                    //CT.addCollectionTab()
                     document.querySelector('.active-tab').addEventListener('blur', function () {
                         CT.remoteClassEditing()
                         modals.hide()
@@ -249,41 +249,41 @@ CT = {
     addCollectionTab() {
         say.m('CT.addCollectionTab()')
 
-        let thereIsCollection = false
-        for (let i = 0; i < tabState.tasks.length; i++) {
-            if (tabState.tasks[i].id == tabState.selectedTask) {
-                for (let j = 0; j < tabState.tasks[i].tabs.length; j++) {
-                    if (tabState.tasks[i].tabs[j].title == 'Collection') {
-                        thereIsCollection = true
-                    }
-
-                }
-                if (tabState.tasks[i].tabs.length == 2) {
-                    for (let j = 0; j < tabState.tasks[i].tabs.length; j++) {
-                        if (tabState.tasks[i].tabs[j].url == 'duckduckgo.com') {
-                            destroyTab(tabState.tasks[i].tabs[j].id)
-                        }
-
-                    }
-                }
-                // else if (tabState.tasks[i].tabs.length == 1) {
-                    // alert(tabState.tasks[i].tabs.length)
-                    // console.log('--------------------', tabState.tasks[i].tabs.length)
-                    // tabState.tasks[i].tabs[0].title = 'Collection'
-                    // tabState.tasks[i].tabs[0].url = 'file:///' + __dirname + '/pages/collection/index.html'
-
-                    // navigate(tabState.tasks[i].tabs[0].id, 'file:///' + __dirname + '/pages/collection/index.html')
-
-                // }
-            }
-        }
-        if (thereIsCollection == false && document.querySelector('.active-tab ').className.indexOf("editing") != -1) {
-            addTab(tabs.add({
-                url: 'file:///' + __dirname + '/pages/collection/index.html',
-                title: 'Collection'
-            }, tabs[0]), {enterEditMode: false})
-            CT.addClassEditing()
-        }
+        // let thereIsCollection = false
+        // for (let i = 0; i < tabState.tasks.length; i++) {
+        //     if (tabState.tasks[i].id == tabState.selectedTask) {
+        //         for (let j = 0; j < tabState.tasks[i].tabs.length; j++) {
+        //             if (tabState.tasks[i].tabs[j].title == 'Collection') {
+        //                 thereIsCollection = true
+        //             }
+        //
+        //         }
+        //         if (tabState.tasks[i].tabs.length == 2) {
+        //             for (let j = 0; j < tabState.tasks[i].tabs.length; j++) {
+        //                 if (tabState.tasks[i].tabs[j].url == 'duckduckgo.com') {
+        //                     destroyTab(tabState.tasks[i].tabs[j].id)
+        //                 }
+        //
+        //             }
+        //         }
+        //         // else if (tabState.tasks[i].tabs.length == 1) {
+        //             // alert(tabState.tasks[i].tabs.length)
+        //             // console.log('--------------------', tabState.tasks[i].tabs.length)
+        //             // tabState.tasks[i].tabs[0].title = 'Collection'
+        //             // tabState.tasks[i].tabs[0].url = 'file:///' + __dirname + '/pages/collection/index.html'
+        //
+        //             // navigate(tabState.tasks[i].tabs[0].id, 'file:///' + __dirname + '/pages/collection/index.html')
+        //
+        //         // }
+        //     }
+        // }
+        // if (thereIsCollection == false && document.querySelector('.active-tab ').className.indexOf("editing") != -1) {
+        //     addTab(tabs.add({
+        //         url: 'file:///' + __dirname + '/pages/collection/index.html',
+        //         title: 'Collection'
+        //     }, tabs[0]), {enterEditMode: false})
+        //     CT.addClassEditing()
+        // }
 
     },
 

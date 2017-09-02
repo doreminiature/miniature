@@ -18,6 +18,7 @@ modals = {
         say.m('modals.show(page):')
 
         modals.el.style.display = 'block'
+        modals.el.innerHTML = ''
         modals.el.className += " showModals"
         if (page == 'collection') {
             let h1 = document.createElement("h1");

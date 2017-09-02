@@ -97,17 +97,17 @@ F = {
             }
 
 
-            let collectionUrl = ('file:///' + path.join(__dirname) + '/pages/collection/index.html').replace(/\\/g, "/")
-            if (collectionNowTabs[s].url == collectionUrl) {
-                try {
-                    for (let j = 0; j < F.DB.length; j++) {
-                        if (F.DB[j].url == 'collection') {
-                            document.querySelectorAll('.tab-item img')[s].src = F.DB[j].base64
-                        }
-                    }
-                } catch (e) {
-                }
-            }
+            // let collectionUrl = ('file:///' + path.join(__dirname) + '/pages/collection/index.html').replace(/\\/g, "/")
+            // if (collectionNowTabs[s].url == collectionUrl) {
+            //     try {
+            //         for (let j = 0; j < F.DB.length; j++) {
+            //             if (F.DB[j].url == 'collection') {
+            //                 document.querySelectorAll('.tab-item img')[s].src = F.DB[j].base64
+            //             }
+            //         }
+            //     } catch (e) {
+            //     }
+            // }
             let settingsUrl = ('file:///' + path.join(__dirname) + '/pages/settings/index.html').replace(/\\/g, "/")
             if (collectionNowTabs[s].url == settingsUrl) {
                 try {

@@ -66,19 +66,25 @@ CT = {
                         if (tabState.tasks[i].id == tabState.selectedTask) {
                             if (tabState.tasks[i].name == null) {
                                 CT.addClassEditing()
+
                                 CT.addCollectionTab()
                                 document.querySelector('.active-tab').addEventListener('blur', function () {
                                     CT.remoteClassEditing()
+                                    modals.hide()
                                 }, true);
+                                modals.show('collection')
                             }
                         }
                     }
                 } else {
                     CT.addClassEditing()
+
                     CT.addCollectionTab()
                     document.querySelector('.active-tab').addEventListener('blur', function () {
                         CT.remoteClassEditing()
+                        modals.hide()
                     }, true);
+                    modals.show('collection')
                 }
             }
 

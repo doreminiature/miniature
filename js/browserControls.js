@@ -71,6 +71,12 @@ BC = {
         document.querySelector('#refresh').onclick = function () {
             BC.STOP_LOADING()
         }
+
+        document.querySelector('#menu').onclick = function () {
+            addTab( tabs.add({ url: 'file:///' + __dirname + '/pages/settings/index.html' }, tabs[0]), { enterEditMode: false } )
+        }
+
+    //     addTab( tabs.add({ url: link }, tabs[0]), { enterEditMode: false } )
     },
 
     SET_ICONS() {

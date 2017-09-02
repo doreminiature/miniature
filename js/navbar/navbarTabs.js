@@ -149,7 +149,8 @@ function rerenderTabElement(tabId) {
         var tabEl = getTabElement(tabId)
         var tabData = tabs.get(tabId)
 
-        var tabTitle = tabData.title || 'New Tab'
+        var tabTitle = tabData.title || ''
+
         var title = tabEl.querySelector('.tab-view-contents .title')
 
         title.textContent = tabTitle
@@ -344,18 +345,18 @@ function addTab(tabId, options) {
     var tab = tabs.get(tabId)
 
     // use the correct new tab colors
-
-    if (tab.private && !tab.backgroundColor) {
-        tabs.update(tabId, {
-            backgroundColor: defaultColors.private[0],
-            foregroundColor: defaultColors.private[1]
-        })
-    } else if (!tab.backgroundColor) {
-        tabs.update(tabId, {
-            backgroundColor: defaultColors.regular[0],
-            foregroundColor: defaultColors.regular[1]
-        })
-    }
+    //
+    // if (tab.private && !tab.backgroundColor) {
+    //     tabs.update(tabId, {
+    //         backgroundColor: defaultColors.private[0],
+    //         foregroundColor: defaultColors.private[1]
+    //     })
+    // } else if (!tab.backgroundColor) {
+    //     tabs.update(tabId, {
+    //         backgroundColor: defaultColors.regular[0],
+    //         foregroundColor: defaultColors.regular[1]
+    //     })
+    // }
 
     findinpage.end()
 

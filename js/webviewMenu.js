@@ -181,6 +181,16 @@ var webviewMenu = {
             })
         ])
 
+        menuSections.push([
+            new MenuItem({
+                label: 'Inspect Browser',
+                click: function (item, focusedWindow) {
+                    if (focusedWindow) focusedWindow.toggleDevTools()
+                }
+            })
+        ])
+
+
         menuSections.forEach(function (section) {
             section.forEach(function (item) {
                 menu.append(item)

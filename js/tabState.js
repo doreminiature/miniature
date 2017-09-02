@@ -133,7 +133,144 @@ var tabPrototype = {
         })
     }
 }
+var tabPrototypeEmpty = {
+    add: function (tab, index) {
+        // make sure the tab exists before we create it
+        if (!tab) {
+            var tab = {}
+        }
 
+        var tabId = String(tab.id || Math.round(Math.random() * 100000000000000000)) // you can pass an id that will be used, or a random one will be generated.
+
+        var newTab = {
+            url: '',
+            title: '',
+            id: tabId,
+            lastActivity: tab.lastActivity || Date.now(),
+            // secure: tab.secure,
+            private: tab.private || false,
+            // readerable: tab.readerable || false,
+            // backgroundColor: tab.backgroundColor,
+            // foregroundColor: tab.foregroundColor,
+            selected: tab.selected || false
+        }
+
+        if (index) {
+            this.splice(index, 0, newTab)
+        } else {
+            this.push(newTab)
+            // newTab.id = String(tab.id || Math.round(Math.random() * 100000000000000000))
+            // this.push(newTab)
+            // // newTab.id = String(tab.id || Math.round(Math.random() * 100000000000000000))
+            // this.push(newTab)
+            // // newTab.id = String(tab.id || Math.round(Math.random() * 100000000000000000))
+            // this.push(newTab)
+            // // newTab.id = String(tab.id || Math.round(Math.random() * 100000000000000000))
+            // this.push(newTab)
+        }
+
+        return tabId
+    },
+    update: function (id, data) {
+        eventEmitter.emit('updatePage')
+
+        try {
+            if (!this.get(id)) {
+                // throw new ReferenceError('Attempted to update a tab that does not exist.')
+            }
+            var index = -1
+            for (var i = 0; i < this.length; i++) {
+                if (this[i].id === id) {
+                    index = i
+                }
+            }
+            for (var key in data) {
+                if (data[key] === undefined) {
+                    throw new ReferenceError('Key ' + key + ' is undefined.')
+                }
+                this[index][key] = data[key]
+            }
+
+            setTimeout(function () {
+                try {
+                    CT.renderOverlay()
+                } catch (e) {
+                }
+            }, 100)
+
+        } catch (e) {
+
+        }
+    },
+    destroy: function (id) {
+        for (var i = 0; i < this.length; i++) {
+            if (this[i].id === id) {
+                this.splice(i, 1)
+                return i
+            }
+        }
+        return false
+    },
+    destroyAll: function () {
+        // this = [] doesn't work, so set the length of the array to 0 to remove all of the itemss
+        this.length = 0
+    },
+    get: function (id) {
+        if (!id) { // no id provided, return an array of all tabs
+            // it is important to deep-copy the tab objects when returning them. Otherwise, the original tab objects get modified when the returned tabs are modified (such as when processing a url).
+            var tabsToReturn = []
+            for (var i = 0; i < this.length; i++) {
+                tabsToReturn.push(JSON.parse(JSON.stringify(this[i])))
+            }
+            return tabsToReturn
+        }
+        for (var i = 0; i < this.length; i++) {
+            if (this[i].id === id) {
+                return JSON.parse(JSON.stringify(this[i]))
+            }
+        }
+        return undefined
+    },
+    getIndex: function (id) {
+        for (var i = 0; i < this.length; i++) {
+            if (this[i].id === id) {
+                return i
+            }
+        }
+        return -1
+    },
+    getSelected: function () {
+        for (var i = 0; i < this.length; i++) {
+            if (this[i].selected) {
+                return this[i].id
+            }
+        }
+        return null
+    },
+    getAtIndex: function (index) {
+        return this[index] || undefined
+    },
+    setSelected: function (id) {
+        if (!this.get(id)) {
+            throw new ReferenceError('Attempted to select a tab that does not exist.')
+        }
+        for (var i = 0; i < this.length; i++) {
+            if (this[i].id === id) {
+                this[i].selected = true
+            } else {
+                this[i].selected = false
+            }
+        }
+    },
+    count: function () {
+        return this.length
+    },
+    reorder: function (newOrder) { // newOrder is an array of [tabId, tabId] that indicates the order that tabs should be in
+        this.sort(function (a, b) {
+            return newOrder.indexOf(a.id) - newOrder.indexOf(b.id)
+        })
+    }
+}
 function getRandomId() {
     return Math.round(Math.random() * 100000000000000000)
 }
@@ -186,6 +323,34 @@ var tasks = {
             newTask.tabs.__proto__[key] = tabPrototype[key]
         }
 
+        if (index) {
+            tabState.tasks.splice(index, 0, newTask)
+        } else {
+            // tabState.tasks.push(newTask)
+            tabState.tasks.unshift(newTask)
+        }
+
+        return newTask.id
+    },
+    addEmpty: function (task, index) {
+        if (!task) {
+            task = {}
+        }
+
+        var newTask = {
+            name: '',
+            tabs: [],
+            selectedTab: task.selectedTab || null,
+            id: task.id || String(getRandomId())
+        }
+
+        // task.currentTask.tabs.__proto__ = tabPrototype
+
+
+        for (var key in tabPrototypeEmpty) {
+            newTask.tabs.__proto__[key] = tabPrototypeEmpty[key]
+        }
+        console.log( '------------', tabState.tasks[0])
         if (index) {
             tabState.tasks.splice(index, 0, newTask)
         } else {

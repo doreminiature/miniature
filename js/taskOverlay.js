@@ -17,18 +17,31 @@ taskSwitcherButton.addEventListener('click', function () {
 })
 
 addTaskButton.addEventListener('click', function (e) {
+
+    // add collection and 5 tabs
+    switchToTask(tasks.addEmpty())
+    addTab(tabs.add({url: ''}, tabs[0]), {enterEditMode: false})
+    addTab(tabs.add({url: ''}, tabs[0]), {enterEditMode: false})
+    addTab(tabs.add({url: ''}, tabs[0]), {enterEditMode: false})
+    addTab(tabs.add({url: ''}, tabs[0]), {enterEditMode: false})
+
+    // refresh Overlay and CT
     taskOverlay.inputFocus = false
-    switchToTask(tasks.addInStart())
-    // CT.addCollectionTab()
-    // tabs.add({}, tabs[0])
-    // switchToTask(tasks.addInStart())
-    // navigate(tabState.tasks[0].tabs[0].id, 'file:///' + __dirname + '/pages/collection/index.html')
     taskOverlay.show()
-    CT.render()
-    F._setCollectionFaviconOnId(tabState.tasks[0].tabs[0].id)
     setTimeout(function () {
         taskOverlay.show()
     }, 400)
+    CT.render()
+
+    // focus on active collection
+    CT.addClassEditing()
+    document.querySelector('.active-tab').focus()
+    modals.show('collection')
+
+    // remove active tab
+    document.querySelector('.tab-item.active').classList.remove("active")
+
+    // F._setCollectionFaviconOnId(tabState.tasks[0].tabs[0].id)
 
 })
 
@@ -46,7 +59,7 @@ taskSwitcherButton.addEventListener('click', function () {
 function getTaskOverlayTabElement(tab, task) {
 
     var item = createSearchbarItem({
-        title: tab.title || 'New Tab',
+        title: tab.title || '●●●',
         secondaryText: urlParser.removeProtocol(tab.url),
         classList: ['task-tab-item'],
         delete: function () {
@@ -161,20 +174,20 @@ function getTaskElement(task, taskIndex) {
             //     } catch (e) {
             //     }
             // } else {
-                try {
-                    let hostTab = F._urlToHost(task.tabs[i].url)
-                    if (hostTab != '') {
-                        try {
-                            for (let j = 0; j <= F.DB.length; j++) {
-                                if (F.DB[j].url == hostTab) {
-                                    img.src = F.DB[j].base64
-                                }
+            try {
+                let hostTab = F._urlToHost(task.tabs[i].url)
+                if (hostTab != '') {
+                    try {
+                        for (let j = 0; j <= F.DB.length; j++) {
+                            if (F.DB[j].url == hostTab) {
+                                img.src = F.DB[j].base64
                             }
-                        } catch (e) {
                         }
+                    } catch (e) {
                     }
-                } catch (e) {
                 }
+            } catch (e) {
+            }
             // }
             tabContainer.appendChild(img)
             // add favicon //

@@ -248,14 +248,22 @@ CT = {
                 }
                 if (tabState.tasks[i].tabs.length == 2) {
                     for (let j = 0; j < tabState.tasks[i].tabs.length; j++) {
-                        if (tabState.tasks[i].tabs[j].title == 'DuckDuckGo') {
+                        if (tabState.tasks[i].tabs[j].url == 'duckduckgo.com') {
                             destroyTab(tabState.tasks[i].tabs[j].id)
                         }
 
                     }
                 }
-            }
+                // else if (tabState.tasks[i].tabs.length == 1) {
+                    // alert(tabState.tasks[i].tabs.length)
+                    // console.log('--------------------', tabState.tasks[i].tabs.length)
+                    // tabState.tasks[i].tabs[0].title = 'Collection'
+                    // tabState.tasks[i].tabs[0].url = 'file:///' + __dirname + '/pages/collection/index.html'
 
+                    // navigate(tabState.tasks[i].tabs[0].id, 'file:///' + __dirname + '/pages/collection/index.html')
+
+                // }
+            }
         }
         if (thereIsCollection == false && document.querySelector('.active-tab ').className.indexOf("editing") != -1) {
             addTab(tabs.add({

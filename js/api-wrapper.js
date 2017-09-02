@@ -76,29 +76,29 @@ function switchToTask(id) {
                 return b.lastActivity - a.lastActivity
             })[0].id
         }
-        for (let i = 0; i < tabState.tasks.length; i++) {
-            if (tabState.tasks[i].tabs.length == 1) {
-                for (let j = 0; j < tabState.tasks[i].tabs.length; j++) {
-                    if (tabState.tasks[i].tabs[j].id == selectedTab && tabState.tasks[i].tabs[j].title == 'DuckDuckGo') {
-                        tabState.tasks[i].tabs[j].title = 'Collection'
-                        tabState.tasks[i].tabs[j].url = 'file:///' + __dirname + '/pages/collection/index.html'
-                    }
-                }
-            }
-        }
+        // for (let i = 0; i < tabState.tasks.length; i++) {
+        //     if (tabState.tasks[i].tabs.length == 1) {
+        //         for (let j = 0; j < tabState.tasks[i].tabs.length; j++) {
+        //             if (tabState.tasks[i].tabs[j].id == selectedTab && tabState.tasks[i].tabs[j].title == 'DuckDuckGo') {
+        //                 tabState.tasks[i].tabs[j].title = 'Collection'
+        //                 tabState.tasks[i].tabs[j].url = 'file:///' + __dirname + '/pages/collection/index.html'
+        //             }
+        //         }
+        //     }
+        // }
 
         switchToTab(selectedTab)
     } else {
-        for (let i = 0; i < tabState.tasks.length; i++) {
-            if (tabState.tasks[i].tabs.length == 1) {
-                for (let j = 0; j < tabState.tasks[i].tabs.length; j++) {
-                    if (tabState.tasks[i].tabs[j].id == selectedTab && tabState.tasks[i].tabs[j].title == 'DuckDuckGo') {
-                        tabState.tasks[i].tabs[j].title = 'Collection'
-                        tabState.tasks[i].tabs[j].url = 'file:///' + __dirname + '/pages/collection/index.html'
-                    }
-                }
-            }
-        }
+        // for (let i = 0; i < tabState.tasks.length; i++) {
+        //     if (tabState.tasks[i].tabs.length == 1) {
+        //         for (let j = 0; j < tabState.tasks[i].tabs.length; j++) {
+        //             if (tabState.tasks[i].tabs[j].id == selectedTab && tabState.tasks[i].tabs[j].title == 'DuckDuckGo') {
+        //                 tabState.tasks[i].tabs[j].title = 'Collection'
+        //                 tabState.tasks[i].tabs[j].url = 'file:///' + __dirname + '/pages/collection/index.html'
+        //             }
+        //         }
+        //     }
+        // }
         addTab()
 
     }

@@ -82,14 +82,6 @@ F = {
             }
         }
 
-        // clear
-        // let el = document.querySelectorAll('.tab-item img')
-        // for (let i = 0; i < el.length; i++) {
-        // document.querySelectorAll('.tab-item img')[ i ].src = ''
-        // document.querySelectorAll('.tab-item img')[i].src = F.___LOADING_ICON()
-        // document.querySelectorAll('.tab-item img')[ i ].src = ''
-        // }
-
         // set
         for (let s = 0; s < collectionNowTabs.length; s++) {
             let hostTab = F._urlToHost(collectionNowTabs[s].url)
@@ -131,7 +123,6 @@ F = {
         }
 
         if (F.webviewIsLoading) {
-            // document.querySelector('.tab-item.active img.favicon').src = ''
             document.querySelector('.tab-item.active img.favicon').src = F.___LOADING_ICON()
         }
 
@@ -141,7 +132,9 @@ F = {
         } catch (e) {
             return ''
         }
-    }, _setCollectionFaviconOnId() {
+    }, _setCollectionFaviconOnId(id) {
+console.log( '----', id )
+
 
     },
 

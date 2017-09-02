@@ -109,14 +109,20 @@ CT = {
     goToCollectionID(id) {
         say.m('CT.goToCollectionID(id): ' + id)
 
-        let index = CT.getIndexFromIdTaskId(id)
-        if (index == 0) {
-            switchToTask(tabState.tasks[index].id)
-        } else {
-            switchToTask(tabState.tasks[index - 1].id)
+        try {
+            let index = CT.getIndexFromIdTaskId(id)
+            if (index == 0) {
+                switchToTask(tabState.tasks[index].id)
+            } else {
+                switchToTask(tabState.tasks[index - 1].id)
+            }
+
+            CT.render()
+        } catch (e){
+            CT.render()
+            taskOverlay.inputFocus = false
         }
 
-        CT.render()
     },
     getIndexFromIdTaskId(id) {
         say.m('CT.getIndexFromIdTaskId(id): ' + id)

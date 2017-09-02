@@ -12,17 +12,24 @@ var addTaskButton = document.getElementById('add-task')
 var navbar = document.getElementById('task-overlay-navbar')
 
 taskSwitcherButton.addEventListener('click', function () {
+
     taskOverlay.toggle()
 })
 
 addTaskButton.addEventListener('click', function (e) {
+    taskOverlay.inputFocus = false
     switchToTask(tasks.addInStart())
     // CT.addCollectionTab()
     // tabs.add({}, tabs[0])
     // switchToTask(tasks.addInStart())
     navigate(tabState.tasks[0].tabs[0].id, 'file:///' + __dirname + '/pages/collection/index.html')
+    taskOverlay.show()
     CT.render()
     F._setCollectionFaviconOnId(tabState.tasks[0].tabs[0].id)
+    setTimeout(function () {
+        taskOverlay.show()
+    }, 400)
+
 })
 
 var webviews = document.getElementById("webviews")
@@ -128,7 +135,7 @@ function getTaskElement(task, taskIndex) {
 
         sessionRestore.save()
         CT.render()
-
+        taskOverlay.show()
     })
 
     taskActionContainer.appendChild(deleteButton)

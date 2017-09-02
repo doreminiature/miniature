@@ -14,6 +14,7 @@ module.exports = function (grunt) {
 			browser: {
 				src: [
 						"js/default.js",
+						"js/modals.js",
 						"js/events.js",
           				"js/util/favicon.js",
 						"js/util/database.js",

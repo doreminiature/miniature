@@ -55,6 +55,7 @@ function leaveTabEditMode(options) {
     var selTab = document.querySelector('.tab-item.selected')
     if (selTab) {
         selTab.classList.remove('selected')
+        modals.hide()
     }
     if (options && options.blur) {
         var input = document.querySelector('.tab-item .tab-input:focus')
@@ -83,6 +84,8 @@ function enterEditMode(tabId) {
 
     document.body.classList.add('is-edit-mode')
     tabEl.classList.add('selected')
+    // modals.hide()
+    modals.show('navBar')
 
     input.value = currentURL
     input.focus()

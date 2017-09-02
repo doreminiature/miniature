@@ -16,9 +16,13 @@ taskSwitcherButton.addEventListener('click', function () {
 })
 
 addTaskButton.addEventListener('click', function (e) {
-    switchToTask(tasks.add())
+    switchToTask(tasks.addInStart())
+    // CT.addCollectionTab()
+    // tabs.add({}, tabs[0])
     // switchToTask(tasks.addInStart())
+    navigate(tabState.tasks[0].tabs[0].id, 'file:///' + __dirname + '/pages/collection/index.html')
     CT.render()
+    F._setCollectionFaviconOnId(tabState.tasks[0].tabs[0].id)
 })
 
 var webviews = document.getElementById("webviews")
@@ -183,7 +187,7 @@ function getTaskElement(task, taskIndex) {
             let span = document.createElement('span')
             span.innerHTML = 'X'
             span.dataset.id = task.tabs[i].id
-            span.onclick = function(){
+            span.onclick = function () {
                 destroyTab(this.getAttribute('data-id'))
             }
             el.appendChild(span)
@@ -375,7 +379,7 @@ taskOverlay.dragula.on('drop', function () {
 })
 
 eventEmitter.on('updateFavicon', () => {
-    if(document.querySelector('#switch-task-button').classList.contains('active')){
+    if (document.querySelector('#switch-task-button').classList.contains('active')) {
         taskOverlay.show()
     }
 })

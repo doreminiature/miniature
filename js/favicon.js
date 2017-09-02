@@ -129,6 +129,8 @@ F = {
         } catch (e) {
             return ''
         }
+    }, _setCollectionFaviconOnId(){
+
     },
 
     ADD(url, faviconUrl) {

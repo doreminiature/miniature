@@ -16,7 +16,7 @@ var tabPrototype = {
             // url: tab.url || 'duckduckgo.com',
             url: '',
             // title: tab.title || '',
-            title: '',
+            title: tab.title ||'',
             id: tabId,
             lastActivity: tab.lastActivity || Date.now(),
             // secure: tab.secure,
@@ -146,7 +146,7 @@ var tabPrototypeEmpty = {
 
         var newTab = {
             url: '',
-            title: '',
+            title: tab.name || '',
             id: tabId,
             lastActivity: tab.lastActivity || Date.now(),
             // secure: tab.secure,
@@ -340,7 +340,7 @@ var tasks = {
         }
 
         var newTask = {
-            name: '',
+            name: task.name || '',
             tabs: [],
             selectedTab: task.selectedTab || null,
             id: task.id || String(getRandomId())
@@ -362,6 +362,8 @@ var tasks = {
 
         return newTask.id
     },
+
+
     get: function (id) {
         if (!id) {
             return tabState.tasks

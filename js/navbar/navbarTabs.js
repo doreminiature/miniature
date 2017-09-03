@@ -147,6 +147,7 @@ function tabLayout() {
 function rerenderTabElement(tabId) {
     try {
         var tabEl = getTabElement(tabId)
+        tabEl.querySelector('.addEmptyTabStyle').classList.remove('addEmptyTabStyle')
         var tabData = tabs.get(tabId)
 
         var tabTitle = tabData.title || ''
@@ -207,6 +208,8 @@ function createTabElement(data) {
 
     var vc = document.createElement('div')
     vc.className = 'tab-view-contents'
+    if (data.url == '')
+        vc.classList.add('addEmptyTabStyle')
     // vc.appendChild(readerView.getButton(data.id))
 
     // icons

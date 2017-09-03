@@ -7,6 +7,7 @@ CT = {
     tabActive: '',
     prevTabIndex: [],
     inputFocus: false,
+    _openCollectionNOWClickTime: new Date(),
 
     start() {
         say.m('CT.start()')
@@ -52,7 +53,7 @@ CT = {
         //CT.addCollectionTab()
 
         taskOverlay.inputFocus = true
-
+        CT.add5tab()
 
         // click on collection tabs
         try {
@@ -68,7 +69,8 @@ CT = {
                                 CT.addClassEditing()
 
                                 //CT.addCollectionTab()
-                                document.querySelector('.active-tab').addEventListener('blur', function () {
+                                document.querySelector('.active-tab').addEventListener('blur', function (e) {
+                                    CT._openCollectionNOWClick(e)
                                     CT.remoteClassEditing()
                                     modals.hide()
                                 }, true);
@@ -80,7 +82,8 @@ CT = {
                     CT.addClassEditing()
 
                     //CT.addCollectionTab()
-                    document.querySelector('.active-tab').addEventListener('blur', function () {
+                    document.querySelector('.active-tab').addEventListener('blur', function (e) {
+                        CT._openCollectionNOWClick(e)
                         CT.remoteClassEditing()
                         modals.hide()
                     }, true);
@@ -104,7 +107,58 @@ CT = {
             }
         })
 
+        CT.add5tab()
+
         eventEmitter.emit('goToCollection')
+    }, _openCollectionNOWClick(e) {
+        if (CT._openCollectionNOWClickTime + 5 < new Date() + 1) {
+            try {
+                if (e.relatedTarget.classList.value == 'openCollectionNOW') {
+                    console.log('==================================================================')
+                    // console.log(e.relatedTarget.innerText)
+                    // console.log(e.relatedTarget.getAttribute("data-links"))
+                    // console.log(e.relatedTarget.getAttribute("data-links").split(","))
+                    let colName = e.relatedTarget.innerText
+                    let arrLinks = e.relatedTarget.getAttribute("data-links").split(",")
+
+
+                    let id = tasks.addEmpty({name: colName})
+                    switchToTask(id)
+                    console.log(id)
+
+
+
+                    // addTab(tabs.add({url: ''}, tabs[0]), {enterEditMode: false})
+                    // addTab(tabs.add({url: ''}, tabs[0]), {enterEditMode: false})
+                    // addTab(tabs.add({url: ''}, tabs[0]), {enterEditMode: false})
+                    // addTab(tabs.add({url: ''}, tabs[0]), {enterEditMode: false})
+                    sessionRestore.save()
+                    CT.render()
+
+                    for (let i = 0; i < tabState.tasks.length; i++) {
+                        if (tabState.tasks[i].id == id) {
+                            for (let j = 0; j < tabState.tasks[i].tabs.length; j++) {
+                                if (arrLinks[j]) {
+                                    alert(arrLinks[j])
+                                    tabState.tasks[i].tabs[j].url = arrLinks[j].split(":")[0]
+                                    tabState.tasks[i].tabs[j].title = arrLinks[j].split(":")[1]
+                                }
+                            }
+                        }
+                    }
+                    rerenderTabstrip()
+                    switchToTask(id)
+                    // for (let i = 0; i < arrLinks.length; i++) {
+                    //     // console.log(arrLinks[i])
+                    //     addTabInNewCol(tabs.add({url: arrLinks[i]}, tabs[0]), {enterEditMode: false}, )
+                    // }
+                    console.log('==================================================================')
+                }
+            } catch (e) {
+            }
+            CT._openCollectionNOWClickTime = new Date() + 1
+        }
+
     },
     goToCollectionID(id) {
         say.m('CT.goToCollectionID(id): ' + id)
@@ -118,7 +172,7 @@ CT = {
             }
 
             CT.render()
-        } catch (e){
+        } catch (e) {
             CT.render()
             taskOverlay.inputFocus = false
         }
@@ -147,9 +201,12 @@ CT = {
     remoteClassEditing() {
         say.m('CT.remoteClassEditing()')
 
-        if (document.querySelector('.active-tab ').className.indexOf("editing") != -1) {
-            document.querySelector('.active-tab ').classList.remove("editing");
-            CT.remoteClassEditing()
+        try {
+            if (document.querySelector('.active-tab ').className.indexOf("editing") != -1) {
+                document.querySelector('.active-tab ').classList.remove("editing");
+                CT.remoteClassEditing()
+            }
+        } catch (e) {
         }
     },
     getDataFromE(e) {
@@ -189,10 +246,40 @@ CT = {
         document.querySelector('[data-task-id="' + tasks.get()[0].id + ' "]').click()
     },
     add5() {
+        say.m('CT.add5()')
         if (tabState.tasks.length < 5) {
             let id = tabState.selectedTask
             for (let i = tabState.tasks.length; i != 5; i++) {
                 tasks.add()
+            }
+        }
+    },
+    add5tab() {
+        say.m('CT.add5tab()')
+
+        for (let i = 0; i < tabState.tasks.length; i++) {
+            if (tabState.tasks[i].id == tabState.selectedTask) {
+                for (let j = tabState.tasks[i].tabs.length; j < 5; j++) {
+                    addTab(tabs.add({url: ''}, tabs[0]), {enterEditMode: false})
+                }
+            } else {
+                if (tabState.tasks[i].tabs.length == 1 && tabState.tasks[i].tabs[0].url == 'duckduckgo.com') {
+
+                    tabState.tasks[i].tabs[0].url = ''
+                    tabState.tasks[i].tabs[0].title = ''
+                }
+            }
+        }
+    },
+    addEmptyTabStyle() {
+        say.m('CT.addEmptyTabStyle()')
+
+        let tabViewContents = document.querySelectorAll('.tab-view-contents')
+        for (let i = 0; i < tabViewContents.length; i++) {
+            if (tabViewContents[i].querySelector('.title').innerText == '...' && !tabViewContents[i].classList.contains('addEmptyTabStyle')) {
+                tabViewContents[i].className += " addEmptyTabStyle"
+            } else if (tabViewContents[i].classList.contains('addEmptyTabStyle')) {
+                tabViewContents[i].classList.remove('addEmptyTabStyle');
             }
         }
     },
@@ -290,6 +377,9 @@ CT = {
     render() {
         say.m('CT.render()')
 
+        CT.add5tab()
+        // CT.addEmptyTabStyle()
+
         if (CT.inputFocus == false) {
             let collectionTabsHTML = []
             for (let i = 0; i < tabState.tasks.length; i++) {
@@ -297,13 +387,14 @@ CT = {
                 if (val == null || val == 'null')
                     val = ''
                 let title = `<input placeholder="&#9679;&#9679;&#9679;" type="text" class="collectionTabInput" data-id="${tabState.tasks[i].id}" value="${val}" disabled="true">` || `<input type="text" placeholder="&#9679;&#9679;&#9679;" class="collectionTabInput" data-id="${tabState.tasks[i].id}" value="${val}"  disabled="true"> <svg width="23.9px" height="5.6px">23.9 5.6 <use xlink:href="icons/svg/miniature-controls.svg#ellipsis-big"></use></svg>`
-
                 collectionTabsHTML.push('<div class="collection-tab ' + ( tabState.selectedTask == tabState.tasks[i].id ? 'active-tab' : '' ) + '" data-task-id="' + tabState.tasks[i].id + ' " data-index="' + i + '">' + title + '</div>')
-                // collectionTabsHTML.push('<div class="collection-tab ' + ( tabState.selectedTask == tabState.tasks[i].id ? 'active-tab' : '' ) + '" data-task-id="' + tabState.tasks[i].id + ' " data-index="' + i + '">' + title + '</div>')
             }
             document.getElementById('collection-tabs').innerHTML = collectionTabsHTML.join('')
+            // CT.addEmptyTabStyle()
 
             CT.renderOverlay()
+            // CT.addEmptyTabStyle()
+
 
             eventEmitter.emit('render')
 

@@ -1,28 +1,30 @@
-.navbar{
-	display: none;
+.navbar {
+    display: none;
 }
+
 .page-tabs {
-	display: flex;
-	height: 35px;
-	position: absolute;
-	top: 31px;
-	width: 100%;
-	-webkit-user-select: none;
-	-webkit-backface-visibility:hidden;
-	background-color: #F0F7FF;
-	z-index: 1000;
-	box-shadow: 0px 1px 5px -4px rgba(0,0,0,1);
-	/*-webkit-app-region: drag;*/
+    display: flex;
+    height: 35px;
+    position: absolute;
+    top: 31px;
+    width: 100%;
+    -webkit-user-select: none;
+    -webkit-backface-visibility: hidden;
+    background-color: #F0F7FF;
+    z-index: 1000;
+    box-shadow: 0px 1px 5px -4px rgba(0, 0, 0, 1);
+    /*-webkit-app-region: drag;*/
 }
 
 .tab-controls {
-	width: 200px;
+    width: 200px;
 
 }
-#add-tab-button{
-	height: 100%;
-	position: relative;
-	padding: 2px 10px 0 10px;
+
+#add-tab-button {
+    height: 100%;
+    position: relative;
+    padding: 2px 10px 0 10px;
 }
 
 #add-tab-button svg {
@@ -30,257 +32,278 @@
 }
 
 #add-tab-button svg use {
-	fill: rgba(0, 20, 4, 0.13);
+    fill: rgba(0, 20, 4, 0.13);
 }
 
 /* there are no window controls in fullscreen, so we don't need any padding */
 
 body.fullscreen {
-	border: 1px solid #000;
+    border: 1px solid #000;
 }
 
 body.fullscreen .page-tabs,
 body.notMac .page-tabs {
-	padding-left: 0;
+    padding-left: 0;
 }
 
 /* when the page-tabs is white, we need a line to separate it from the webviews */
 
 .page-tabs:before {
-	content: "";
-	width: 100%;
-	height: 1px;
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	background: rgba(0, 0, 0, 0.05);
+    content: "";
+    width: 100%;
+    height: 1px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.05);
 }
 
 /* dark colors don't need to be darkened as much for contrast */
 
 .dark-theme .page-tabs:before {
-	/*background: rgba(0, 0, 0, 0.04);*/
+    /*background: rgba(0, 0, 0, 0.04);*/
 }
+
 .dark-theme.is-edit-mode .page-tabs:before {
-	/*background: none;*/
+    /*background: none;*/
 }
 
 .tabs {
-	display: flex;
-	width: calc(100% - 200px);
+    display: flex;
+    width: calc(100% - 200px);
 
 }
+
 .tabs .tab-item {
-	cursor: pointer;
-	transition: all .3s ease;
+    cursor: pointer;
+    transition: all .3s ease;
+    background: white;
+}
+
+.jshover {
+    background: white;
 }
 
 .tab-item {
-	flex: 0 1 20%;
-	transition: all 1.3s ease;
-	/*max-width: 20%;*/
-	word-break: break-all;
-	outline: 1px dotted transparent;
-	padding: 0;
-	line-height: 33px;
-	height: 34px;
-	overflow: hidden;
-	position: relative;
-	border-radius: 2px;
-	-webkit-app-region: no-drag;
-	z-index: 1000;
-	/*box-shadow: 0px 0px 0 0 rgba(39,170,225,0);*/
+    flex: 0 1 20%;
+    transition: all 1.3s ease;
+    /*max-width: 20%;*/
+    word-break: break-all;
+    outline: 1px dotted transparent;
+    padding: 0;
+    line-height: 33px;
+    height: 34px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 2px;
+    -webkit-app-region: no-drag;
+    z-index: 1000;
+    /*box-shadow: 0px 0px 0 0 rgba(39,170,225,0);*/
 }
 
 .tab-item.active {
-	flex: 0 0 20%;
-	background: #fff;
-	/*outline: 1px solid rgba(39,170,225,0.25);*/
-	/*box-shadow: 0px 2px 4px -1px rgba(39,170,225,0.3);*/
-	/*box-shadow: 0px 3px 32px -9px rgba(39,170,225,.4);*/
+    flex: 0 0 20%;
+    background: #fff;
+    /*outline: 1px solid rgba(39,170,225,0.25);*/
+    /*box-shadow: 0px 2px 4px -1px rgba(39,170,225,0.3);*/
+    /*box-shadow: 0px 3px 32px -9px rgba(39,170,225,.4);*/
 }
 
 .tab-item.active.selected {
-	box-shadow: 0px 0px 5px 0px rgba(39,170,225,0.5);
-	background-color: white !important;
+    box-shadow: 0px 0px 5px 0px rgba(39, 170, 225, 0.5);
+    background-color: white !important;
 }
 
 .tab-item.active.selected .tab-edit-contents {
-	padding-left:10px;
+    padding-left: 10px;
 }
+
 .tab-item.active.selected .tab-edit-contents input::selection {
-	background-color: white;
-	color: mediumpurple;
+    background-color: white;
+    color: mediumpurple;
 }
 
 /* icons */
 
 .tab-item .tab-icon-area {
-	float: right;
+    float: right;
 }
+
 .tab-item i {
-	font-size: 0.7em;
-	padding: 11px 0.66em;
-	vertical-align: middle;
-	box-sizing: content-box;
-	color: hsla(214,31%,87%,1);
+    font-size: 0.7em;
+    padding: 11px 0.66em;
+    vertical-align: middle;
+    box-sizing: content-box;
+    color: hsla(214, 31%, 87%, 1);
 }
+
 .tab-item.active:not(:only-child) {
-	/*background: rgba(0, 0, 0, 0.05);*/
+    /*background: rgba(0, 0, 0, 0.05);*/
 }
+
 .dark-theme .tab-item.active:not(:only-child) {
-	/*background: rgba(255, 255, 255, 0.2);*/
+    /*background: rgba(255, 255, 255, 0.2);*/
 }
+
 .tab-item.selected {
-	/*min-width: 100%;*/
-	/* remove the white transparent-ness */
-	/*background: none;*/
-	/*padding-left: 9px;*/
+    /*min-width: 100%;*/
+    /* remove the white transparent-ness */
+    /*background: none;*/
+    /*padding-left: 9px;*/
 }
+
 .tab-item.fade {
-	opacity: 0.5;
+    opacity: 0.5;
 }
 
 /* when an input is selected, hide other tabs */
 
 .is-edit-mode .tab-item:not(.selected) {
-	/*min-width: 0;*/
-	/*max-width: 0;*/
-	/*width: 0;*/
-	/*height: 0;*/
-	/*padding: 0;*/
-	/*overflow: hidden;*/
+    /*min-width: 0;*/
+    /*max-width: 0;*/
+    /*width: 0;*/
+    /*height: 0;*/
+    /*padding: 0;*/
+    /*overflow: hidden;*/
 }
 
 /* the background isn't necessary when there is only one tab */
 
 .is-edit-mode .tab-item {
-	background: none !important;
+    background: none !important;
 }
 
 /* show either the view or edit contents */
 
 .tab-item .tab-edit-contents {
-	display: none;
+    display: none;
 }
+
 .tab-item.selected .tab-edit-contents {
-	display: flex;
-	height: 100%;
-	align-items: center;
+    display: flex;
+    height: 100%;
+    align-items: center;
 }
+
 .tab-item.selected .tab-view-contents {
-	display: none;
+    display: none;
 }
 
 /* tab inputs */
 
 .tab-item .tab-input {
-	line-height: 1.15em;
-	font-size: 1.15em;
-	background: none;
-	border: none;
-	color: inherit;
-	flex: 1;
-	height: 1.5em;
-	outline: none;
-	-webkit-appearance: none;
-	-webkit-user-select: auto;
-	-webkit-app-region: no-drag;
+    line-height: 1.15em;
+    font-size: 1.15em;
+    background: none;
+    border: none;
+    color: inherit;
+    flex: 1;
+    height: 1.5em;
+    outline: none;
+    -webkit-appearance: none;
+    -webkit-user-select: auto;
+    -webkit-app-region: no-drag;
 }
+
 .tab-item .tab-input::-webkit-input-placeholder {
-	color: inherit;
-	opacity: 0.5;
-	line-height: 1.25em;
+    color: inherit;
+    opacity: 0.5;
+    line-height: 1.25em;
 }
 
 /* hide the lock icon unless its the current tab */
 
 .tab-item:not(.active) .icon-tab-not-secure {
-	display: none;
+    display: none;
 }
 
 .tab-item:not(.active):hover {
-	background-color: rgba(255,255,255,.4);
+    background-color: rgba(255, 255, 255, .4);
 }
 
 .tab-item .tab-view-contents .title {
-	font-family: "PT Sans", sans-serif;
-	font-size: 12px;
-	letter-spacing: 0.5px;
-	text-transform: capitalize;
-	word-break: break-all;
+    font-family: "PT Sans", sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    text-transform: capitalize;
+    word-break: break-all;
 }
 
 .tab-item.active .tab-view-contents .title {
-	font-weight: bold;
-	font-family: "PT Sans", sans-serif;
-	font-size: 12px;
+    font-weight: bold;
+    font-family: "PT Sans", sans-serif;
+    font-size: 12px;
 }
 
 /* buttons */
 
 .navbar-action-button {
-	padding: 1em;
+    padding: 1em;
 }
+
 .navbar-action-button + .navbar-action-button {
-	padding-left: 0.5em;
+    padding-left: 0.5em;
 }
 
 /* reader button */
 
 .tab-item .reader-button {
-	display: none;
-	padding-left: 0;
+    display: none;
+    padding-left: 0;
 }
+
 .tab-item.active .reader-button.can-reader {
-	display: inline-block;
+    display: inline-block;
 }
+
 .tab-item.active .reader-button.is-reader {
-	display: inline-block;
+    display: inline-block;
 }
 
 /* when the tab is hovered, hide info buttons and show the close button */
 
 .tab-item.jshover .tab-info-icon {
-	display: none;
+    display: none;
 }
+
 .tab-item .tab-close-button {
-	opacity: 0;
-	transition: all .2s;
+    opacity: 0;
+    transition: all .2s;
 }
+
 .tab-item:hover .tab-close-button {
-	opacity: .1;
-	color: #000;
+    opacity: .1;
+    color: #000;
 }
 
 .tab-item .tab-close-button:hover {
-	opacity: .5;
+    opacity: .5;
 }
 
 /* hide other tabs in focus mode */
 
 body.is-focus-mode .tab-item:not(.active) {
-	display: none;
+    display: none;
 }
+
 body.is-focus-mode .navbar-action-button {
-	display: none;
+    display: none;
 }
 
 /* since only one tab is shown in focus mode, the highlight isn't needed */
 
 body.is-focus-mode .tab-item {
-	background: none !important;
+    background: none !important;
 }
-
 
 /* favicon */
 .favicon {
-	width: 16px;
-	height: 16px;
-	display: block;
-	/*background: #fff;*/
-	margin: 9px 6px 0 7px;
-	float: left;
-	/*border: 1px solid #ddd;*/
-	border-radius: 2px;
+    width: 16px;
+    height: 16px;
+    display: block;
+    /*background: #fff;*/
+    margin: 9px 6px 0 7px;
+    float: left;
+    /*border: 1px solid #ddd;*/
+    border-radius: 2px;
 }

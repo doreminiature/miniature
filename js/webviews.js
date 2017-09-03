@@ -150,7 +150,7 @@ function getWebviewDom(options) {
     })
     w.addEventListener('page-favicon-updated', function (e) {
         var id = this.getAttribute('data-tab')
-        updateTabColor(e.favicons, id)
+        // updateTabColor(e.favicons, id)
     })
 
     w.addEventListener('page-title-set', function (e) {

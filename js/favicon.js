@@ -10,9 +10,13 @@ F = {
         F.EVENT()
     }, EVENT() {
         eventEmitter.on('startLoadingPage', () => {
+
+            rerenderTabstrip()
             F.UPDATE()
         })
         eventEmitter.on('stopLoadingPage', () => {
+
+            rerenderTabstrip()
             F.UPDATE()
             setTimeout(function () {
                 F.UPDATE()
@@ -64,7 +68,6 @@ F = {
 
     UPDATE() {
         say.m('F.UPDATE()')
-
 
         if (F.DB.length == 0)
             F.___SET_TEST_DATA()
@@ -123,7 +126,10 @@ F = {
         }
 
         if (F.webviewIsLoading) {
-            document.querySelector('.tab-item.active img.favicon').src = F.___LOADING_ICON()
+            try {
+                document.querySelector('.tab-item.active img.favicon').src = F.___LOADING_ICON()
+            } catch (e){}
+
         }
 
     }, _urlToHost(url) {

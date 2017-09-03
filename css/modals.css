@@ -11,15 +11,15 @@
     background: white;
     /*padding-top: 65px;*/
     text-align: center;
-    pointer-events:none;
+    /*pointer-events:none;*/
     /*opacity: 0;*/
 
 }
-.showModals{
-    /*transition: 0.5s;*/
-    /*opacity: 1 !important;*/
-    display: block;
-}
+/*.showModals{*/
+    /*!*transition: 0.5s;*!*/
+    /*!*opacity: 1 !important;*!*/
+    /*display: block;*/
+/*}*/
 #modals h1 {
     margin-top: 250px;
     font-size: 50px;

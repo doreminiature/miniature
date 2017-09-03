@@ -139,7 +139,6 @@ CT = {
                         if (tabState.tasks[i].id == id) {
                             for (let j = 0; j < tabState.tasks[i].tabs.length; j++) {
                                 if (arrLinks[j]) {
-                                    alert(arrLinks[j])
                                     tabState.tasks[i].tabs[j].url = arrLinks[j].split(":")[0]
                                     tabState.tasks[i].tabs[j].title = arrLinks[j].split(":")[1]
                                 }

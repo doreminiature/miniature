@@ -114,24 +114,12 @@ CT = {
         if (CT._openCollectionNOWClickTime + 5 < new Date() + 1) {
             try {
                 if (e.relatedTarget.classList.value == 'openCollectionNOW') {
-                    console.log('==================================================================')
-                    // console.log(e.relatedTarget.innerText)
-                    // console.log(e.relatedTarget.getAttribute("data-links"))
-                    // console.log(e.relatedTarget.getAttribute("data-links").split(","))
                     let colName = e.relatedTarget.innerText
                     let arrLinks = e.relatedTarget.getAttribute("data-links").split(",")
 
-
                     let id = tasks.addEmpty({name: colName})
                     switchToTask(id)
-                    console.log(id)
 
-
-
-                    // addTab(tabs.add({url: ''}, tabs[0]), {enterEditMode: false})
-                    // addTab(tabs.add({url: ''}, tabs[0]), {enterEditMode: false})
-                    // addTab(tabs.add({url: ''}, tabs[0]), {enterEditMode: false})
-                    // addTab(tabs.add({url: ''}, tabs[0]), {enterEditMode: false})
                     sessionRestore.save()
                     CT.render()
 
@@ -139,17 +127,17 @@ CT = {
                         if (tabState.tasks[i].id == id) {
                             for (let j = 0; j < tabState.tasks[i].tabs.length; j++) {
                                 if (arrLinks[j]) {
-                                    tabState.tasks[i].tabs[j].url = arrLinks[j]
+                                    tabState.tasks[i].tabs[j].url = arrLinks[j].split(":")[0]
+                                    tabState.tasks[i].tabs[j].title = arrLinks[j].split(":")[1]
                                 }
                             }
                         }
                     }
                     rerenderTabstrip()
-                    // for (let i = 0; i < arrLinks.length; i++) {
-                    //     // console.log(arrLinks[i])
-                    //     addTabInNewCol(tabs.add({url: arrLinks[i]}, tabs[0]), {enterEditMode: false}, )
-                    // }
-                    console.log('==================================================================')
+                    switchToTask(id)
+                    if(arrLinks.length>0){
+                        openURLFromsearchbar('', arrLinks[0].split(":")[0])
+                    }
                 }
             } catch (e) {
             }

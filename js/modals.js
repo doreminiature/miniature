@@ -29,7 +29,7 @@ modals = {
             a.href = '#'
             a.classList.add('openCollectionNOW')
             // a.setAttribute("data-links", "google.com,www.w3schools.com,stackoverflow.com")
-            a.setAttribute("data-links", "google.com,www.w3schools.com")
+            a.setAttribute("data-links", "www.google.com.ua:Google,www.w3schools.com:w3schools")
             a.innerText = 'aaa'
             modals.el.appendChild(a)
         } else if (page == 'navBar') {

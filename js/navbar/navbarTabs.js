@@ -151,6 +151,8 @@ function rerenderTabElement(tabId) {
 
 function createTabElement(data) {
 
+
+
     var url = urlParser.parse(data.url)
 
     var tabEl = document.createElement('div')
@@ -236,6 +238,10 @@ function createTabElement(data) {
     title.className = 'title'
     title.textContent = data.title || '...'
 
+    console.log('###==================================================================')
+    console.log(data)
+    console.log('###==================================================================')
+
     vc.appendChild(title)
 
     tabEl.appendChild(vc)
@@ -310,8 +316,6 @@ function createTabElement(data) {
 
 function addTab(tabId, options) {
 
-    // debugger;
-
     /*
     options
 
@@ -331,19 +335,6 @@ function addTab(tabId, options) {
 
     var tab = tabs.get(tabId)
 
-    // use the correct new tab colors
-    //
-    // if (tab.private && !tab.backgroundColor) {
-    //     tabs.update(tabId, {
-    //         backgroundColor: defaultColors.private[0],
-    //         foregroundColor: defaultColors.private[1]
-    //     })
-    // } else if (!tab.backgroundColor) {
-    //     tabs.update(tabId, {
-    //         backgroundColor: defaultColors.regular[0],
-    //         foregroundColor: defaultColors.regular[1]
-    //     })
-    // }
 
     findinpage.end()
 
@@ -383,7 +374,71 @@ function addTab(tabId, options) {
     tabCount()
 
 }
+function addTabInNewCol(tabId, options) {
 
+
+
+
+    /*
+    options
+
+      options.focus - whether to enter editing mode when the tab is created. Defaults to true.
+      options.openInBackground - whether to open the tab without switching to it. Defaults to false.
+      options.leaveEditMode - whether to hide the searchbar when creating the tab
+    */
+
+    options = options || {}
+
+    if (options.leaveEditMode !== false) {
+        leaveTabEditMode() // if a tab is in edit-mode, we want to exit it
+    }
+
+    tabId = tabId || tabs.add()
+
+
+    var tab = tabs.get(tabId)
+
+
+    findinpage.end()
+
+    var index = tabs.getIndex(tabId)
+
+    // var tabEl = createTabElement(tab)
+
+
+
+    // let tempEl = ''
+    // for (let i = 0; i < tabState.tasks.length; i++) {
+    //     for (let j = 0; j < tabState.tasks[i].tabs.length; j++) {
+    //         if (tabState.tasks[i].tabs[j].id == tabId) {
+    //             tempEl = tabState.tasks[i].tabs[j]
+    //             tabs.destroy(tabId)
+    //             tabState.tasks[i].tabs.unshift(tempEl)
+    //             tabGroup.insertBefore(tabEl, tabGroup.firstChild)
+    //             switchToTab(tabId)
+    //         }
+    //     }
+    // }
+
+    addWebview(tabId)
+
+    // open in background - we don't want to enter edit mode or switch to tab
+
+    if (options.openInBackground) {
+        return
+    }
+
+    switchToTab(tabId, {
+        focusWebview: false
+    })
+
+    if (options.enterEditMode !== false) {
+        // enterEditMode(tabId)
+    }
+
+    tabCount()
+
+}
 // startup state is created in sessionRestore.js
 
 // when we click outside the navbar, we leave editing mode

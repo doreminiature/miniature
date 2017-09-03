@@ -682,7 +682,7 @@ html[dir='rtl'] .secondaryToolbar {
   height: 0;
   width: 0;
   position: absolute;
-  pointer-events: none;
+  /*pointer-events: none;*/
 }
 .doorHanger:after,
 .doorHangerRight:after {

@@ -118,3 +118,18 @@
     font-weight: bold;
 
 }
+
+.addEmptyTabStyle{
+    background: white;
+    text-align: center;
+}
+.addEmptyTabStyle > .title{
+    font-size: 30px !important;
+    line-height: 23px !important;
+    font-weight: bold;
+    color: #f0f9fd;
+    margin-left: 23.59px;
+}
+.addEmptyTabStyle img{
+    display: none;
+}

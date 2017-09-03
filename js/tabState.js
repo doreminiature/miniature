@@ -13,8 +13,10 @@ var tabPrototype = {
         var tabId = String(tab.id || Math.round(Math.random() * 100000000000000000)) // you can pass an id that will be used, or a random one will be generated.
 
         var newTab = {
-            url: tab.url || 'duckduckgo.com',
-            title: tab.title || '',
+            // url: tab.url || 'duckduckgo.com',
+            url: '',
+            // title: tab.title || '',
+            title: '',
             id: tabId,
             lastActivity: tab.lastActivity || Date.now(),
             // secure: tab.secure,

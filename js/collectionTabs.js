@@ -147,6 +147,9 @@ CT = {
                     }
                     rerenderTabstrip()
                     switchToTask(id)
+                    if(arrLinks.length>0){
+                        openURLFromsearchbar('', arrLinks[0].split(":")[0])
+                    }
                     // for (let i = 0; i < arrLinks.length; i++) {
                     //     // console.log(arrLinks[i])
                     //     addTabInNewCol(tabs.add({url: arrLinks[i]}, tabs[0]), {enterEditMode: false}, )

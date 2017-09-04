@@ -77,7 +77,7 @@ body.notMac .page-tabs {
 .tabs .tab-item {
     cursor: pointer;
     transition: all .3s ease;
-    background: white;
+    /*background: white;*/
 }
 
 .jshover {

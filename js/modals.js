@@ -36,6 +36,14 @@ modals = {
             let h1 = document.createElement("h1");
             h1.innerText = 'This is navBar modal!'
             modals.el.appendChild(h1);
+
+            let a = document.createElement("a")
+            a.href = '#'
+            a.classList.add('openCollectionNOW')
+            // a.setAttribute("data-links", "google.com,www.w3schools.com,stackoverflow.com")
+            a.setAttribute("data-links", "www.google.com.ua:Google,www.w3schools.com:w3schools")
+            a.innerText = 'aaa'
+            modals.el.appendChild(a)
         }
     },
 

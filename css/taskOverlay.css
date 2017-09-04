@@ -10,11 +10,13 @@
 }
 #switch-task-button {
 	height: 100%;
-	padding: 0 78px 0 9px;
+	padding: 0 0 0 9px;
+	width: calc(100% - 55px);
 	font-family: "PT Sans", sans-serif;
 	font-size: 14px;
 	font-weight: bold;
 	letter-spacing: .03em;
+	text-align: left;
 }
 #switch-task-button span {
 	position: relative;
@@ -37,6 +39,10 @@
 	overflow: auto;
 	opacity: 1;
 	z-index: 100;
+}
+
+#task-overlay .tab-close-button {
+	color: red;
 }
 
 #task-overlay[hidden] {
@@ -131,4 +137,46 @@ body.dark-mode #task-overlay #add-task {
 
 #taskSwitcherButton{
 
+}
+
+::-webkit-scrollbar {
+	height: 12px;
+	width: 12px;
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #eee;
+	-webkit-border-radius: 0ex;
+	/*-webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25);*/
+}
+
+::-webkit-scrollbar-corner {
+	background: #000;
+}
+
+#webviews webview {
+	/*width: calc(100% + 1px);*/
+}
+
+#task-overlay .favicon {
+	width: 16px;
+	height: 16px;
+	display: block;
+	margin: 6px 6px 0 7px;
+	float: left;
+	border-radius: 2px;
+}
+
+#task-overlay .task-tab-item .close-tab-from-overlay {
+	opacity: 0;
+	transition: all .5s ease;
+}
+
+#task-overlay .task-tab-item:hover {
+	background-color: #44DDDD;
+}
+
+#task-overlay .task-tab-item:hover .close-tab-from-overlay {
+	opacity: 1;
 }

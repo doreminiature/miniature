@@ -7,7 +7,7 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    z-index: 99999;
+    z-index: 2;
     background: white;
     /*padding-top: 65px;*/
     text-align: center;

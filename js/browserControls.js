@@ -83,12 +83,12 @@ BC = {
 
         try {
             if (getWebview(tabs.getSelected()).canGoBack() == false) {
-                document.getElementById("back").style.opacity = "0.2"
+                document.getElementById("back").style.opacity = "0.6"
             } else {
                 document.getElementById("back").style.opacity = "1"
             }
             if (getWebview(tabs.getSelected()).canGoForward() == false) {
-                document.getElementById("forward").style.opacity = "0.2"
+                document.getElementById("forward").style.opacity = "0.6"
             } else {
                 document.getElementById("forward").style.opacity = "1"
             }

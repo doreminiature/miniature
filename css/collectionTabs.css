@@ -42,6 +42,10 @@
     /*-webkit-app-region: drag;*/
 }
 
+.collection-tab:hover {
+    background-color: #e2eaf8;
+}
+
 #collection-tabs {
     display: flex;
     width: 100%;
@@ -75,7 +79,7 @@
 #collection-tabs > div input{
     background: transparent;
     font-family: "PT Sans Caption", sans-serif;
-    font-size: 11.4px;
+    font-size: 11.8px;
     border: 0;
     cursor: pointer;
     width: calc(100% - 29px);
@@ -123,14 +127,22 @@
     /*background: white;*/
     text-align: center;
 }
-.addEmptyTabStyle > .title{
-    font-size: 30px !important;
-    line-height: 23px !important;
+
+
+.tab-item .tab-view-contents.addEmptyTabStyle span.title {
     font-weight: bold;
-    /*color: #f0f9fd;*/
-    color: #dee7f7;
-    margin-left: 23.59px;
+    color: #ddd;
+    line-height: 20px;
+    background: transparent;
+    font-family: "PT Sans Caption", sans-serif;
+    font-size: 30px;
+    letter-spacing: 2.5px;
 }
-.addEmptyTabStyle img{
+
+.addEmptyTabStyle .favicon {
     display: none;
 }
+
+/*.addEmptyTabStyle .tab-close-button{*/
+    /*display: none;*/
+/*}*/

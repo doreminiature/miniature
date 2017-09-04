@@ -41,7 +41,7 @@ module.exports = function (grunt) {
 							"js/searchbar/bangsPlugin.js",
 							"js/searchbar/customBangs.js",
 							"js/searchbar/searchSuggestionsPlugin.js",
-							"js/searchbar/placeSuggestionsPlugin.js",
+							// "js/searchbar/placeSuggestionsPlugin.js",
 							"js/searchbar/hostsSuggestionsPlugin.js",
 							"js/readerview.js",
 						 "js/navbar/tabActivity.js",

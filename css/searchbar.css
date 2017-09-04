@@ -37,7 +37,7 @@ body.notMac #searchbar {
 	display: block;
 }
 .searchbar-item:hover {
-	background-color: rgba(0, 0, 0, 0.04);
+	/*background-color: rgba(0, 0, 0, 0.04);*/
 }
 .searchbar-item:focus,
 .searchbar-item.fakefocus {
@@ -54,10 +54,9 @@ body.notMac #searchbar {
 .searchbar-item .title {
 	display: inline-block;
 	font-family: 'PT Sans';
-	font-size: 13px;
-
+	font-size: 13.7px;
 	vertical-align: middle;
-	max-width: 95%;
+	max-width: 88%;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;

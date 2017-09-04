@@ -8,19 +8,19 @@ CT = {
     prevTabIndex: [],
     inputFocus: false,
     _openCollectionNOWClickTime: new Date(),
+    lastCollectionId: '',
+    lastCollectionIndex: 0,
 
     start() {
         say.m('CT.start()')
-
         CT.prevTabIndex = []
-
         CT.selectFirstTabOnStart()
-
         CT.taskId = tabState.selectedTask
         CT.add5()
         CT.loadTasks()
         CT.render()
         CT.events()
+        CT.lastCollectionId = tabState.tasks[0].id
     },
     events() {
         say.m('CT.events()')
@@ -28,13 +28,9 @@ CT = {
         document.getElementById('collection-tabs').addEventListener('click', function (e) {
             CT.goToCollection(e)
         })
-
-
         document.querySelector('.page-tabs').addEventListener('click', function (e) {
             CT.remoteClassEditing()
         })
-
-
         let taskName = document.querySelectorAll('.task-action-container .task-name')
         for (var i = 0; i < taskName.length; i++) {
             taskName[i].addEventListener('click', function (event) {
@@ -44,17 +40,19 @@ CT = {
                 CT.overviewTaskNameClickEnterE(e)
             })
         }
-
     },
 
     goToCollection(e) {
         say.m('CT.goToCollection(e):')
 
-        //CT.addCollectionTab()
+
+        console.log('==================================================================')
+        console.log(e.target.parentNode.className.indexOf("active-tab"))
+        console.log('==================================================================')
+
 
         taskOverlay.inputFocus = true
         CT.add5tab()
-
         // click on collection tabs
         try {
             if (e.target.parentNode.parentNode.id == 'collection-tabs') {
@@ -67,21 +65,18 @@ CT = {
                         if (tabState.tasks[i].id == tabState.selectedTask) {
                             if (tabState.tasks[i].name == null) {
                                 CT.addClassEditing()
-
-                                //CT.addCollectionTab()
                                 document.querySelector('.active-tab').addEventListener('blur', function (e) {
                                     CT._openCollectionNOWClick(e)
                                     CT.remoteClassEditing()
                                     modals.hide()
                                 }, true);
+
                                 modals.show('collection')
                             }
                         }
                     }
                 } else {
                     CT.addClassEditing()
-
-                    //CT.addCollectionTab()
                     document.querySelector('.active-tab').addEventListener('blur', function (e) {
                         CT._openCollectionNOWClick(e)
                         CT.remoteClassEditing()
@@ -90,10 +85,8 @@ CT = {
                     modals.show('collection')
                 }
             }
-
         } catch (e) {
         }
-
         // edit name collection tabs
         document.querySelector('.active-tab input').addEventListener('keydown', function (e) {
             if (e.which == 13) {
@@ -106,23 +99,20 @@ CT = {
                 CT.render()
             }
         })
-
         CT.add5tab()
-
         eventEmitter.emit('goToCollection')
     }, _openCollectionNOWClick(e) {
+        say.m('CT._openCollectionNOWClick(e)')
+
         if (CT._openCollectionNOWClickTime + 5 < new Date() + 1) {
             try {
                 if (e.relatedTarget.classList.value == 'openCollectionNOW') {
                     let colName = e.relatedTarget.innerText
                     let arrLinks = e.relatedTarget.getAttribute("data-links").split(",")
-
                     let id = tasks.addEmpty({name: colName})
                     switchToTask(id)
-
                     sessionRestore.save()
                     CT.render()
-
                     for (let i = 0; i < tabState.tasks.length; i++) {
                         if (tabState.tasks[i].id == id) {
                             for (let j = 0; j < tabState.tasks[i].tabs.length; j++) {
@@ -135,7 +125,7 @@ CT = {
                     }
                     rerenderTabstrip()
                     switchToTask(id)
-                    if(arrLinks.length>0){
+                    if (arrLinks.length > 0) {
                         openURLFromsearchbar('', arrLinks[0].split(":")[0])
                     }
                 }
@@ -143,6 +133,10 @@ CT = {
             }
             CT._openCollectionNOWClickTime = new Date() + 1
         }
+
+
+        // for
+
 
     },
     goToCollectionID(id) {
@@ -155,7 +149,6 @@ CT = {
             } else {
                 switchToTask(tabState.tasks[index - 1].id)
             }
-
             CT.render()
         } catch (e) {
             CT.render()
@@ -167,14 +160,12 @@ CT = {
         say.m('CT.getIndexFromIdTaskId(id): ' + id)
 
         let index = ''
-
         for (let i = 0; i < tabState.tasks.length; i++) {
             console.log(tabState.tasks[i].id)
             if (tabState.tasks[i].id == id) {
                 index = i
             }
         }
-
         console.log('id: ' + id, 'index: ' + index)
         return index
     },
@@ -249,7 +240,6 @@ CT = {
                 }
             } else {
                 if (tabState.tasks[i].tabs.length == 1 && tabState.tasks[i].tabs[0].url == 'duckduckgo.com') {
-
                     tabState.tasks[i].tabs[0].url = ''
                     tabState.tasks[i].tabs[0].title = ''
                 }
@@ -318,53 +308,42 @@ CT = {
     collectionLeftFocusOnCollectionTabInput(id) {
         document.querySelector(`[data-task="${id}"] input`).focus()
     },
-    addCollectionTab() {
-        say.m('CT.addCollectionTab()')
+    _getLastCollection() {
 
-        // let thereIsCollection = false
-        // for (let i = 0; i < tabState.tasks.length; i++) {
-        //     if (tabState.tasks[i].id == tabState.selectedTask) {
-        //         for (let j = 0; j < tabState.tasks[i].tabs.length; j++) {
-        //             if (tabState.tasks[i].tabs[j].title == 'Collection') {
-        //                 thereIsCollection = true
-        //             }
-        //
-        //         }
-        //         if (tabState.tasks[i].tabs.length == 2) {
-        //             for (let j = 0; j < tabState.tasks[i].tabs.length; j++) {
-        //                 if (tabState.tasks[i].tabs[j].url == 'duckduckgo.com') {
-        //                     destroyTab(tabState.tasks[i].tabs[j].id)
-        //                 }
-        //
-        //             }
-        //         }
-        //         // else if (tabState.tasks[i].tabs.length == 1) {
-        //             // alert(tabState.tasks[i].tabs.length)
-        //             // console.log('--------------------', tabState.tasks[i].tabs.length)
-        //             // tabState.tasks[i].tabs[0].title = 'Collection'
-        //             // tabState.tasks[i].tabs[0].url = 'file:///' + __dirname + '/pages/collection/index.html'
-        //
-        //             // navigate(tabState.tasks[i].tabs[0].id, 'file:///' + __dirname + '/pages/collection/index.html')
-        //
-        //         // }
-        //     }
-        // }
-        // if (thereIsCollection == false && document.querySelector('.active-tab ').className.indexOf("editing") != -1) {
-        //     addTab(tabs.add({
-        //         url: 'file:///' + __dirname + '/pages/collection/index.html',
-        //         title: 'Collection'
-        //     }, tabs[0]), {enterEditMode: false})
-        //     CT.addClassEditing()
-        // }
+        let S_LC_I = CT.lastCollectionIndex
+        let S_LC_ID = CT.lastCollectionId
+        CT.lastCollectionId = tabState.selectedTask
+        for (let i = 0; i < tabState.tasks.length; i++) {
+            if (tabState.tasks[i].id == tabState.selectedTask) {
+                CT.lastCollectionIndex = i
+            }
+        }
+        let F_LC_I = CT.lastCollectionIndex
+        let F_LC_ID = CT.lastCollectionId
 
+        if (S_LC_I <= 4 && F_LC_I > 4) {
+            CT._needMoveColection(S_LC_I, F_LC_ID, F_LC_I)
+        }
+
+    }, _needMoveColection(from, whoID, whoINDEX) {
+
+        // if (from > 0)
+        //     from = from - 1
+
+        let tempEl = tabState.tasks[whoINDEX]
+
+        tabState.tasks.splice(whoINDEX, 1)
+
+        tabState.tasks.splice(from, 0, tempEl)
     },
 
     render() {
         say.m('CT.render()')
 
-        CT.add5tab()
-        // CT.addEmptyTabStyle()
+        CT._getLastCollection()
 
+
+        CT.add5tab()
         if (CT.inputFocus == false) {
             let collectionTabsHTML = []
             for (let i = 0; i < tabState.tasks.length; i++) {
@@ -375,28 +354,19 @@ CT = {
                 collectionTabsHTML.push('<div class="collection-tab ' + ( tabState.selectedTask == tabState.tasks[i].id ? 'active-tab' : '' ) + '" data-task-id="' + tabState.tasks[i].id + ' " data-index="' + i + '">' + title + '</div>')
             }
             document.getElementById('collection-tabs').innerHTML = collectionTabsHTML.join('')
-            // CT.addEmptyTabStyle()
-
             CT.renderOverlay()
-            // CT.addEmptyTabStyle()
-
-
             eventEmitter.emit('render')
-
         }
     },
     renderOverlay() {
         say.m('CT.renderOverlay() ' + taskOverlay.inputFocus)
 
         eventEmitter.emit('renderOverlay')
-
         if (taskOverlay.inputFocus) {
             if (document.querySelector('#task-overlay').getAttribute('hidden') == null)
                 taskOverlay.show()
         }
-
         eventEmitter.emit('render')
-
     }
 
 }

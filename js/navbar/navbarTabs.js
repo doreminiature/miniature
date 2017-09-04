@@ -65,6 +65,8 @@ function setActiveTabElement(tabId) {
 function leaveTabEditMode(options) {
 
     var selTab = document.querySelector('.tab-item.selected')
+
+
     if (selTab) {
         selTab.classList.remove('selected')
         modals.hide()
@@ -76,8 +78,11 @@ function leaveTabEditMode(options) {
         }
     }
 
+
     document.body.classList.remove('is-edit-mode')
     hidesearchbar()
+
+
 }
 
 function enterEditMode(tabId) {
@@ -96,6 +101,12 @@ function enterEditMode(tabId) {
 
     document.body.classList.add('is-edit-mode')
     tabEl.classList.add('selected')
+
+    tabEl.addEventListener('blur', function (e) {
+        CT._openCollectionNOWClick(e)
+    }, true);
+
+
     // modals.hide()
     modals.show('navBar')
 
@@ -119,31 +130,6 @@ function rerenderTabstrip() {
     for (var i = 0; i < tabs.length; i++) {
         tabGroup.appendChild(createTabElement(tabs[i]))
     }
-
-
-    // for (var i = 0; i < tabs.length; i++) {
-    //   tabGroup.appendChild( createTabElement(tabs[i]) )
-    // }
-    //
-    // let tabEls = document.querySelectorAll( '.tab-item' )
-    // let tabElsLength = tabEls.length
-    // let newArr = []
-    // for( let i = 0; i < tabElsLength; i++ ){
-    //   newArr.push( tabEls[ i ] )
-    // }
-    // document.querySelector( '#tabs' ).innerHTML = ''
-    // for(  let i = 0; i < tabElsLength; i++  ){
-    //   tabGroup.appendChild( newArr[ (tabElsLength - 1) - i ] )
-    //
-    // }
-
-    // document.querySelectorAll( '.tab-item' )[0].remove()
-    // console.log( newArr )
-
-
-//   console.log( '9999999999999999999999999' )
-// console.log( tabGroup.length )
-//   console.log( '9999999999999999999999999' )
     tabCount()
 }
 

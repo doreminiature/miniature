@@ -23,21 +23,14 @@ function setActiveTabElement(tabId) {
     }
 
     var el = getTabElement(tabId)
-    try {
-        el.classList.add('active')
-    } catch (e) {
-    }
+    el.classList.add('active')
 
 
     requestIdleCallback(function () {
         requestAnimationFrame(function () {
-            try {
-                el.scrollIntoView({
-                    behavior: 'smooth'
-                })
-            } catch (e) {
-            }
-
+            el.scrollIntoView({
+                behavior: 'smooth'
+            })
         })
     }, {
         timeout: 1500
@@ -57,21 +50,17 @@ function setActiveTabElement(tabId) {
     } catch (e) {
     }
 
-    try {
-        // click on empty tab - doubleclick
-        if (el.querySelector('.title').innerText == '...') {
-            setTimeout(function () {
-                let elTIA = document.querySelector('.tab-item.active')
-                if (elTIA) {
-                    elTIA.click()
-                }
-            }, 0)
-        } else {
-            modals.hide()
-        }
-    } catch (e) {
+    // click on empty tab - doubleclick
+    if (el.querySelector('.title').innerText == '...') {
+        setTimeout(function () {
+            let elTIA = document.querySelector('.tab-item.active')
+            if (elTIA) {
+                elTIA.click()
+            }
+        }, 0)
+    } else {
+        modals.hide()
     }
-
 
 }
 
@@ -132,13 +121,9 @@ function enterEditMode(tabId) {
 
     // show keyword suggestions in the searchbar
 
-    try {
-        if (webview.send) { // before first webview navigation, this will be undefined
-            webview.send('getKeywordsData')
-        }
-    } catch (e) {
+    if (webview.send) { // before first webview navigation, this will be undefined
+        webview.send('getKeywordsData')
     }
-
 }
 
 // redraws all of the tabs in the tabstrip
@@ -208,6 +193,8 @@ function createTabElement(data) {
             sessionRestore.save()
             CT.render()
         }, 100)
+        tabEl.classList.add('selected')
+        tabEl.classList.add('active')
     })
 
     tabEl.addEventListener('mouseleave', function (e) {
@@ -432,16 +419,14 @@ bindWebviewEvent('focus', function () {
 
 
 function openNavBarCollection(e) {
-
-
-    let selectedId = ''
-    let selectedTasksI = ''
-    let selectedTabsI = ''
-
-    if (CT._openCollectionNOWClickTime + 2 < new Date() + 1) {
+    if (CT._openCollectionNOWClickTime + 5 < new Date() + 1) {
         // try {
         if (e.relatedTarget && e.relatedTarget.classList.value == 'openTabsNOW') {
+
             let arrLinks = e.relatedTarget.getAttribute("data-links").split(",")
+            let selectedId = ''
+            let selectedTasksI = ''
+            let selectedTabsI = ''
 
             for (let i = 0; i < tabState.tasks.length; i++) {
                 if (tabState.tasks[i].id == tabState.selectedTask) {
@@ -457,7 +442,7 @@ function openNavBarCollection(e) {
 
             for (let i = 0; i < arrLinks.length; i++) {
                 tabs.add({}, tabs[selectedTabsI])
-                tabState.tasks[selectedTasksI ].tabs[selectedTabsI].url = arrLinks[i].split(":")[0]
+                tabState.tasks[selectedTasksI].tabs[selectedTabsI].url = arrLinks[i].split(":")[0]
                 tabState.tasks[selectedTasksI].tabs[selectedTabsI].title = arrLinks[i].split(":")[1]
             }
 
@@ -468,6 +453,4 @@ function openNavBarCollection(e) {
         // }
         CT._openCollectionNOWClickTime = new Date() + 1
     }
-    modals.hide()
-    switchToTab(selectedId)
 }

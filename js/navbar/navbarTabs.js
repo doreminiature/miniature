@@ -65,6 +65,8 @@ function setActiveTabElement(tabId) {
 function leaveTabEditMode(options) {
 
     var selTab = document.querySelector('.tab-item.selected')
+
+
     if (selTab) {
         selTab.classList.remove('selected')
         modals.hide()
@@ -76,8 +78,11 @@ function leaveTabEditMode(options) {
         }
     }
 
+
     document.body.classList.remove('is-edit-mode')
     hidesearchbar()
+
+
 }
 
 function enterEditMode(tabId) {
@@ -96,6 +101,12 @@ function enterEditMode(tabId) {
 
     document.body.classList.add('is-edit-mode')
     tabEl.classList.add('selected')
+
+    tabEl.addEventListener('blur', function (e) {
+        CT._openCollectionNOWClick(e)
+    }, true);
+
+
     // modals.hide()
     modals.show('navBar')
 

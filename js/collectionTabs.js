@@ -70,6 +70,7 @@ CT = {
                                     CT.remoteClassEditing()
                                     modals.hide()
                                 }, true);
+
                                 modals.show('collection')
                             }
                         }

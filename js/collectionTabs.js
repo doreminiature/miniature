@@ -45,12 +45,6 @@ CT = {
     goToCollection(e) {
         say.m('CT.goToCollection(e):')
 
-
-        console.log('==================================================================')
-        console.log(e.target.parentNode.className.indexOf("active-tab"))
-        console.log('==================================================================')
-
-
         taskOverlay.inputFocus = true
         CT.add5tab()
         // click on collection tabs
@@ -64,14 +58,14 @@ CT = {
                     for (let i = 0; i < tabState.tasks.length; i++) {
                         if (tabState.tasks[i].id == tabState.selectedTask) {
                             if (tabState.tasks[i].name == null) {
-                                CT.addClassEditing()
+                                // CT.addClassEditing()
                                 document.querySelector('.active-tab').addEventListener('blur', function (e) {
                                     CT._openCollectionNOWClick(e)
                                     CT.remoteClassEditing()
                                     modals.hide()
                                 }, true);
 
-                                modals.show('collection')
+                                // modals.show('collection')
                             }
                         }
                     }
@@ -133,11 +127,6 @@ CT = {
             }
             CT._openCollectionNOWClickTime = new Date() + 1
         }
-
-
-        // for
-
-
     },
     goToCollectionID(id) {
         say.m('CT.goToCollectionID(id): ' + id)
@@ -327,13 +316,8 @@ CT = {
 
     }, _needMoveColection(from, whoID, whoINDEX) {
 
-        // if (from > 0)
-        //     from = from - 1
-
         let tempEl = tabState.tasks[whoINDEX]
-
         tabState.tasks.splice(whoINDEX, 1)
-
         tabState.tasks.splice(from, 0, tempEl)
     },
 

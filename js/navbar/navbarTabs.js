@@ -26,7 +26,6 @@ function setActiveTabElement(tabId) {
     el.classList.add('active')
 
 
-
     requestIdleCallback(function () {
         requestAnimationFrame(function () {
             el.scrollIntoView({
@@ -52,11 +51,15 @@ function setActiveTabElement(tabId) {
     }
 
     // click on empty tab - doubleclick
-    if(el.querySelector('.title').innerText == '...'){
-        setTimeout(function(){
-            document.querySelector('.tab-item.active').click()
-        },0)
+    if (el.querySelector('.title').innerText == '...') {
+        setTimeout(function () {
+            let elTIA = document.querySelector('.tab-item.active')
+            if (elTIA) {
+                elTIA.click()
+            }
+        }, 0)
     }
+
 }
 
 function leaveTabEditMode(options) {

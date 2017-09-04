@@ -23,14 +23,21 @@ function setActiveTabElement(tabId) {
     }
 
     var el = getTabElement(tabId)
-    el.classList.add('active')
+    try {
+        el.classList.add('active')
+    } catch (e) {
+    }
 
 
     requestIdleCallback(function () {
         requestAnimationFrame(function () {
-            el.scrollIntoView({
-                behavior: 'smooth'
-            })
+            try {
+                el.scrollIntoView({
+                    behavior: 'smooth'
+                })
+            } catch (e) {
+            }
+
         })
     }, {
         timeout: 1500
@@ -50,17 +57,21 @@ function setActiveTabElement(tabId) {
     } catch (e) {
     }
 
-    // click on empty tab - doubleclick
-    if (el.querySelector('.title').innerText == '...') {
-        setTimeout(function () {
-            let elTIA = document.querySelector('.tab-item.active')
-            if (elTIA) {
-                elTIA.click()
-            }
-        }, 0)
-    } else {
-        modals.hide()
+    try {
+        // click on empty tab - doubleclick
+        if (el.querySelector('.title').innerText == '...') {
+            setTimeout(function () {
+                let elTIA = document.querySelector('.tab-item.active')
+                if (elTIA) {
+                    elTIA.click()
+                }
+            }, 0)
+        } else {
+            modals.hide()
+        }
+    } catch (e) {
     }
+
 
 }
 
@@ -121,9 +132,13 @@ function enterEditMode(tabId) {
 
     // show keyword suggestions in the searchbar
 
-    if (webview.send) { // before first webview navigation, this will be undefined
-        webview.send('getKeywordsData')
+    try {
+        if (webview.send) { // before first webview navigation, this will be undefined
+            webview.send('getKeywordsData')
+        }
+    } catch (e) {
     }
+
 }
 
 // redraws all of the tabs in the tabstrip
@@ -417,14 +432,16 @@ bindWebviewEvent('focus', function () {
 
 
 function openNavBarCollection(e) {
-    if (CT._openCollectionNOWClickTime + 5 < new Date() + 1) {
+
+
+    let selectedId = ''
+    let selectedTasksI = ''
+    let selectedTabsI = ''
+
+    if (CT._openCollectionNOWClickTime + 2 < new Date() + 1) {
         // try {
         if (e.relatedTarget && e.relatedTarget.classList.value == 'openTabsNOW') {
-
             let arrLinks = e.relatedTarget.getAttribute("data-links").split(",")
-            let selectedId = ''
-            let selectedTasksI = ''
-            let selectedTabsI = ''
 
             for (let i = 0; i < tabState.tasks.length; i++) {
                 if (tabState.tasks[i].id == tabState.selectedTask) {
@@ -439,8 +456,8 @@ function openNavBarCollection(e) {
             }
 
             for (let i = 0; i < arrLinks.length; i++) {
-                tabs.add({}, selectedTabsI)
-                tabState.tasks[selectedTasksI].tabs[selectedTabsI].url = arrLinks[i].split(":")[0]
+                tabs.add({}, tabs[selectedTabsI])
+                tabState.tasks[selectedTasksI ].tabs[selectedTabsI].url = arrLinks[i].split(":")[0]
                 tabState.tasks[selectedTasksI].tabs[selectedTabsI].title = arrLinks[i].split(":")[1]
             }
 
@@ -451,4 +468,6 @@ function openNavBarCollection(e) {
         // }
         CT._openCollectionNOWClickTime = new Date() + 1
     }
+    modals.hide()
+    switchToTab(selectedId)
 }

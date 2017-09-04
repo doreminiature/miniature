@@ -25,6 +25,8 @@ function setActiveTabElement(tabId) {
     var el = getTabElement(tabId)
     el.classList.add('active')
 
+
+
     requestIdleCallback(function () {
         requestAnimationFrame(function () {
             el.scrollIntoView({
@@ -47,6 +49,13 @@ function setActiveTabElement(tabId) {
             }
         }, 0)
     } catch (e) {
+    }
+
+    // click on empty tab - doubleclick
+    if(el.querySelector('.title').innerText == '...'){
+        setTimeout(function(){
+            document.querySelector('.tab-item.active').click()
+        },0)
     }
 }
 

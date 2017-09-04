@@ -223,3 +223,7 @@ console.log( '----', id )
     }
 }
 F.START()
+
+
+document.querySelector('.active').classList.remove('selected')
+document.querySelector('.active').classList.remove('active')

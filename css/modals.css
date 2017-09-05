@@ -8,7 +8,7 @@
     bottom: 0;
     left: 0;
     z-index: 2;
-    background: white;
+    background: rgba(255,255,255,1);
     /*padding-top: 65px;*/
     text-align: center;
     /*pointer-events:none;*/
@@ -16,8 +16,8 @@
 
 }
 /*.showModals{*/
-    /*!*transition: 0.5s;*!*/
-    /*!*opacity: 1 !important;*!*/
+    /*transition: 0.5s;*/
+    /*opacity: 1 !important;*/
     /*display: block;*/
 /*}*/
 #modals h1 {

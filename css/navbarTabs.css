@@ -102,8 +102,9 @@ body.notMac .page-tabs {
 }
 
 .tab-item.active.selected {
-	box-shadow: 0px 0px 5px 0px rgba(39,170,225,0.5);
+	box-shadow: inset 0px 0px 8px -3px hsla(198, 76%, 60%, 1);
 	background-color: white !important;
+	border: 1px solid hsla(198, 76%, 60%, 0.3);
 }
 
 .tab-item.active.selected .tab-edit-contents {
@@ -192,7 +193,7 @@ body.notMac .page-tabs {
 	/*color: inherit;*/
 	/*opacity: 0.5;*/
 	line-height: 1.25em;
-	color: red;
+	color: royalblue;
 }
 
 /* hide the lock icon unless its the current tab */

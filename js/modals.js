@@ -17,9 +17,18 @@ modals = {
     show(page) {
         say.m('modals.show(page):')
 
+        function createListItem(host, title) {
+            let a = document.createElement("a")
+            a.href = '#'
+            a.classList.add('openTabsNOW')
+            a.setAttribute("data-links", host+":"+title)
+            a.innerText = title
+            modals.el.appendChild(a)
+        }
+
         modals.el.style.display = 'block'
         modals.el.innerHTML = ''
-        // modals.el.className += " showModals"
+        modals.el.className += " showModals"
         if (page == 'collection') {
             let h1 = document.createElement("h1")
             h1.innerText = 'This is collection modal!'
@@ -28,7 +37,7 @@ modals = {
             let a = document.createElement("a")
             a.href = '#'
             a.classList.add('openCollectionNOW')
-            // a.setAttribute("data-links", "google.com,www.w3schools.com,stackoverflow.com")
+
             a.setAttribute("data-links", "www.google.com.ua:Google,www.w3schools.com:w3schools")
             a.innerText = 'aaa'
             modals.el.appendChild(a)
@@ -37,13 +46,9 @@ modals = {
             h1.innerText = 'This is navBar modal!'
             modals.el.appendChild(h1);
 
-            let a = document.createElement("a")
-            a.href = '#'
-            a.classList.add('openTabsNOW')
-            // a.setAttribute("data-links", "google.com,www.w3schools.com,stackoverflow.com")
-            a.setAttribute("data-links", "www.google.com.ua:Google,www.w3schools.com:w3schools")
-            a.innerText = 'aaa'
-            modals.el.appendChild(a)
+            /* Edit list of suggested sites here */
+            createListItem('youtube.com','Youtube')
+            createListItem('wikipedia.org','Wikipedia')
         }
     },
 

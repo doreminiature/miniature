@@ -128,6 +128,7 @@ function enterEditMode(tabId) {
 
 // redraws all of the tabs in the tabstrip
 function rerenderTabstrip() {
+    say.c('rerenderTabstrip()', 'yellow')
 
     empty(tabGroup)
     for (var i = 0; i < tabs.length; i++) {
@@ -277,7 +278,8 @@ function createTabElement(data) {
             let idTab = elNodePP.getAttribute('data-tab')
             let elTab = tab._get(idTab)
             if (elTab.title == '' && elTab.url == '') {
-                elNodePP.classList.remove('active')
+                tab._clearSelected(idTab)
+                rerenderTabstrip()
             }
         }
     })

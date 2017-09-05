@@ -21,7 +21,7 @@ modals = {
             let a = document.createElement("a")
             a.href = '#'
             a.classList.add('openTabsNOW')
-            a.setAttribute("data-links", host+":"+title)
+            a.setAttribute("data-links", host)
             a.innerText = title
             modals.el.appendChild(a)
         }
@@ -48,7 +48,7 @@ modals = {
 
             /* Edit list of suggested sites here */
             createListItem('youtube.com','Youtube')
-            createListItem('wikipedia.org','Wikipedia')
+            createListItem('www.wikipedia.org','Wikipedia')
         }
     },
 

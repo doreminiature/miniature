@@ -431,37 +431,13 @@ bindWebviewEvent('focus', function () {
 
 function openNavBarCollection(e) {
     if (CT._openCollectionNOWClickTime + 5 < new Date() + 1) {
-        // try {
-        if (e.relatedTarget && e.relatedTarget.classList.value == 'openTabsNOW') {
-
-            let arrLinks = e.relatedTarget.getAttribute("data-links").split(",")
-            let selectedId = ''
-            let selectedTasksI = ''
-            let selectedTabsI = ''
-
-            for (let i = 0; i < tabState.tasks.length; i++) {
-                if (tabState.tasks[i].id == tabState.selectedTask) {
-                    for (let j = 0; j < tabState.tasks[i].tabs.length; j++) {
-                        if (tabState.tasks[i].tabs[j].selected) {
-                            selectedId = tabState.tasks[i].tabs[j].id
-                            selectedTasksI = i
-                            selectedTabsI = j
-                        }
-                    }
-                }
+        try {
+            if (e.relatedTarget && e.relatedTarget.classList.value == 'openTabsNOW') {
+                modals.hide()
+                navigate(e.target.parentNode.parentNode.getAttribute('data-tab'), e.relatedTarget.getAttribute("data-links"))
             }
-
-            for (let i = 0; i < arrLinks.length; i++) {
-                tabs.add({}, tabs[selectedTabsI])
-                tabState.tasks[selectedTasksI].tabs[selectedTabsI].url = arrLinks[i].split(":")[0]
-                tabState.tasks[selectedTasksI].tabs[selectedTabsI].title = arrLinks[i].split(":")[1]
-            }
-
-            rerenderTabstrip()
-
+        } catch (e) {
         }
-        // } catch (e) {
-        // }
         CT._openCollectionNOWClickTime = new Date() + 1
     }
 }

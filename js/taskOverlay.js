@@ -339,12 +339,14 @@ function syncStateAndOverlay() {
     var tabSet = {}
     var taskSet = {}
 
+    // TODO: bug not ID
     tasks.get().forEach(function (task) {
         taskSet[task.id] = task
         task.tabs.get().forEach(function (tab) {
             tabSet[tab.id] = tab
         })
     })
+
 
     var selectedTask = currentTask.id
 
@@ -396,6 +398,10 @@ function syncStateAndOverlay() {
 
 taskOverlay.dragula.on('drop', function () {
     syncStateAndOverlay()
+    taskOverlay.show()
+    rerenderTabstrip()
+    // CT.addEmptyTabStyle()
+    // CT.addEmptyTabStyle()
 })
 
 eventEmitter.on('updateFavicon', () => {

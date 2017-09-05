@@ -245,14 +245,19 @@ CT = {
     addEmptyTabStyle() {
         say.m('CT.addEmptyTabStyle()')
 
-        let tabViewContents = document.querySelectorAll('.tab-view-contents')
-        for (let i = 0; i < tabViewContents.length; i++) {
-            if (tabViewContents[i].querySelector('.title').innerText == '...' && !tabViewContents[i].classList.contains('addEmptyTabStyle')) {
-                tabViewContents[i].className += " addEmptyTabStyle"
-            } else if (tabViewContents[i].classList.contains('addEmptyTabStyle')) {
-                tabViewContents[i].classList.remove('addEmptyTabStyle');
-            }
-        }
+        // alert()
+        //
+        // let tabViewContents = document.querySelectorAll('.tab-view-contents')
+        // for (let i = 0; i < tabViewContents.length; i++) {
+        //     if (tabViewContents[i].querySelector('.title').innerText == '...' && !tabViewContents[i].classList.contains('addEmptyTabStyle')) {
+        //         tabViewContents[i].className += " addEmptyTabStyle"
+        //     } else if (tabViewContents[i].classList.contains('addEmptyTabStyle')) {
+        //         tabViewContents[i].classList.remove('addEmptyTabStyle');
+        //     }
+        // }
+
+
+
     },
     overviewTaskNameClickEnterE(e) {
         say.m('CT.overviewTaskNameClickEnterE()')

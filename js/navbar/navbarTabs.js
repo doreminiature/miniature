@@ -216,7 +216,7 @@ function createTabElement(data) {
 
     var vc = document.createElement('div')
     vc.className = 'tab-view-contents'
-    if (data.url == '')
+    if (data.url == '' && data.title == '')
         vc.classList.add('addEmptyTabStyle')
     // vc.appendChild(readerView.getButton(data.id))
 

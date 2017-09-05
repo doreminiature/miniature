@@ -189,6 +189,15 @@ function getWebviewDom(options) {
             enterEditMode: false,
             openInBackground: e.disposition === 'background-tab' // possibly open in background based on disposition
         })
+        setTimeout(function () {
+            // switchToTab(newTab)
+            modals.hide()
+            leaveTabEditMode()
+            findinpage.end()
+            // alert(newTab)
+
+        }, 0)
+
     })
 
     w.addEventListener('close', function (e) {

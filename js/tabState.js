@@ -14,7 +14,7 @@ var tabPrototype = {
 
         var newTab = {
             // url: tab.url || 'duckduckgo.com',
-            url: '',
+            url: tab.url || '',
             // title: tab.title || '',
             title: tab.title || '',
             id: tabId,

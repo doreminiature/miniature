@@ -16,7 +16,7 @@ var tabPrototype = {
             // url: tab.url || 'duckduckgo.com',
             url: '',
             // title: tab.title || '',
-            title: tab.title ||'',
+            title: tab.title || '',
             id: tabId,
             lastActivity: tab.lastActivity || Date.now(),
             // secure: tab.secure,
@@ -273,6 +273,7 @@ var tabPrototypeEmpty = {
         })
     }
 }
+
 function getRandomId() {
     return Math.round(Math.random() * 100000000000000000)
 }
@@ -352,7 +353,7 @@ var tasks = {
         for (var key in tabPrototypeEmpty) {
             newTask.tabs.__proto__[key] = tabPrototypeEmpty[key]
         }
-        console.log( '------------', tabState.tasks[0])
+        console.log('------------', tabState.tasks[0])
         if (index) {
             tabState.tasks.splice(index, 0, newTask)
         } else {
@@ -446,4 +447,18 @@ function isEmpty(tabList) {
     }
 
     return false
+}
+
+tab = {
+    _get(id) {
+        let tab = ''
+        for (let i = 0; i < tabState.tasks.length; i++) {
+            for (let j = 0; j < tabState.tasks[i].tabs.length; j++) {
+                if (tabState.tasks[i].tabs[j].id == id) {
+                    tab = tabState.tasks[i].tabs[j]
+                }
+            }
+        }
+        return tab
+    }
 }

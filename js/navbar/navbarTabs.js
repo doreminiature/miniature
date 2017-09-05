@@ -271,6 +271,14 @@ function createTabElement(data) {
         if (e.keyCode === 9 || e.keyCode === 40) { // if the tab or arrow down key was pressed
             focussearchbarItem()
             e.preventDefault()
+        } else if (e.keyCode == 27) {
+            // if keydown ESC on input and tab title and url epmty - remove .active
+            let elNodePP = e.target.parentNode.parentNode
+            let idTab = elNodePP.getAttribute('data-tab')
+            let elTab = tab._get(idTab)
+            if (elTab.title == '' && elTab.url == '') {
+                elNodePP.classList.remove('active')
+            }
         }
     })
 
@@ -296,7 +304,8 @@ function createTabElement(data) {
         } else if (e.keyCode === 8) {
             return
             // delete key is handled in keyUp
-        } else { // show the searchbar
+        }
+        else { // show the searchbar
             showSearchbarResults(this.value, this, e)
         }
 

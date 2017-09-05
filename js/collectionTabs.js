@@ -121,7 +121,14 @@ CT = {
                     switchToTask(id)
                     if (arrLinks.length > 0) {
                         openURLFromsearchbar('', arrLinks[0].split(":")[0])
+                        setTimeout(function () {
+                            modals.hide()
+                            switchToTab(tabState.tasks[0].tabs[0].id)
+                        }, 0)
                     }
+
+
+
                 }
             } catch (e) {
             }

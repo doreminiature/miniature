@@ -461,13 +461,19 @@ tab = {
         }
         return tab
     },
-    _clearSelected(id){
+    _clearSelected(id) {
         for (let i = 0; i < tabState.tasks.length; i++) {
             for (let j = 0; j < tabState.tasks[i].tabs.length; j++) {
                 if (tabState.tasks[i].tabs[j].id == id) {
                     tabState.tasks[i].tabs[j].selected = ''
                 }
             }
+        }
+    },
+    _removeAllClassActive() {
+        let elAll = document.querySelectorAll('.tab-item')
+        for (let i = 0; i < elAll.length; i++) {
+            elAll[i].classList.remove('active')
         }
     }
 }

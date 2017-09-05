@@ -134,8 +134,6 @@ function rerenderTabstrip() {
     for (var i = 0; i < tabs.length; i++) {
         tabGroup.appendChild(createTabElement(tabs[i]))
         if (tabs[i].selected) {
-            // selected
-            // document.querySelectorAll('.tab-item')[i].classList.add('selected')
             document.querySelectorAll('.tab-item')[i].classList.add('active')
         }
     }
@@ -194,6 +192,7 @@ function createTabElement(data) {
             sessionRestore.save()
             CT.render()
         }, 100)
+        tab._removeAllClassActive()
         tabEl.classList.add('selected')
         tabEl.classList.add('active')
     })
@@ -279,7 +278,8 @@ function createTabElement(data) {
             let elTab = tab._get(idTab)
             if (elTab.title == '' && elTab.url == '') {
                 tab._clearSelected(idTab)
-                rerenderTabstrip()
+                // rerenderTabstrip()
+                tab._removeAllClassActive()
             }
         }
     })

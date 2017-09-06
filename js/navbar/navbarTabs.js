@@ -130,11 +130,23 @@ function enterEditMode(tabId) {
 function rerenderTabstrip() {
     say.c('rerenderTabstrip()', 'yellow')
 
+    let selectedEl = document.querySelector('.selected')
+    let selectedElId = ''
+    let selectedElVal = ''
+    if (selectedEl != null) {
+        selectedElVal = selectedEl.querySelector('input').value
+        selectedElId = selectedEl.getAttribute('data-tab')
+    }
+
     empty(tabGroup)
     for (var i = 0; i < tabs.length; i++) {
         tabGroup.appendChild(createTabElement(tabs[i]))
         if (tabs[i].selected) {
             document.querySelectorAll('.tab-item')[i].classList.add('active')
+        }
+        if (selectedElId != '' && tabs[i].id == selectedElId) {
+            document.querySelectorAll('.tab-item')[i].classList.add('selected')
+            document.querySelectorAll('.tab-item')[i].querySelector('input').value = selectedElVal
         }
     }
     tabCount()
@@ -198,7 +210,7 @@ function createTabElement(data) {
         // load tab without secure
         setTimeout(function () {
             let el = tab._get(data.id)
-            if(el.secure == undefined && el.url != ''){
+            if (el.secure == undefined && el.url != '') {
                 console.log(el)
                 navigate(data.id, el.url)
             }
@@ -216,6 +228,20 @@ function createTabElement(data) {
     input.className = 'tab-input mousetrap'
     input.setAttribute('placeholder', 'Search or enter address')
     input.value = url
+    input.onblur = function () {
+        console.log('==================================================================')
+        console.log('onblur')
+        console.log('==================================================================')
+        // tab.focusOnInput == false
+    }
+
+    input.onfocus = function () {
+        // tab.focusOnInput == true
+        console.log('==================================================================')
+        console.log('onfocus')
+        console.log('==================================================================')
+
+    }
 
     ec.appendChild(input)
     ec.appendChild(bookmarks.getStar(data.id))

@@ -450,6 +450,9 @@ function isEmpty(tabList) {
 }
 
 tab = {
+
+    focusOnInput: false,
+
     _get(id) {
         let tab = ''
         for (let i = 0; i < tabState.tasks.length; i++) {

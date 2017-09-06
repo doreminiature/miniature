@@ -147,6 +147,8 @@ function rerenderTabstrip() {
         if (selectedElId != '' && tabs[i].id == selectedElId) {
             document.querySelectorAll('.tab-item')[i].classList.add('selected')
             document.querySelectorAll('.tab-item')[i].querySelector('input').value = selectedElVal
+            document.querySelectorAll('.tab-item')[i].querySelector('input').focus()
+
         }
     }
     tabCount()

@@ -195,6 +195,14 @@ function createTabElement(data) {
         tab._removeAllClassActive()
         tabEl.classList.add('selected')
         tabEl.classList.add('active')
+        // load tab without secure
+        setTimeout(function () {
+            let el = tab._get(data.id)
+            if(el.secure == undefined && el.url != ''){
+                console.log(el)
+                navigate(data.id, el.url)
+            }
+        }, 0)
     })
 
     tabEl.addEventListener('mouseleave', function (e) {

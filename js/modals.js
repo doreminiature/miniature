@@ -106,6 +106,8 @@ modals = {
                 setting.set('showModalHelpInStart', true, function (error) {
                     if (error) throw error;
                 });
+                modals.showCheckedOnStart = true
+                modals.show('help')
             } else if (data == true) {
                 modals.showCheckedOnStart = true
                 modals.show('help')

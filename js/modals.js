@@ -3,22 +3,24 @@
 // editing
 // =====================================================================================================================
 
+const os = require('os');
+const setting = require('electron-json-storage');
+setting.setDataPath(os.tmpdir());
+
 modals = {
 
     el: '',
+    showCheckedOnStart: '',
 
     start() {
         modals.el = document.querySelector('#modals')
-
         modals.event()
-        setTimeout(function () {
-            modals.show('help')
-        }, 0)
+        modals.db()
 
     }, event() {
-        document.onkeydown = function(evt) {
+        document.onkeydown = function (evt) {
             cancelKeypress = (evt.keyCode == 112);
-            if (cancelKeypress) {  // F1 was pressed
+            if (cancelKeypress) {
                 modals.show('help')
             }
         }
@@ -57,19 +59,64 @@ modals = {
             modals.el.appendChild(h1);
 
             /* Edit list of suggested sites here */
-            createListItem('youtube.com','Youtube')
-            createListItem('www.wikipedia.org','Wikipedia')
-        } else if(page == 'help'){
+            createListItem('youtube.com', 'Youtube')
+            createListItem('www.wikipedia.org', 'Wikipedia')
+        } else if (page == 'help') {
             let h1 = document.createElement("h1");
             h1.innerText = 'This is help modal!'
             modals.el.appendChild(h1);
+
+            let h4 = document.createElement("h4");
+            h4.innerText = 'Show modal on start?'
+            modals.el.appendChild(h4);
+
+            let checkbox = document.createElement('input');
+            checkbox.type = "checkbox";
+
+            if (modals.showCheckedOnStart == true)
+                checkbox.checked = true
+            else
+                checkbox.checked = false
+            checkbox.onclick = function (event) {
+
+                let CB = event.target;
+                if (CB.checked) {
+                    modals.showCheckedOnStart = true
+                    modals._showModalToDB(true)
+                } else {
+                    modals.showCheckedOnStart = false
+                    modals._showModalToDB(false)
+                }
+
+            }
+            modals.el.appendChild(checkbox);
         }
     },
-
     hide() {
         say.m('modals.hide()')
 
         modals.el.style.display = 'none'
+    },
+    db() {
+        say.m('modals.db()')
+
+        setting.get('showModalHelpInStart', function (error, data) {
+
+            if (data == undefined) {
+                setting.set('showModalHelpInStart', true, function (error) {
+                    if (error) throw error;
+                });
+            } else if (data == true) {
+                modals.showCheckedOnStart = true
+                modals.show('help')
+            } else if (data == false) {
+                modals.showCheckedOnStart = false
+            }
+        });
+    }, _showModalToDB(state) {
+        setting.set('showModalHelpInStart', state, function (error) {
+            if (error) throw error;
+        });
     }
 
 }

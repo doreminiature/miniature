@@ -5,11 +5,13 @@
   "electronVersion": "1.7.5",
   "main": "main.build.js",
   "dependencies": {
-    "request": "latest",
     "dexie": "^1.2.0",
     "dragula": "^3.6.2",
+    "electron-json-storage": "^3.1.0",
     "mousetrap": "^1.5.3",
     "nlp_compromise": "^1.1.5",
+    "os": "^0.1.1",
+    "request": "latest",
     "string_score": "^0.1.22"
   },
   "devDependencies": {
@@ -30,7 +32,7 @@
     "updateFilters": "node ./ext/filterLists/updateEasylist.js"
   },
   "repository": {
-      "type": "git",
-      "url": "https://github.com/doreminiature/miniature"
+    "type": "git",
+    "url": "https://github.com/doreminiature/miniature"
   }
 }

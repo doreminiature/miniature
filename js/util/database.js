@@ -99,3 +99,11 @@ Dexie.Promise.on('error', function (error) {
 var fDB = new Dexie("FaviconsDatabase");
 fDB.version(1).stores({ favicons: "++id,url,base64" });
 fDB.open()
+
+
+
+//
+// settingsDB = new Dexie("Settings");
+// settingsDB.version(1).stores({ setting: "++id,parameter,state" });
+// settingsDB.open()
+

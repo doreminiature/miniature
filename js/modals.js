@@ -10,8 +10,18 @@ modals = {
     start() {
         modals.el = document.querySelector('#modals')
 
-    }, event() {
+        modals.event()
+        setTimeout(function () {
+            modals.show('help')
+        }, 0)
 
+    }, event() {
+        document.onkeydown = function(evt) {
+            cancelKeypress = (evt.keyCode == 112);
+            if (cancelKeypress) {  // F1 was pressed
+                modals.show('help')
+            }
+        }
     },
 
     show(page) {
@@ -49,6 +59,10 @@ modals = {
             /* Edit list of suggested sites here */
             createListItem('youtube.com','Youtube')
             createListItem('www.wikipedia.org','Wikipedia')
+        } else if(page == 'help'){
+            let h1 = document.createElement("h1");
+            h1.innerText = 'This is help modal!'
+            modals.el.appendChild(h1);
         }
     },
 

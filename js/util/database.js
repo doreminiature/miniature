@@ -98,10 +98,4 @@ Dexie.Promise.on('error', function (error) {
 
 var fDB = new Dexie("FaviconsDatabase");
 fDB.version(1).stores({ favicons: "++id,url,base64" });
-
 fDB.open()
-
-
-var dbF = new Dexie("FriendDatabase");
-dbF.version(1).stores({ friends: "++id,name,age" });
-dbF.open()

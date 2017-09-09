@@ -454,6 +454,7 @@ function createAppMenu () {
           label: 'Take a Tour',
           click: function () {
             openTabInWindow('https://minbrowser.github.io/min/tour/')
+
           }
         },
         {

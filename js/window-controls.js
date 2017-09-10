@@ -14,6 +14,7 @@
                 window.maximize();
             } else {
                 window.unmaximize();
+                window.setSize(1280, 700);
             }
         });
 

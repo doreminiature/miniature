@@ -105,6 +105,7 @@ function enterEditMode(tabId) {
 
     document.body.classList.add('is-edit-mode')
     tabEl.classList.add('selected')
+    tabEl.classList.add('active')
 
     tabEl.addEventListener('blur', function (e) {
         openNavBarCollection(e)

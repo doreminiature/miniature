@@ -74,9 +74,11 @@ modals = {
         closeModal.className = 'close-modal fa fa-close';
         closeModal.addEventListener('click', () => {
             modals.hide();
-            // alert()
-            // leaveTabEditMode(); // if a tab is in edit-mode, we want to exit it
-            modals.show('navBar')
+            if(tabs.get(tabs.getSelected()).secure == true) {
+                modals.hide()
+            } else if(tabs.getSelected() != '' && tabs.getSelected() != undefined) {
+                enterEditMode(tabs.getSelected())
+            }
         })
 
         if (page == 'collection') {
@@ -182,32 +184,29 @@ modals = {
             createCollectionItem('en.wikipedia.org/wiki/Future_history', 'Future history')
 
 
+            /*
+                        The Ages of history – Stone Age • Copper Age • Bronze Age • Iron Age • Dark Ages (historiography) • Middle Ages • Age of Discovery • Renaissance • Age of Enlightenment • Industrial Age • Space Age • Information Age
+
+
+                        History of science – Theories/sociology • Historiography • Mathematics • Pseudoscience • Scientific method
+
+                        History of the natural sciences – Astronomy • Biology • Chemistry • Ecology • Geography • Physics • Geology
+
+                        History of the social sciences – Anthropology • Economics • Education • Geography • Linguistics • Political science • Psychology • Sociology
+
+                        History of science by era – In early cultures • In Classical Antiquity • In the Middle Ages • In the Renaissance • Scientific Revolution
+
+                        History of technology – Agriculture & agricultural science • Architecture • Biotechnology • Chemical engineering • Communication • Computing (Computer science, Software engineering) • Electrical engineering • Invention • Materials science • Measurement • Medicine • Military technology • Transport
+
+
+                        Cultural history – Money • Sport
+
+                        History of art – Dance • Film • Music • Painting • Theatre
 
 
 
-/*
-            The Ages of history – Stone Age • Copper Age • Bronze Age • Iron Age • Dark Ages (historiography) • Middle Ages • Age of Discovery • Renaissance • Age of Enlightenment • Industrial Age • Space Age • Information Age
-
-
-            History of science – Theories/sociology • Historiography • Mathematics • Pseudoscience • Scientific method
-
-            History of the natural sciences – Astronomy • Biology • Chemistry • Ecology • Geography • Physics • Geology
-
-            History of the social sciences – Anthropology • Economics • Education • Geography • Linguistics • Political science • Psychology • Sociology
-
-            History of science by era – In early cultures • In Classical Antiquity • In the Middle Ages • In the Renaissance • Scientific Revolution
-
-            History of technology – Agriculture & agricultural science • Architecture • Biotechnology • Chemical engineering • Communication • Computing (Computer science, Software engineering) • Electrical engineering • Invention • Materials science • Measurement • Medicine • Military technology • Transport
-
-
-            Cultural history – Money • Sport
-
-            History of art – Dance • Film • Music • Painting • Theatre
-
-
-
-            History by region – Ancient Egypt • Ancient Greece • Ancient Rome • History of China • History of the Middle East • History of Mesoamerica • History of India
-*/
+                        History by region – Ancient Egypt • Ancient Greece • Ancient Rome • History of China • History of the Middle East • History of Mesoamerica • History of India
+            */
             createHeader('Mathematics and logic')
 
             createHeader('Natural and physical sciences')
@@ -250,7 +249,7 @@ modals = {
             showOnStartCheckbox.type = "checkbox"
             showOnStartCheckbox.id = "showOnStartCheckbox"
 
-            let h1Heading =  document.createElement('h1');
+            let h1Heading = document.createElement('h1');
             h1Heading.id = 'helpHeading'
             h1Heading.innerText = 'Greetings. This is about & help page. This page appears on first browser start and will hold introduction and help tips.'
 

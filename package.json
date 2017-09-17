@@ -1,8 +1,8 @@
 {
   "name": "miniature",
   "productName": "Miniature",
-  "version": "1.6.0",
-  "electronVersion": "1.7.5",
+  "version": "0.1.0",
+  "electronVersion": "1.8.0",
   "main": "main.build.js",
   "dependencies": {
     "dexie": "^1.2.0",

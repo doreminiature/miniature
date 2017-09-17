@@ -67,50 +67,20 @@ function switchToTask(id) {
     var taskData = tasks.get(id)
 
     if (taskData.tabs.length > 0) {
+
         var selectedTab = taskData.tabs.getSelected()
-
-        // if the task has no tab that is selected, switch to the most recent one
-
         if (!selectedTab) {
             selectedTab = taskData.tabs.get().sort(function (a, b) {
                 return b.lastActivity - a.lastActivity
             })[0].id
         }
-        // for (let i = 0; i < tabState.tasks.length; i++) {
-        //     if (tabState.tasks[i].tabs.length == 1) {
-        //         for (let j = 0; j < tabState.tasks[i].tabs.length; j++) {
-        //             if (tabState.tasks[i].tabs[j].id == selectedTab && tabState.tasks[i].tabs[j].title == 'DuckDuckGo') {
-        //                 tabState.tasks[i].tabs[j].title = 'Collection'
-        //                 tabState.tasks[i].tabs[j].url = 'file:///' + __dirname + '/pages/collection/index.html'
-        //             }
-        //         }
-        //     }
-        // }
 
         switchToTab(selectedTab)
     } else {
-        // for (let i = 0; i < tabState.tasks.length; i++) {
-        //     if (tabState.tasks[i].tabs.length == 1) {
-        //         for (let j = 0; j < tabState.tasks[i].tabs.length; j++) {
-        //             if (tabState.tasks[i].tabs[j].id == selectedTab && tabState.tasks[i].tabs[j].title == 'DuckDuckGo') {
-        //                 tabState.tasks[i].tabs[j].title = 'Collection'
-        //                 tabState.tasks[i].tabs[j].url = 'file:///' + __dirname + '/pages/collection/index.html'
-        //             }
-        //         }
-        //     }
-        // }
+
+
         addTab()
-
     }
-
-    // setTimeout(function () {
-    //   try {
-    //     // CT.render()
-    //     // if(document.querySelector('#task-overlay').getAttribute('hidden') == null)
-    //     //   taskOverlay.show()
-    //   } catch (e) {}
-    // }, 100)
-    //
 
 }
 
@@ -118,6 +88,7 @@ function switchToTask(id) {
 
 function switchToTab(id, options) {
     options = options || {}
+
 
     /* tab switching disabled in focus mode */
     if (isFocusMode) {

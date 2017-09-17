@@ -114,6 +114,7 @@ function getTaskElement(task, taskIndex) {
     })
 
     input.addEventListener('click', function (e) {
+        taskOverlay.inputFocus = true
         tabState.selectedTask = this.parentNode.parentNode.dataset.task
         switchToTask(this.parentNode.parentNode.dataset.task)
         sessionRestore.save()
@@ -122,10 +123,12 @@ function getTaskElement(task, taskIndex) {
 
     input.addEventListener('focusout', function (e) {
         taskOverlay.inputFocus = true
+        console.log('----------------', taskOverlay.inputFocus )
     })
 
     input.addEventListener('focus', function (e) {
         taskOverlay.inputFocus = false
+        console.log('----------------', taskOverlay.inputFocus )
     })
 
     taskActionContainer.appendChild(input)

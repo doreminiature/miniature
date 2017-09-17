@@ -74,7 +74,9 @@ modals = {
         closeModal.className = 'close-modal fa fa-close';
         closeModal.addEventListener('click', () => {
             modals.hide();
-            leaveTabEditMode(); // if a tab is in edit-mode, we want to exit it
+            // alert()
+            // leaveTabEditMode(); // if a tab is in edit-mode, we want to exit it
+            modals.show('navBar')
         })
 
         if (page == 'collection') {

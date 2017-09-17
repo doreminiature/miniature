@@ -204,8 +204,8 @@ function getTaskElement(task, taskIndex) {
             tabContainer.appendChild(el)
 
             // add X
-            let span = document.createElement('span')
-            span.innerHTML = 'X'
+            let span = document.createElement('i')
+            span.className = 'fa fa-close'
             span.dataset.id = task.tabs[i].id
             span.onclick = function () {
                 destroyTab(this.getAttribute('data-id'))

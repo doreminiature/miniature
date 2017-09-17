@@ -74,6 +74,7 @@ BC = {
 
         document.querySelector('#menu').onclick = function () {
             addTab( tabs.add({ url: 'file:///' + __dirname + '/pages/settings/index.html' }, tabs[0]), { enterEditMode: false } )
+            modals.hide()
         }
 
     //     addTab( tabs.add({ url: link }, tabs[0]), { enterEditMode: false } )

@@ -17,17 +17,25 @@
 
 .tab-controls {
 	width: 200px;
+	display: flex;
 
 }
-#add-tab-button{
+#add-tab-button {
 	height: 100%;
 	position: relative;
 	padding: 0;
-	width: 33px;
+	flex: 1 0 0;
+	cursor: pointer;
+}
+
+#add-tab-button:active svg {
+	left: 11px;
 }
 
 #add-tab-button svg {
-
+	position: relative;
+	left: 9px;
+	top: 11px;
 }
 
 #add-tab-button svg use {
@@ -95,16 +103,21 @@ body.notMac .page-tabs {
 
 .tab-item.active {
 	flex: 0 0 20%;
+	color: #000;
 	background: #fff;
 	/*outline: 1px solid rgba(39,170,225,0.25);*/
 	/*box-shadow: 0px 2px 4px -1px rgba(39,170,225,0.3);*/
 	/*box-shadow: 0px 3px 32px -9px rgba(39,170,225,.4);*/
 }
 
+.tab-item:not(.active) {
+	color: hsla(0, 0%, 0%, 0.8);
+}
+
 .tab-item.active.selected {
-	box-shadow: inset 0px 0px 8px -3px hsla(198, 76%, 60%, 1);
+	box-shadow: 4px 3px 14px -5px hsla(198, 76%, 60%, 0.5);
 	background-color: white !important;
-	border: 1px solid hsla(198, 76%, 60%, 0.3);
+	outline: 1px solid hsla(198, 76%, 60%, 0.15);
 }
 
 .tab-item.active.selected .tab-edit-contents {

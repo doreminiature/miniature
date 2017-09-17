@@ -9,18 +9,31 @@
 	border-bottom: 1px rgba(0, 0, 0, 0.1) solid;
 }
 #switch-task-button {
+	flex: 3 0 0;
 	height: 100%;
-	padding: 0 0 0 9px;
-	width: calc(100% - 55px);
+	padding: 0;
+	width: calc(100% - 50px);
 	font-family: "PT Sans", sans-serif;
 	font-size: 14px;
 	font-weight: bold;
 	letter-spacing: .03em;
 	text-align: left;
+	cursor: pointer;
 }
+
+#switch-task-button:hover,
+#add-tab-button:hover {
+	background-color: rgba(255,255,255,.2);
+}
+
 #switch-task-button span {
+	display: block;
 	position: relative;
-	top: -2px;
+	top: 11px;
+	left: 9px;
+}
+#switch-task-button:active span {
+	left: 11px;
 }
 #switch-task-button.active {
 	color: royalblue !important;
@@ -64,12 +77,13 @@
 	font-family: 'PT Sans';
 	font-weight: bold;
 	flex: 1;
-	font-size: 1.2em;
+	font-size: 1.13em;
 	color: inherit;
 	border: 0;
 	background: none;
-	opacity: 0.75;
-	margin: 0.5em;
+	opacity: 1.05;
+	margin: 8px 0 5px 28px;
+	cursor: pointer;
 }
 .task-name::-webkit-input-placeholder {
 	color: inherit;
@@ -80,18 +94,15 @@ input.task-name:focus::placeholder {
 }
 
 #add-task {
-	/*position: fixed;*/
-	/*top: 0;*/
-	/*left: 10%;*/
-	padding: 1.25em;
+	font: normal 16px/45px "PT sans";
 	text-align: center;
 	color: inherit;
-	background-color: rgb(245, 245, 245);
+	background-color: #f0f7ff;
 	cursor: pointer;
 	z-index:1000;
 }
 #add-task:hover {
-	background-color: rgb(235, 235, 235);
+
 }
 #add-task .fa {
 	opacity: 0.75;
@@ -100,7 +111,7 @@ input.task-name:focus::placeholder {
 .task-action-container {
 	display: flex;
 	align-items: center;
-	padding-right: 1em;
+	padding-right: 7px;
 }
 .task-action-container i {
 	cursor: pointer;
@@ -160,6 +171,8 @@ body.dark-mode #task-overlay #add-task {
 }
 
 #task-overlay .favicon {
+	position: absolute;
+	z-index: 10000;
 	width: 16px;
 	height: 16px;
 	display: block;
@@ -168,15 +181,54 @@ body.dark-mode #task-overlay #add-task {
 	border-radius: 2px;
 }
 
-#task-overlay .task-tab-item .close-tab-from-overlay {
-	opacity: 0;
-	transition: all .5s ease;
+.task-tab-item { position: relative; }
+
+.task-tabs-container .task-tab-item i {
+	font-size: 0.9em;
+	padding-top: 7px;
+	text-align: center;
+	width: 25px;
+	position: absolute;
+	top: 0;
+	right: 1px;
+	height: 20px;
+	margin: 0;
+	background: white;
 }
 
-#task-overlay .task-tab-item:hover {
-	background-color: #44DDDD;
+.task-tabs-container .task-tab-item i:before { transition: opacity .2s ease; opacity: .08;}
+
+.task-tabs-container .task-tab-item:hover {
+	background: linear-gradient(to right, #e8eef7 -200%, white );
 }
 
-#task-overlay .task-tab-item:hover .close-tab-from-overlay {
+.task-tabs-container .task-tab-item:hover i {
+	/*background: red;*/
+}
+
+.task-tabs-container .task-tab-item i:hover:before {
 	opacity: 1;
+}
+
+.task-tab-item.fakefocus .title {
+	font-weight: bold;
+	font-size: 13.5px;
+	color: #333;
+	font-family: "PT sans";
+}
+
+.task-action-container i {
+	color: #ddd;
+	padding: 8px;
+	position: relative;
+	right: -7px;
+}
+
+.task-action-container i:hover {
+	color: #aaa;
+}
+
+.task-action-container i:before {
+	position: relative;
+	right: -1px;
 }

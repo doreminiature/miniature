@@ -6,7 +6,7 @@
     /*-webkit-app-region: auto;*/
 }
 
-.browser-controls div {
+.browser-controls a {
     flex: 1 0 0;
     position: relative;
     cursor: pointer;
@@ -16,14 +16,21 @@
     margin-top: -1px;
 }
 
-.browser-controls div:hover svg use {
-    /*fill: ;*/
+.browser-controls a:hover {
+    background-color: #e2eaf8;
 }
 
-.browser-controls svg {
+.browser-controls a:active svg {
+    left: 11px;
+}
+
+.browser-controls a svg {
     position: absolute;
     left:9px;
     top:7px;
+}
+.browser-controls a#back:active svg {
+    left:7px;
 }
 
 .browser-controls svg use {
@@ -54,12 +61,8 @@
 }
 
 #collection-tabs > div  {
-
     flex: 0 0 20%;
-    /*flex: 0 0 18.57%;*/
-    /*-webkit-app-region: drag;*/
     box-sizing: border-box;
-    /*padding: 11px 0 9px 29px;*/
     padding: 0;
     font-family: "PT Sans", sans-serif;
     font-size: 12px;
@@ -68,7 +71,7 @@
     cursor: pointer;
     transition: none;
     color: #6b6b6b;
-    /*background: #f7f9fc;*/
+
 }
 
 #collection-tabs > div svg {
@@ -91,10 +94,13 @@
 #collection-tabs input::placeholder {
     position: relative;
     left: -15px;
+    font: normal 13px "PT sans";
 }
 
 #collection-tabs input:focus::placeholder {
-    color: transparent;
+    line-height: 1.25em;
+    color: #A6B7D0;
+    letter-spacing:1px;
 }
 
 #collection-tabs > div.active-tab.editing {
@@ -119,8 +125,14 @@
     font-family: "PT Sans", sans-serif;
     font-size: 12px;
     max-width: 20%;
-    font-weight: bold;
+}
 
+#collection-tabs > div.active-tab input {
+    color: #000;
+}
+
+#collection-tabs > div:not(.active-tab) input{
+    color: hsla(0, 0%, 0%, 0.5)
 }
 
 .addEmptyTabStyle{
@@ -135,14 +147,14 @@
     line-height: 20px;
     background: transparent;
     font-family: "PT Sans Caption", sans-serif;
-    font-size: 30px;
-    letter-spacing: 2.5px;
+    font-size: 36px;
+    letter-spacing: 1.7px;
+    position: absolute;
+    left: 50%;
+    margin-top: -2px;
+    margin-left: -16px;
 }
 
 .addEmptyTabStyle .favicon {
     display: none;
 }
-
-/*.addEmptyTabStyle .tab-close-button{*/
-    /*display: none;*/
-/*}*/

@@ -143,12 +143,15 @@ function rerenderTabstrip() {
         tabGroup.appendChild(createTabElement(tabs[i]))
         if (tabs[i].selected) {
             document.querySelectorAll('.tab-item')[i].classList.add('active')
+        } else {
+            document.querySelectorAll('.tab-item')[i].classList.remove('active')
         }
         if (selectedElId != '' && tabs[i].id == selectedElId) {
             document.querySelectorAll('.tab-item')[i].classList.add('selected')
             document.querySelectorAll('.tab-item')[i].querySelector('input').value = selectedElVal
             document.querySelectorAll('.tab-item')[i].querySelector('input').focus()
-
+        } else {
+            document.querySelectorAll('.tab-item')[i].classList.remove('selected')
         }
     }
     tabCount()
@@ -228,7 +231,7 @@ function createTabElement(data) {
 
     var input = document.createElement('input')
     input.className = 'tab-input mousetrap'
-    input.setAttribute('placeholder', 'Search or enter address')
+    input.setAttribute('placeholder', 'Search, enter address or select below')
     input.value = url
     input.onblur = function () {
         console.log('==================================================================')

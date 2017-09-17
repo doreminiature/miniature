@@ -27,6 +27,7 @@ CT = {
 
         document.getElementById('collection-tabs').addEventListener('click', function (e) {
             CT.goToCollection(e)
+
         })
         document.querySelector('.page-tabs').addEventListener('click', function (e) {
             CT.remoteClassEditing()
@@ -169,6 +170,7 @@ CT = {
         document.querySelector('.active-tab input').disabled = false
         document.querySelector('.active-tab input').select()
         document.querySelector('.active-tab').className += ' editing'
+        document.querySelector('.active-tab input').placeholder = 'Enter collection name'
     },
     remoteClassEditing() {
         say.m('CT.remoteClassEditing()')
@@ -176,6 +178,7 @@ CT = {
         try {
             if (document.querySelector('.active-tab ').className.indexOf("editing") != -1) {
                 document.querySelector('.active-tab ').classList.remove("editing");
+                document.querySelector('.active-tab input').placeholder = '●●●'
                 CT.remoteClassEditing()
             }
         } catch (e) {
@@ -261,7 +264,7 @@ CT = {
     },
     overviewTaskNameClickEnterE(e) {
         say.m('CT.overviewTaskNameClickEnterE()')
-
+        console.log('task')
         let id = e.target.parentElement.parentElement.getAttribute('data-task')
         let eTarget = e.target
         let eVal = e.target.value
@@ -346,7 +349,7 @@ CT = {
                 let val = tabState.tasks[i].name
                 if (val == null || val == 'null')
                     val = ''
-                let title = `<input placeholder="&#9679;&#9679;&#9679;" type="text" class="collectionTabInput" data-id="${tabState.tasks[i].id}" value="${val}" disabled="true">` || `<input type="text" placeholder="&#9679;&#9679;&#9679;" class="collectionTabInput" data-id="${tabState.tasks[i].id}" value="${val}"  disabled="true"> <svg width="23.9px" height="5.6px">23.9 5.6 <use xlink:href="icons/svg/miniature-controls.svg#ellipsis-big"></use></svg>`
+                let title = `<input placeholder="&#9679;&#9679;&#9679;" type="text" class="collectionTabInput" data-id="${tabState.tasks[i].id}" value="${val}" disabled="true">` || `<input type="text" placeholder="&#9679;&#9679;&#9679;" class="collectionTabInput" data-id="${tabState.tasks[i].id}" value="${val}"  placeholder="Enter collection name" disabled="true"> <svg width="23.9px" height="5.6px">23.9 5.6 <use xlink:href="icons/svg/miniature-controls.svg#ellipsis-big"></use></svg>`
                 collectionTabsHTML.push('<div class="collection-tab ' + ( tabState.selectedTask == tabState.tasks[i].id ? 'active-tab' : '' ) + '" data-task-id="' + tabState.tasks[i].id + ' " data-index="' + i + '">' + title + '</div>')
             }
             document.getElementById('collection-tabs').innerHTML = collectionTabsHTML.join('')

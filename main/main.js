@@ -4,7 +4,7 @@ const path = require('path')
 const app = electron.app // Module to control application life.
 const BrowserWindow = electron.BrowserWindow // Module to create native browser window.
 
-// require('electron-reload')(__dirname)
+require('electron-reload')(__dirname)
 
 var userDataPath = app.getPath('userData')
 

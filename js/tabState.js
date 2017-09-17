@@ -353,7 +353,6 @@ var tasks = {
         for (var key in tabPrototypeEmpty) {
             newTask.tabs.__proto__[key] = tabPrototypeEmpty[key]
         }
-        console.log('------------', tabState.tasks[0])
         if (index) {
             tabState.tasks.splice(index, 0, newTask)
         } else {
@@ -464,6 +463,27 @@ tab = {
         }
         return tab
     },
+    _getIndexSelectCollection() {
+        let activeCollection = document.querySelector('.active-tab')
+        if (activeCollection != null) {
+            let id = activeCollection.getAttribute('data-task-id').trim()
+            for (let i = 0; i < tabState.tasks.length; i++) {
+                if (tabState.tasks[i].id == id) {
+                    return id
+                }
+            }
+        } else {
+            return undefined
+        }
+    },
+    _getIdSelectCollection() {
+        let activeCollection = document.querySelector('.active-tab')
+        if (activeCollection != null) {
+            return activeCollection.getAttribute('data-task-id').trim()
+        } else {
+            return undefined
+        }
+    },
     _clearSelected(id) {
         for (let i = 0; i < tabState.tasks.length; i++) {
             for (let j = 0; j < tabState.tasks[i].tabs.length; j++) {
@@ -478,5 +498,25 @@ tab = {
         for (let i = 0; i < elAll.length; i++) {
             elAll[i].classList.remove('active')
         }
+    },
+    _collectionHasName(id) {
+        if (tasks.get(tab._getIdSelectCollection()).name != null) {
+            return true
+        } else {
+            return false
+        }
+    },
+    _collectionHasUsedTab(id) {
+        let tabs = tasks.get(id).tabs
+        let used = false
+        for (let i = 0; i < tabs.length; i++) {
+            if (tabs[i].title != undefined && tabs[i].title != '') {
+                used = true
+            }
+        }
+        return used
+    },
+    _setCollectionName(id, name){
+        tasks.get(id).name = name
     }
 }

@@ -50,6 +50,7 @@ CT = {
         CT.add5tab()
         // click on collection tabs
         try {
+
             if (e.target.parentNode.parentNode.id == 'collection-tabs') {
                 if (e.target.parentNode.className.indexOf("active-tab") == -1) {
                     tabState.selectedTask = e.target.parentNode.dataset.taskId.trim()
@@ -102,9 +103,16 @@ CT = {
         if (CT._openCollectionNOWClickTime + 5 < new Date() + 1) {
             try {
                 if (e.relatedTarget.classList.value == 'openCollectionNOW') {
+
                     let colName = e.relatedTarget.innerText
                     let arrLinks = e.relatedTarget.getAttribute("data-links").split(",")
-                    let id = tasks.addEmpty({name: colName})
+                    let id = ''
+                    if(tab._collectionHasName(tab._getIdSelectCollection()) == true || tab._collectionHasUsedTab(tab._getIdSelectCollection()) == true){
+                        id = tasks.addEmpty({name: colName})
+                    } else {
+                        id = tab._getIdSelectCollection()
+                        tab._setCollectionName(tab._getIdSelectCollection(), colName)
+                    }
                     switchToTask(id)
                     sessionRestore.save()
                     CT.render()

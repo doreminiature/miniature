@@ -123,12 +123,10 @@ function getTaskElement(task, taskIndex) {
 
     input.addEventListener('focusout', function (e) {
         taskOverlay.inputFocus = true
-        console.log('----------------', taskOverlay.inputFocus )
     })
 
     input.addEventListener('focus', function (e) {
         taskOverlay.inputFocus = false
-        console.log('----------------', taskOverlay.inputFocus )
     })
 
     taskActionContainer.appendChild(input)

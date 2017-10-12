@@ -234,7 +234,7 @@ function createTabElement(data) {
 
     var input = document.createElement('input')
     input.className = 'tab-input mousetrap'
-    input.setAttribute('placeholder', 'Search, enter address or select below')
+    input.setAttribute('placeholder', 'Search or enter address')
     input.value = url
     input.onblur = function () {
         console.log('==================================================================')

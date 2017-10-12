@@ -129,7 +129,7 @@ module.exports = function (grunt) {
 					platform: 'win32',
 					arch: 'all',
 					ignore: 'dist/app; node_modules/.bin',
-					// prune: true,
+					prune: true,
 					overwrite: true
 				}
 			},
@@ -202,6 +202,7 @@ module.exports = function (grunt) {
         }
 	});
 
+    grunt.loadNpmTasks("grunt-remove-logging");
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-electron');

@@ -5,9 +5,9 @@ html {
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
-	font-family: ".SFNSText-Regular", 'Helvetica Neue', 'Arial', sans-serif;
-	background-color: #eee;
+	font-family: "Pt Sans", sans-serif;
 }
+
 
 body.dark-mode {
 	background-color: rgb(33, 37, 43);
@@ -25,7 +25,7 @@ body.dark-mode {
 }
 h1 {
 	font-size: 2.75em;
-	font-family: ".SFNSDisplay-Light", 'Helvetica Neue', 'Arial', sans-serif;
+	font-family: "Pt Sans", sans-serif;
 	font-weight: normal;
 	margin-bottom: 0.25em;
 	margin-top: 0;
@@ -43,6 +43,7 @@ button {
 	border: 0;
 	background-color: rgba(0, 0, 0, 0.1);
 	margin-top: 0.5em;
+	cursor: pointer;
 }
 button.secondary-button {
 	padding: 0.5em;

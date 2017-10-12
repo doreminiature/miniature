@@ -1,14 +1,17 @@
 #findinpage-bar {
-	width: 100%;
+	width: 300px;
 	display: flex;
 	position: absolute;
-	top: 0;
+	bottom: 0;
 	left: 0;
 	align-items: center;
 	padding-left: 80px;
 	padding-right: 0.75em;
 	height: 36px;
+	background: #fff;
 	z-index: 99;
+	border-top: 1px solid #ccc;
+	border-right: 1px solid #ccc;
 }
 body.fullscreen #findinpage-bar,
 body.notMac #findinpage-bar {

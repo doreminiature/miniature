@@ -1,13 +1,14 @@
 {
   "name": "miniature",
   "productName": "Miniature",
-  "version": "1.6.0",
-  "electronVersion": "1.7.5",
+  "version": "0.1",
+  "electronVersion": "1.8.1",
   "main": "main.build.js",
   "dependencies": {
     "dexie": "^1.2.0",
     "dragula": "^3.6.2",
     "electron-json-storage": "^3.1.0",
+    "grunt-remove-logging": "^0.2.0",
     "mousetrap": "^1.5.3",
     "nlp_compromise": "^1.1.5",
     "os": "^0.1.1",

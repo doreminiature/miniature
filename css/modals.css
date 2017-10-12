@@ -29,17 +29,19 @@
 }
 
 #modals .close-modal {
-    position: absolute;
+    position: fixed;
+    transform: translate3d(0,0,0);
     display: block;
     width: 30px;
     text-align: center;
     right: 0;
-    top: 0;
+    top: 66px;
+    /*background: red;*/
     padding: 15px 15px 15px 15px;
     font-size: 30px;
     color: #eee;
     cursor: pointer;
-    transition: all .3s ease;
+    /*transition: all .3s ease;*/
 }
 
 #modals .close-modal:hover {
@@ -56,7 +58,6 @@
     justify-content: center;
     align-items: flex-start;
     flex-wrap: wrap;
-    padding: 200px 24%;
 
 }
 
@@ -66,29 +67,56 @@
     /*outline: 1px solid hsla(225, 73%, 65%, .05);*/
 }
 
-.navBarModal a {
+.collectionModal a {
     display: flex;
+    font-family: "PT Sans", sans-serif;
+    font-size: 13px;
     /*transition: all .3s ease;*/
     color: hsla(225, 73%, 65%, 1);
-    background-color: #fbfdfe;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    /*border: 1px solid #eee;*/
-    margin: 4px;
-    flex: 1 0 0;
-    min-width: 140px;
-    max-width: 140px;
-    height: 140px;
+    flex: 1 0 50%;
+    max-width: 50%;
+    border-right: 1px solid hsla(225, 73%, 94%, .6);
+    box-sizing: border-box;
+    line-height: 1.36;
+    padding: 10px 0 10px 10px;
 }
 
-.collectionModal, .helpModal, .navModal {
+.navBarModal a {
+    display: flex;
+    font-family: "PT Sans", sans-serif;
+    border-right: 1px solid hsla(225, 73%, 94%, .6);
+    color: hsla(225, 73%, 65%, 1);
+    justify-content: flex-start;
+    /*align-items: center;*/
+    margin: 0;
+    flex: 1 0 50%;
+    max-width: 50%;
+    box-sizing: border-box;
+    line-height: 1.36;
+    padding: 10px 0 10px 10px;
+}
+
+.collectionModal, .helpModal, .navBarModal {
     display: flex;
     align-content: flex-start;
     justify-content: flex-start;
     align-items: flex-start;
     flex-wrap: wrap;
-    padding: 100px 24%;
+    padding: 70px 22% 30px 22%;
+}
 
+.collectionModal {
+    padding: 0px 20% 30px calc(20% + 155px);
+}
+
+.navBarModal {
+    padding: 30px 20% 30px calc(20% + 155px);
+}
+
+.navBarModal h1 {
+    padding-top: 30px;
 }
 
 .collectionModal a:hover {
@@ -99,8 +127,8 @@
 
 .collectionModal a {
     display: flex;
-    font-family: "PT Sans Caption", sans-serif;
-    font-size: 13px;
+    font-family: "PT Sans", sans-serif;
+    font-size: 14px;
     /*transition: all .3s ease;*/
     color: hsla(225, 73%, 65%, 1);
     /*background-color: #fbfdfe;*/
@@ -108,19 +136,27 @@
     align-items: center;
     /*border: 1px solid #eee;*/
     /*margin: 4px;*/
-    flex: 1 0 calc(20% - 20px);
-    max-width: calc(20% - 20px);
-    min-width: 100px;
-    border-right: 1px solid hsla(225, 73%, 94%, 1);
+    flex: 1 0 calc(50%);
+    max-width: calc(50%);
+    /*min-width: 200px;*/
+    border-right: 1px solid hsla(225, 73%, 94%, .6);
     box-sizing: border-box;
-
-    /*min-width: 140px;*/
-    /*max-width: 140px;*/
-    /*height: 140px;*/
-    padding: 10px 10px;
+    line-height: 1.36;
+    padding: 10px 0 10px 10px;
 }
 
-.collectionModal h1 {
+@media all and (max-width: 1380px) {
+
+    .collectionModal a, #webviews.active .collectionModal a {
+        flex: 1 0 50%;
+        max-width: 50%;
+    }
+
+}
+
+
+
+.collectionModal h1, .navBarModal h1 {
     font-size: 20px;
     font-family: "PT Sans Caption", sans-serif;
     border-bottom: 1px solid hsla(225, 73%, 95%, 1);
@@ -129,8 +165,8 @@
     flex: 1 0 0;
     color: hsla(225, 73%, 60%, 1);
     min-width: 100%;
-    padding-bottom: 10px;
-    margin: 80px 0 20px 10px;
+    box-sizing: border-box;
+    padding: 80px 0 15px 10px;
 }
 
 #modals.helpModal {
@@ -157,4 +193,11 @@
     font-size: 27px;
     line-height: 37px;
     font-weight: normal;
+}
+
+
+#modals.collectionModal .close-modal {
+    /*background: green;*/
+    right: 12px;
+    top: 66px;
 }

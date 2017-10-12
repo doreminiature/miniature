@@ -179,7 +179,10 @@ body.dark-mode #task-overlay #add-task {
 	margin: 6px 6px 0 7px;
 	float: left;
 	border-radius: 2px;
+	background: rgba(231, 241, 254, 0.4);
 }
+
+
 
 .task-tab-item { position: relative; }
 

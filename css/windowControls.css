@@ -26,6 +26,10 @@
     background-color: #e2eaf8;
 }
 
+#title-bar-btns a svg use {
+    fill: #c1ccd8;
+}
+
 #min-btn {}
 #max-btn {}
 #close-btn {}

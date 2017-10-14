@@ -1,4 +1,4 @@
-![Miniature Mockup](https://i.imgur.com/9Rshss4.png)
+![Miniature Mockup](https://i.imgur.com/AM7V5kL.png)
 
 
 About:
@@ -12,17 +12,35 @@ Miniature goal is to solve [information overload](https://en.wikipedia.org/wiki/
 Demo:
 ------
 **Switching tabs:**
+
 ![alt](http://i.imgur.com/KIRRR0k.gif)
+
+
 **Adding new tab:**
+
 ![alt](http://i.imgur.com/sp29dG2.gif)
+
+
 **Editing tab:**
+
 ![alt](http://i.imgur.com/JlyS7wA.gif)
+
+
 **Switching collections (context):**
+
 ![alt](http://i.imgur.com/HMKNFh5.gif)
+
+
 **Giving collection a name:**
+
 ![alt](http://i.imgur.com/DmxFVkf.gif)
+
+
 **Overview sidebar:**
+
 ![alt](http://i.imgur.com/5mlJEjA.gif)
+
+
 
 Project status:
 ------

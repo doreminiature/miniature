@@ -59,9 +59,30 @@ modals = {
 
         function createHeader(title, id) {
             let h = document.createElement("h1")
-            h.id = id
             h.innerText = title
             modals.el.appendChild(h)
+        }
+
+        function subheader(title) {
+            let subhead = document.createElement("p")
+            subhead.style.fontWeight = "bold"
+            subhead.style.width = "100%"
+            subhead.style.margin = "30px 0 10px 0"
+            subhead.innerText = title
+            modals.el.appendChild(subhead)
+        }
+
+        function addElement(name, content, cssClass) {
+            let el = document.createElement(name)
+            el.innerText = content
+            el.className = cssClass
+            modals.el.appendChild(el)
+        }
+
+        function addGif(source) {
+            let gif = document.createElement("img")
+            gif.setAttribute("src", source)
+            modals.el.appendChild(gif)
         }
 
         function createLink(href) {
@@ -93,6 +114,7 @@ modals = {
             } else if(tabs.getSelected() != '' && tabs.getSelected() != undefined) {
                 enterEditMode(tabs.getSelected())
             }
+            leaveTabEditMode()
         })
 
         if (page == 'collection') {
@@ -1037,6 +1059,12 @@ modals = {
 
             /* Edit list of suggested sites here */
 
+            createHeader('Common')
+            createListItem('www.reddit.com', 'Reddit')
+            createListItem('www.wikipedia.org/en/', 'Wikipedia')
+            createListItem('www.youtube.com', 'Youtube')
+            createListItem('www.news.google.com', 'Google News')
+
             createHeader('Plan')
             createListItem('www.asana.com', 'Asana')
             createListItem('www.freedcamp.com', 'Freedcamp')
@@ -1088,21 +1116,42 @@ modals = {
             showOnStartCheckbox.id = "showOnStartCheckbox"
             showOnStartCheckbox.display = "none"
 
-            let h1Heading = document.createElement('h1')
-            h1Heading.id = 'helpHeading'
-            h1Heading.innerText = 'Help'
+            // let h1Heading = document.createElement('h1')
+            // h1Heading.id = 'helpHeading'
+            // h1Heading.innerText = 'Greetings!'
 
-            let donorBox = document.createElement("a")
-            donorBox.setAttribute("href", "https://donorbox.org/miniature")
-            donorBox.setAttribute('data-links', "https://donorbox.org/miniature")
-            donorBox.classList.add('openTabsNOW')
-            donorBox.innerText = 'Support Miniature development'
+            createHeader("Greetings!")
+            addElement('p', "Miniature — web browser that helps navigate faster and manage pages better increasing one's awareness and performance.", "intro")
+            addElement('p', "It introduces contextualization, features recommendation system and has strong overview capabilities.", "intro")
+            addElement('p', "Miniature is free and open source software. It is in alpha state and considered a work in progress.", 'intro')
+            addElement('p', "You may open this intro & help screen by pressing 'F1' button on keyboard anytime", "intro")
+            addElement('p', "Below you may find quick demonstration to help get you started.", "intro")
+            addElement('p', "If you have any questions & suggestions please mail me: doreminiature@gmail.com (Andrey)", "intro")
+            addElement('p', "Have a good day!", "intro")
+
+            // let donorBox = document.createElement("a")
+            // donorBox.setAttribute("href", "https://donorbox.org/miniature")
+            // donorBox.setAttribute('data-links', "https://donorbox.org/miniature")
+            // donorBox.classList.add('openTabsNOW')
+            // donorBox.innerText = 'Support Miniature development'
+
+            subheader("Switching tabs")
+            addGif("http://i.imgur.com/KIRRR0k.gif")
+            subheader("Adding new tab")
+            addGif("http://i.imgur.com/sp29dG2.gif")
+            subheader("Editing tab")
+            addGif("http://i.imgur.com/JlyS7wA.gif")
+            subheader("Switching collections (context)")
+            addGif("http://i.imgur.com/HMKNFh5.gif")
+            subheader("Giving collection a name")
+            addGif("http://i.imgur.com/DmxFVkf.gif")
+            subheader("Overview sidebar")
+            addGif("http://i.imgur.com/5mlJEjA.gif")
 
             modals.el.appendChild(closeModal)
-            modals.el.appendChild(h1Heading)
             modals.el.appendChild(showOnStartCheckbox)
             modals.el.appendChild(showOnStartLabel)
-            modals.el.appendChild(donorBox)
+
 
             if (modals.showCheckedOnStart == true)
                 showOnStartCheckbox.checked = true

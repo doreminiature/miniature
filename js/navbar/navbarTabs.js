@@ -56,7 +56,7 @@ function setActiveTabElement(tabId) {
     if (el.querySelector('.title').innerText == '...') {
         setTimeout(function () {
             let elTIA = document.querySelector('.tab-item.active')
-            if (elTIA && taskOverlay.inputFocus == true) {
+            if (elTIA) {
                 elTIA.click()
             }
         }, 0)

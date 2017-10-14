@@ -24,7 +24,7 @@
     flex: 1 0 0;
 }
 
-#modals h1 {
+#modals {
     font-family: "PT Sans", sans-serif;
 }
 
@@ -108,7 +108,7 @@
 }
 
 .collectionModal {
-    padding: 0px 20% 30px calc(20% + 155px);
+    padding: 30px 20% 30px calc(20% + 155px);
 }
 
 .navBarModal {
@@ -156,22 +156,40 @@
 
 
 
-.collectionModal h1, .navBarModal h1 {
-    font-size: 20px;
-    font-family: "PT Sans Caption", sans-serif;
+.collectionModal h1, .navBarModal h1  {
+    font-size: 18px;
+    font-family: "PT Sans", sans-serif;
     border-bottom: 1px solid hsla(225, 73%, 95%, 1);
-    font-weight: normal;
-    letter-spacing: 1px;
+    letter-spacing: 0.2px;
     flex: 1 0 0;
-    color: hsla(225, 73%, 60%, 1);
+    /* color: #666; */
+    color: hsla(225, 73%, 60%, 0.94);
     min-width: 100%;
     box-sizing: border-box;
-    padding: 80px 0 15px 10px;
+    padding: 50px 0 15px 10px;
+    font-weight: bold;
+}
+
+.helpModal h1 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.helpModal .intro {
+    margin: 10px 0 0 0;
+    font-size: 14px;
+    width: 100%;
 }
 
 #modals.helpModal {
     background-color: rgba(254, 253, 255, 1);
+    padding-top: 26px;
+}
 
+#showOnStartCheckbox, .showOnStart {
+    visibility: hidden;
 }
 
 #showOnStartCheckbox, #showOnStartLabel {

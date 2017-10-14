@@ -4,10 +4,25 @@
 About:
 ------
 
-Miniature — a web browser with improved UI that helps navigate faster and organize pages better — increasing user awareness.
+Miniature desktop & mobile — web browser that helps navigate faster and manage pages better increasing one's awareness and performance.
+It introduces **contextualization**, features **recommendation system** and has strong **overview capabilities**.
 
 Miniature goal is to solve [information overload](https://en.wikipedia.org/wiki/Information_overload) dilemma and connect users with best knowledge on the web.
 
+Demo:
+------
+**Switching tabs:**
+![alt](http://i.imgur.com/KIRRR0k.gif)
+**Adding new tab:**
+![alt](http://i.imgur.com/sp29dG2.gif)
+**Editing tab:**
+![alt](http://i.imgur.com/JlyS7wA.gif)
+**Switching collections (context):**
+![alt](http://i.imgur.com/HMKNFh5.gif)
+**Giving collection a name:**
+![alt](http://i.imgur.com/DmxFVkf.gif)
+**Overview sidebar:**
+![alt](http://i.imgur.com/5mlJEjA.gif)
 
 Project status:
 ------

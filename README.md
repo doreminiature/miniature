@@ -4,7 +4,7 @@
 About:
 ------
 
-Miniature — a web browser with improved UI that helps navigate faster and organize pages better increasing user awareness.
+Miniature — a web browser with improved UI that helps navigate faster and organize pages better — increasing user awareness.
 
 Miniature goal is to solve [information overload](https://en.wikipedia.org/wiki/Information_overload) dilemma and connect users with best knowledge on the web.
 
@@ -12,7 +12,7 @@ Miniature goal is to solve [information overload](https://en.wikipedia.org/wiki/
 Project status:
 ------
 
-Development at pause. Bug fixing.
+Development at pause.
 
 
 Developers:

@@ -79,12 +79,13 @@
     fill: #eeeff8;
 }
 
-#collection-tabs > div input{
+#collection-tabs > div input {
     background: transparent;
-    font-family: "PT Sans Caption", sans-serif;
-    font-size: 11.8px;
+    font-family: "PT Sans", sans-serif;
+    font-size: 12px;
     border: 0;
     cursor: pointer;
+    /*letter-spacing: 0.5px;*/
     width: calc(100% - 29px);
     padding: 9px 0 7px 29px;
     -webkit-user-select: none;
@@ -122,13 +123,13 @@
 #collection-tabs > div.active-tab {
     background: #E7F1FE;
     color: #000;
-    font-family: "PT Sans", sans-serif;
-    font-size: 12px;
+
     max-width: 20%;
 }
 
 #collection-tabs > div.active-tab input {
     color: #000;
+    font-weight: bold;
 }
 
 #collection-tabs > div:not(.active-tab) input{
@@ -151,7 +152,7 @@
     letter-spacing: 1.7px;
     position: absolute;
     left: 50%;
-    margin-top: -2px;
+    margin-top: -3px;
     margin-left: -16px;
 }
 

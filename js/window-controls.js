@@ -15,6 +15,7 @@
             } else {
                 window.unmaximize();
                 window.setSize(1280, 700);
+                window.center();
             }
         });
 

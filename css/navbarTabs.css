@@ -81,15 +81,13 @@ body.notMac .page-tabs {
 }
 .tabs .tab-item {
 	cursor: pointer;
-	/*transition: all .3s ease;*/
+	transition: all .3s ease;
 }
 
 .tab-item {
 	flex: 0 1 20%;
-	/*transition: all 1.3s ease;*/
-	/*max-width: 20%;*/
 	word-break: break-all;
-	outline: 1px dotted transparent;
+	/*outline: 1px dotted transparent;*/
 	padding: 0;
 	line-height: 33px;
 	height: 34px;
@@ -99,6 +97,8 @@ body.notMac .page-tabs {
 	-webkit-app-region: no-drag;
 	z-index: 1000;
 	/*box-shadow: 0px 0px 0 0 rgba(39,170,225,0);*/
+	border: 1px solid hsla(198, 76%, 60%, 0);
+	box-sizing: border-box;
 }
 
 .tab-item.active {
@@ -106,6 +106,7 @@ body.notMac .page-tabs {
 	color: #000;
 	background: #fff;
 	/*outline: 1px solid rgba(39,170,225,0.25);*/
+	box-shadow: 4px 3px 14px -5px hsla(198, 76%, 60%, 0.5)
 	/*box-shadow: 0px 2px 4px -1px rgba(39,170,225,0.3);*/
 	/*box-shadow: 0px 3px 32px -9px rgba(39,170,225,.4);*/
 }
@@ -115,9 +116,13 @@ body.notMac .page-tabs {
 }
 
 .tab-item.active.selected {
-	box-shadow: 4px 3px 14px -5px hsla(198, 76%, 60%, 0.5);
+	/*box-shadow: 4px 3px 14px -5px hsla(198, 76%, 60%, 0.5);*/
+	/*background-color: white !important;*/
+	/*outline: 1px solid hsla(198, 76%, 60%, 0.15);*/
+
+	box-shadow: inset 0px 0px 8px -3px hsla(198, 76%, 60%, 1);
 	background-color: white !important;
-	outline: 1px solid hsla(198, 76%, 60%, 0.15);
+	border: 1px solid hsla(198, 76%, 60%, 0.4);
 }
 
 .tab-item.active.selected .tab-edit-contents {
@@ -290,11 +295,15 @@ body.is-focus-mode .tab-item {
 
 
 /* favicon */
-.page-tabs .favicon {
+img.favicon {
 	width: 16px;
 	height: 16px;
 	display: block;
 	margin: 9px 6px 0 7px;
 	float: left;
+	border: 0 !important;
 	border-radius: 2px;
+	/*background: rgb(231, 241, 254);*/
+	/*border-left-color: red !important;*/
+
 }

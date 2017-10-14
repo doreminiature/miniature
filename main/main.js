@@ -78,19 +78,19 @@ function createWindowWithBounds (bounds, shouldMaximize) {
       height: bounds.height,
       x: bounds.x,
       y: bounds.y,
-      minWidth: 620,
+      minWidth: 820,
       minHeight: 500,
-      titleBarStyle: 'hidden-inset',
+      titleBarStyle: 'hidden',
       frame: false,
       hasShadow: false,
       thickFrame: true,
       icon: __dirname + '/icons/icon256.png',
       plugins: true,
-      experimentalFeatures: true,
-      experimentalCanvasFeatures: true,
-      webPreferences: {
-          blinkFeatures: 'overlayScrollbars'
-      }
+      // experimentalFeatures: true,
+      // experimentalCanvasFeatures: true,
+      // webPreferences: {
+          // blinkFeatures: 'overlayScrollbars'
+      // }
   })
 
   // Open the DevTools.

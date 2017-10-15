@@ -1,7 +1,7 @@
 {
   "name": "miniature",
   "productName": "Miniature",
-  "version": "0.1",
+  "appVersion": "0.1",
   "electronVersion": "1.7.9",
   "main": "main.build.js",
   "dependencies": {

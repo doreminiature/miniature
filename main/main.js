@@ -19,7 +19,9 @@ var saveWindowBounds = function () {
     fs.writeFile(path.join(userDataPath, 'windowBounds.json'), JSON.stringify(mainWindow.getBounds()))
   }
 }
-app.commandLine.appendSwitch('js-flags', '--max-old-space-size=4096')
+
+app.commandLine.appendSwitch('js-flags', '--max-old-space-size=3096')
+
 function sendIPCToWindow (window, action, data) {
   // if there are no windows, create a new one
   if (!mainWindow) {

@@ -1,7 +1,7 @@
 ![Miniature](https://i.imgur.com/AM7V5kL.png)
 **[Download Miniature Alpha](github.com/doreminiature/miniature/releases/tag/v0.1-alpha)**. Windows build. Linux & Mac builds coming soon.
 
-4.6 bn web pages!:
+4.6 bn web pages!
 ------
 Hi, Andrey here, designer and captain at Miniature ship.
 Did you know that there are 4.6 billion pages on the web? Me either.

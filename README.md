@@ -1,5 +1,5 @@
-![Miniature Mockup](https://i.imgur.com/AM7V5kL.png)
-**[Download Miniature Alpha](http://drive.google.com/open?id=0BxM0OR4P5TsjYnJBUmM4bDF3ODg)**. Windows build with Linux & Mac builds coming soon.
+**[Download Miniature Alpha](github.com/doreminiature/miniature/releases/tag/v0.1-alpha)**. Windows build with Linux & Mac builds coming soon.
+![Miniature](https://i.imgur.com/AM7V5kL.png)
 
 4.6 bn web pages!:
 ------

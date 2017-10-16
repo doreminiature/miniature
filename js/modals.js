@@ -1061,9 +1061,11 @@ modals = {
 
             createHeader('Common')
             createListItem('www.reddit.com', 'Reddit')
+            createListItem('www.twitter.com', 'Twitter')
             createListItem('www.wikipedia.org/en/', 'Wikipedia')
             createListItem('www.youtube.com', 'Youtube')
-            createListItem('www.news.google.com', 'Google News')
+            createListItem('www.google.com', 'Google')
+
 
             createHeader('Plan')
             createListItem('www.asana.com', 'Asana')
@@ -1122,12 +1124,8 @@ modals = {
 
             createHeader("Greetings!")
             addElement('p', "Miniature — web browser that helps navigate faster and manage pages better increasing one's awareness and performance.", "intro")
-            addElement('p', "It introduces contextualization, features recommendation system and has strong overview capabilities.", "intro")
-            addElement('p', "Miniature is free and open source software. It is in alpha state and considered a work in progress.", 'intro')
-            addElement('p', "You may open this intro & help screen by pressing 'F1' button on keyboard anytime", "intro")
-            addElement('p', "Below you may find quick demonstration to help get you started.", "intro")
-            addElement('p', "If you have any questions & suggestions please mail me: doreminiature@gmail.com (Andrey)", "intro")
-            addElement('p', "Have a good day!", "intro")
+            addElement('p', "Miniature is in alpha state and should be considered work in progress.", 'intro')
+            addElement('p', "Below you may find quick demo to help get you started.", "intro")
 
             // let donorBox = document.createElement("a")
             // donorBox.setAttribute("href", "https://donorbox.org/miniature")

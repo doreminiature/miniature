@@ -9,6 +9,8 @@ It introduces **contextualization**, features **recommendation system** and has 
 
 Miniature goal is to solve [information overload](https://en.wikipedia.org/wiki/Information_overload) dilemma and connect users with best knowledge on the web.
 
+**[Download Miniature Alpha](http://drive.google.com/open?id=0BxM0OR4P5TsjYnJBUmM4bDF3ODg)**. Windows build with Linux & Mac builds coming soon.
+
 Demo:
 ------
 **Switching tabs:**

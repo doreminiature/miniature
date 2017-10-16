@@ -1,15 +1,25 @@
 ![Miniature Mockup](https://i.imgur.com/AM7V5kL.png)
+**[Download Miniature Alpha](http://drive.google.com/open?id=0BxM0OR4P5TsjYnJBUmM4bDF3ODg)**. Windows build with Linux & Mac builds coming soon.
 
-
-About:
+4.6 bn web pages!:
 ------
+Hi, Andrey here, designer and captain at Miniature ship.
+Did you know that there are 4.6 billion pages on the web? Me either.
 
+While living in the Information age we enjoy wide access to information we have yet to solve its biggest problem — information overload.
+Information overload possesses a serious threat to own productivity and even psychological comfort if not managed well.
+
+Procrastination, diminished productivity, poor concentration, stress and fatigue are among common symptoms caused by information overload.
+Unfortunately mainstream web browsers do very little to aсknowledge and solve this problem.
+
+Fortunately with Miniature we are changing this!
+
+Solution
+------
 Miniature desktop & mobile — web browser that helps navigate faster and manage pages better increasing one's awareness and performance.
 It introduces **contextualization**, features **recommendation system** and has strong **overview capabilities**.
 
 Miniature goal is to solve [information overload](https://en.wikipedia.org/wiki/Information_overload) dilemma and connect users with best knowledge on the web.
-
-**[Download Miniature Alpha](http://drive.google.com/open?id=0BxM0OR4P5TsjYnJBUmM4bDF3ODg)**. Windows build with Linux & Mac builds coming soon.
 
 Demo:
 ------
@@ -43,11 +53,6 @@ Demo:
 ![alt](http://i.imgur.com/5mlJEjA.gif)
 
 
-
-Project status:
-------
-
-Development at pause.
 
 
 Developers:

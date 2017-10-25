@@ -208,7 +208,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-electron');
 	grunt.loadNpmTasks('grunt-electron-installer-debian');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    // grunt.loadNpmTasks('electron-reload');
+    grunt.loadNpmTasks('electron-reload');
 
 	grunt.registerTask('default', [/*'concat:browser', 'uglify:browser', 'concat:webview', 'uglify:webview',*/ 'concat:main']);
 	grunt.registerTask('dev', [/*'concat:browser', 'concat:webview', 'concat:main',*/ 'watch' , ]);

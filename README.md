@@ -1,4 +1,6 @@
 ![Miniature](https://i.imgur.com/AM7V5kL.png)
+
+
 **[Download](https://github.com/doreminiature/miniature/releases/tag/v0.1-alpha)** / **[Indiegogo campaign](https://www.indiegogo.com/projects/miniature-web/x/17326571#/)** / **[Support](https://www.paypal.me/doreminiature)** / **[Join](https://gitter.im/miniature-web/Lobby)**
 
 4.6 bn web pages!
@@ -69,3 +71,7 @@ Use `Miniature-development` branch for development and `master` when building.
 * Build distributive: `grunt windowsBuild`, `grunt macBuild`, `grunt linuxBuild`. Builds to `/Path/To/Miniature/dist`
 
 If you are using OS X, install [Homebrew](http://brew.sh), then run `brew install fakeroot dpkg`.
+
+
+
+**[Download](https://github.com/doreminiature/miniature/releases/tag/v0.1-alpha)** / **[Indiegogo campaign](https://www.indiegogo.com/projects/miniature-web/x/17326571#/)** / **[Support](https://www.paypal.me/doreminiature)** / **[Join](https://gitter.im/miniature-web/Lobby)**

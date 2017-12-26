@@ -1,27 +1,18 @@
 ![Miniature](https://i.imgur.com/AM7V5kL.png)
 
 
-**[Download](https://github.com/doreminiature/miniature/releases/tag/v0.1-alpha)** / **[Join](https://gitter.im/miniature-web/Lobby)**
+**[Download](https://github.com/doreminiature/miniature/releases/tag/v0.1-alpha)**
 
 4.6 bn web pages!
 ------
 Hi, Andrey here, designer and captain at Miniature ship.
 Did you know that there are 4.6 billion pages on the web? Me either.
 
-While living in the Information age we enjoy wide access to information we have yet to solve its biggest problem — information overload.
-Information overload possesses a serious threat to own productivity and even psychological comfort if not managed well.
+While living in the Information age we enjoy wide access to information we have yet to solve its biggest problem:
 
-Procrastination, diminished productivity, poor concentration, stress and fatigue are among common symptoms caused by information overload.
-Unfortunately mainstream web browsers do very little to aсknowledge and solve this problem.
+> Information overload (also known as infobesity or infoxication) is a term used to describe the difficulty of understanding an issue and effectively making decisions when one has too much information about that issue.
 
-Fortunately with Miniature we are changing this!
-
-Solution
-------
-Miniature desktop & mobile — web browser that helps navigate faster and manage pages better increasing one's awareness and performance.
-It introduces **contextualization**, features **recommendation system** and has strong **overview capabilities**.
-
-Miniature goal is to solve [information overload](https://en.wikipedia.org/wiki/Information_overload) dilemma and connect users with best knowledge on the web.
+Exactly our goal is to solve it!
 
 Demo:
 ------

@@ -1,28 +1,3 @@
-![Miniature](https://i.imgur.com/AM7V5kL.png)
-**[Download Miniature Alpha](https://github.com/doreminiature/miniature/releases/tag/v0.1-alpha)** — **[Support development](https://www.indiegogo.com/projects/miniature-web/x/17326571#/)**
-
-4.6 bn web pages!
-------
-Hi, Andrey here, designer and captain at Miniature ship.
-Did you know that there are 4.6 billion pages on the web? Me either.
-
-While living in the Information age we enjoy wide access to information we have yet to solve its biggest problem — information overload.
-Information overload possesses a serious threat to own productivity and even psychological comfort if not managed well.
-
-Procrastination, diminished productivity, poor concentration, stress and fatigue are among common symptoms caused by information overload.
-Unfortunately mainstream web browsers do very little to aсknowledge and solve this problem.
-
-Fortunately with Miniature we are changing this!
-
-Solution
-------
-Miniature desktop & mobile — web browser that helps navigate faster and manage pages better increasing one's awareness and performance.
-It introduces **contextualization**, features **recommendation system** and has strong **overview capabilities**.
-
-Miniature goal is to solve [information overload](https://en.wikipedia.org/wiki/Information_overload) dilemma and connect users with best knowledge on the web.
-
-Demo:
-------
 **Switching tabs:**
 
 ![alt](http://i.imgur.com/KIRRR0k.gif)
@@ -52,20 +27,15 @@ Demo:
 
 ![alt](http://i.imgur.com/5mlJEjA.gif)
 
+**[Download](https://github.com/doreminiature/miniature/releases/tag/v0.1-alpha)**
 
 
+Wide access to information we now have is great!
+Still:
+> Information overload (also known as infobesity or infoxication) is a term used to describe the difficulty of understanding an issue and effectively making decisions when one has too much information about that issue.
 
-Developers:
-------
+Miniature — web browser that helps navigate faster and manage pages better increasing one's awareness and performance.
+Introduces contextualization, features recommendation system and has strong overview capabilities.
 
-Use `Miniature-development` branch for development and `master` when building.
-
-* Download [Electron](https://github.com/electron/electron/releases).
-* Install [Node](https://nodejs.org) and [Grunt](http://gruntjs.com).
-* Clone 'https://github.com/doreminiature/miniature.git'
-* `npm i`.
-* Run: `/Path/To/Electron /Path/To/Miniature`.
-* Develop: `grunt dev`. Browser chrome will update on source file saves.
-* Build distributive: `grunt windowsBuild`, `grunt macBuild`, `grunt linuxBuild`. Builds to `/Path/To/Miniature/dist`
-
-If you are using OS X, install [Homebrew](http://brew.sh), then run `brew install fakeroot dpkg`.
+**[Download](https://github.com/doreminiature/miniature/releases/tag/v0.1-alpha)** /
+**[Development](https://github.com/doreminiature/miniature/wiki/Development)** /
